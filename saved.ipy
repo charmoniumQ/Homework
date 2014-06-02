@@ -1,0 +1,45 @@
+#===== From lesson 1.ipynb =====
+def dot(a, b, *args, **kwargs):
+    # m x n * n x o
+    if len(a.shape) == 1:
+        if a.shape[0] == b.shape[0]:
+            a = a[newaxis, :]
+        elif 1 == b.shape[0]:
+            a = a[:, newaxis]
+        else:
+            raise ValueError("Matrix sizes don't match")
+    if len(b.shape) == 1:
+        if b.shape[0] == a.shape[1]:
+            b = b[:, newaxis]
+        elif 1 == a.shape[1]:
+            b = b[newaxis, :]
+        else:
+            raise ValueError("Matrix sizes don't match")
+    r = np.dot(a, b)
+    if r.shape[0] == 1:
+        return r[0, :]
+    elif r.shape[1] == 1:
+        return r[:, 0]
+    else:
+        return r
+
+def linear_hypothesis(theta, X):
+    return dot(theta.T, X)
+
+def linear_cost(theta, X, y):
+    return 1.0 / (2.0 * m) * sum((hypothesis(theta, X) - y)**2)
+
+def gradient_descent(iterations, theta, alpha, X, y, hypothesis):
+    hist = []
+    for i in range(iterations):
+        theta = theta - alpha / len(y) * sum((hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
+        hist.append(theta)
+    return theta, hist
+
+def preprocess(X):
+    X = vstack((ones(len(X[0])), X))
+    means = apply_along_axis(mean, 1, X)
+    stddevs = apply_along_axis(std, 1, X)
+    means[0], stddevs[0] = 0, 1
+    X = (X - means[:, newaxis]) / stddevs[:, newaxis]
+    return X, means, stddevs
