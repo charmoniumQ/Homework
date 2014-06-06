@@ -1,4 +1,4 @@
-#===== From lesson 1.ipynb =====
+###### From lesson 1 ######
 def dot(a, b, *args, **kwargs):
     # m x n * n x o
     if len(a.shape) == 1:
@@ -29,10 +29,11 @@ def linear_hypothesis(theta, X):
 def linear_cost(theta, X, y):
     return 1.0 / (2.0 * m) * sum((hypothesis(theta, X) - y)**2)
 
-def gradient_descent(iterations, theta, alpha, X, y, hypothesis):
+def linear_gradient_descent(iterations, theta, alpha, X, y):
     hist = []
     for i in range(iterations):
-        theta = theta - alpha / len(y) * sum((hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
+        theta = theta - alpha / len(y) *
+                sum((linear_hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
         hist.append(theta)
     return theta, hist
 
@@ -43,3 +44,22 @@ def preprocess(X):
     means[0], stddevs[0] = 0, 1
     X = (X - means[:, newaxis]) / stddevs[:, newaxis]
     return X, means, stddevs
+
+###### From lesson 2 ######
+def sigmoid(x):
+    return 1/(1 + exp(-x))
+
+def logistic_hypothesis(theta, X):
+    return sigmoid(linear_hypothesis(theta, X))
+
+def logistic_cost(theta, X, y):
+    return 1.0 / len(y) * sum(-y * log(logistic_hypothesis(theta, X) + 0.001) -
+            (1 - y)* log(1.001 - logistic_hypothesis(theta, X)))
+
+def logistic_gradient_descent(iterations, theta, alpha, X, y):
+    hist = []
+    for i in range(iterations):
+        theta = theta - alpha / len(y) *
+                sum((logistic_hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
+        hist.append(theta)
+    return theta, hist
