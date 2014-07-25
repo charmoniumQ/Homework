@@ -27,15 +27,8 @@ def linear_hypothesis(theta, X):
     return dot(theta.T, X)
 
 def linear_cost(theta, X, y):
-    return 1.0 / (2.0 * m) * sum((hypothesis(theta, X) - y)**2)
-
-def linear_gradient_descent(iterations, theta, alpha, X, y):
-    hist = []
-    for i in range(iterations):
-        theta = theta - alpha / len(y) *
-                sum((linear_hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
-        hist.append(theta)
-    return theta, hist
+    h = linear_hypothesis
+    return 1.0 / (2.0 * len(y)) * sum((h(theta, X) - y)**2)
 
 def preprocess(X):
     X = vstack((ones(len(X[0])), X))
@@ -44,6 +37,13 @@ def preprocess(X):
     means[0], stddevs[0] = 0, 1
     X = (X - means[:, newaxis]) / stddevs[:, newaxis]
     return X, means, stddevs
+
+def gradient_descent(iterations, gradient, theta, alpha, X, y):
+    hist_track = []
+    for _  in range(iterations):
+        theta = theta - alpha / gradient(theta, X, y)
+        hist_track.append(theta)
+    return theta, hist_track
 
 ###### From lesson 2 ######
 def sigmoid(x):
@@ -56,10 +56,10 @@ def logistic_cost(theta, X, y):
     return 1.0 / len(y) * sum(-y * log(logistic_hypothesis(theta, X) + 0.001) -
             (1 - y)* log(1.001 - logistic_hypothesis(theta, X)))
 
-def logistic_gradient_descent(iterations, theta, alpha, X, y):
-    hist = []
-    for i in range(iterations):
-        theta = theta - alpha / len(y) *
-                sum((logistic_hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
-        hist.append(theta)
-    return theta, hist
+# def logistic_gradient_descent(iterations, theta, alpha, X, y):
+#     hist = []
+#     for i in range(iterations):
+#         theta = theta - alpha / len(y) *
+#                 sum((logistic_hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
+#         hist.append(theta)
+#    return theta, hist
