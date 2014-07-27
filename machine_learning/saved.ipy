@@ -46,20 +46,25 @@ def gradient_descent(iterations, gradient, theta, alpha, X, y):
     return theta, hist_track
 
 ###### From lesson 2 ######
-def sigmoid(x):
-    return 1/(1 + exp(-x))
+ def sigmoid(x):
+     return 1/(1 + exp(-x))
 
-def logistic_hypothesis(theta, X):
-    return sigmoid(linear_hypothesis(theta, X))
+ def logistic_hypothesis(theta, X):
+     return sigmoid(linear_hypothesis(theta, X))
 
-def logistic_cost(theta, X, y):
-    return 1.0 / len(y) * sum(-y * log(logistic_hypothesis(theta, X) + 0.001) -
-            (1 - y)* log(1.001 - logistic_hypothesis(theta, X)))
+ def logistic_cost(theta, X, y):
+     h = logistic_hypothesis
+     return 1.0 / len(y) * sum(-y * log(h(theta, X)) -
+                               (1 - y)* log(1.0 - h(theta, X)))
 
-# def logistic_gradient_descent(iterations, theta, alpha, X, y):
-#     hist = []
-#     for i in range(iterations):
-#         theta = theta - alpha / len(y) *
-#                 sum((logistic_hypothesis(theta, X) - y)[newaxis, :] * X, axis=1)
-#         hist.append(theta)
-#    return theta, hist
+ def gradient_logistic_cost(theta, X, y):
+     h = logistic_hypothesis
+     return 1.0 / len(y) * sum((h(theta, X) - y)[newaxis, :] * X, axis=1)
+
+def regularized_logistic_cost(theta, X, y, lambda_):
+    return logistic_cost(theta, X, y) + lambda_ / (2 * len(y)) * sum(theta**2)
+
+def gradient_regularized_logistic_cost(theta, X, y, lambda_):
+    mask = ones_like(theta)
+    mask[0] = 0
+    return gradient_logistic_cost(theta, X, y) + mask * lambda_ / len(y) * theta
