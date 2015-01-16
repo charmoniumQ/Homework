@@ -1,0 +1,69 @@
+\item {
+Nothing.
+}
+
+\item {
+Find an $ \epsilon $ where there is no $ \sigma $ such that $ |f(x) - 1| < \epsilon $ when $ |x| < \sigma $.
+}
+
+\item {
+Show that there exists a sequence of real numbers, $ x_n $ that converge to zero, but $ f(x_n) $ does not converge to 1.
+}
+
+\item {
+%Assume for the sake of argument that the premises are true and the conclusion is false. Then we have a sequence of real numbers, call it $x_n$, for which $x_n$ converges to 3, but $f(x_n)$ does not converge to 
+Convergence is not yet defined, so I will take the liberty. A sequence $x_n$ converges to $c$ if and only if for all $\epsilon$, there exists an integer, call it $\delta$, such that for all $n > \delta$, $| x_n - c| < \epsilon$.
+
+More intuitively, the limit as $n \to \infty$ of $x_n$ is $c$. Saying something is continuous is equivalent to stating that the limit as $x \to c$ of $ f(x)$ equals $f(c)$. I won't prove this rigorously since this is just a sketch, but if we can show $\lim_{x \to c} f(x) = f(c)$, then $f(x)$ is continuous at $c$.
+
+Now, pick any $\epsilon$. Let
+$$a = \left\{ \begin{array}{ll}
+\sqrt{8 - \epsilon + 1} & \epsilon \leq 9 \\
+0 & \epsilon > 9
+\end{array}\right.
+$$
+$$b = \sqrt{8 + \epsilon + 1}$$
+
+Notice, I have chosen values for $a$ and $b$ such that $8 - \epsilon \leq f(a) $ and $f(b) \leq 8 + \epsilon$ (I would show this more rigorously for a real proof). We also know that $a$ and $b$ are both non-negative.
+
+% $$ and $f(b) = $
+% $a$ is just an upper bound on the value for $x$ such that $f(x)$ is within $\epsilon$ of 8. $b$ is just a lower bound on the value for $x$. Then I would need to show that for any $x$ such that $ a < x < b$, $ 8 - \epsilon < x < 8 + \epsilon$. You can see that delta is just 
+% $$ \delta = \left\{ \begin{array}{ll}
+% \sqrt{8 - \epsilon + 1} & \epsilon \leq 9 \\
+% 0 & \epsilon > 9
+% \end{array}\right.
+% $$
+
+For any $x$ in between $a$ and $b$, $f(x)$ is in between $f(a)$ and $f(b)$.
+\[\begin{array}{ccccc c}
+a &<& x &<& b & \\
+a^2 &<& x^2 &<& b^2 & \textrm{since everything is non-negative} \\
+a^2  - 1 &<& x^2  - 1 &<& b^2 - 1 &  \\
+f(a) &<& f(x) &<& f(b)&  \\
+\end{array}\]
+$$8 - \epsilon \leq f(a) < f(x) < f(b) \leq 8 + \epsilon$$. 
+
+In summary if $ a < x < b$ then $8 - \epsilon < f(x) < 8 + \epsilon$. So we set $\delta$ to be which ever error bound is more restrictive: $$\delta = \min\{|3 - a|, |3 - b|\}$$. For any $\epsilon$, I found a $\delta$ such that, for any $x$ with $3 - \delta < x < 3 + \delta$, $8 - \epsilon < f(x) < 8 + \epsilon$, therefore the limit as $x \to 3$ of $ f(x)$ equals $ f(3)$. Therefore the function is continuous at 3.
+
+
+%Consider any sequence, call it $x_n$, that converges to 3. There exists an $\delta_a$ for every $\epsilon_a$ to satisfy the definition of convergence for $x_n$. Consider a specific $\epsilon_a$ for this sequence. Thus for any element in the sequence within $\epsilon_a$ of $3$, 
+}
+
+
+% \[\begin{array}{l}
+% f(3 - \epsilon_a) \\
+% ~~~~ = (3 - \epsilon_a)^2 - 1 \\
+% ~~~~ = \epsilon_a^2 - 6 \epsilon_a + 8\\
+% \end{array}\]
+% \[\begin{array}{l}
+% f(3 + \epsilon_a) \\
+% ~~~~ = (3 + \epsilon_a)^2 - 1 \\
+% ~~~~ = \epsilon_a^2 + 6 \epsilon_a + 8\\
+% \end{array}\]
+% \[\begin{array}{lcr  c}
+% x - \epsilon_a < & x_n < & x + \epsilon_a & \textrm{for $n > \delta_a$} \\
+
+%%% Local Variables:  
+%%% mode: latex 
+%%% TeX-master: "hw2"
+%%% End: 

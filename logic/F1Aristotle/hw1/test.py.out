@@ -1,0 +1,16 @@
+\(
+\begin{array}[t]{c|c|c||c|c||cl}
+A & G & M & A \rightarrow \neg G & M \rightarrow A & G \rightarrow \neg M \\
+\hline
+\hline
+T & T & T & F & T & F & \\
+T & T & F & F & T & T & \\
+T & F & T & T & T & T & *\\
+T & F & F & T & T & T & *\\
+F & T & T & T & F & F & \\
+F & T & F & T & T & T & *\\
+F & F & T & T & F & T & \\
+F & F & F & T & T & T & *\\
+\end{array}
+\)
+

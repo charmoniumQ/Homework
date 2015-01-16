@@ -1,2 +1,5 @@
 mlclass-ex*
 .ipynb_checkpoints
+.log
+.aux
+auto/

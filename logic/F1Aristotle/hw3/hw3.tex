@@ -1,0 +1,154 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[letterpaper, margin=0.75in]{geometry}
+\usepackage{array}
+\usepackage{amstext}
+\usepackage{setspace}
+
+%\renewcommand{\line}{[-1.5ex]\rule{\linewidth}{.4pt}} % Horizontal line
+\newcommand{\lif}{\rightarrow}
+\newcommand{\liff}{\leftrightarrow}
+\newenvironment{argument}{\begin{tabular}[t]{>{$}l<{$}}}{\end{tabular}}
+\newenvironment{myproof}{\begin{tabular}[t]{c >{$}c<{$} c}}{\end{tabular}}
+
+\title{Submission 3.1 (with \LaTeX)}
+\date{2014$-$10$-$27}
+\author{Sam Grayson}
+
+\begin{document}
+\maketitle
+\singlespacing
+
+\begin{enumerate}
+\item {$Lxy$ is not a function. One person can love two people. So $\exists x \exists y \exists z (Lxy \land Lxz \land y \neq z$}
+
+\item {$Mxy$ is a function mapping from people to people. Each person has exactly one mother, so we know $Mxy$ is a function}
+
+\item {$Cxy$ is not a function. I am the child of Mark and I am the child of Terri, therefore $\exists x \exists y \exists z (Cxy \land Cxz \land y \neq z$}
+
+\item {$Hxy$ is not a function. Multiple people can share the same height.}
+
+\item {$Hxy$ is a function from people to lengths. Each person has exactly one height therefore we can say $Hxy$ is a function.}
+
+\item {$Fxy$ is a function from married men to women. Each married person has exactly one first wife.}
+
+\item {
+\begin{myproof}
+1.&\forall x f(x, 0) = x&Premise \\
+2.&\forall x f(x, g(x)) = 0&Premise \\
+3.&\forall x \forall y f(x, y) = f(y, x)&Premise \\
+4.&f(g(0), 0) = g(0)&UI(1) \\
+5.&f(0, g(0)) = 0&UI(2) \\
+6.&f(0, g(0)) = f(g(0), 0)&UI(3) \\
+7.&g(0) = 0&Transitive Property (4,6,5) \\ % f(g(0), 0) = g(0) = f(0, g(0)) = 0
+&&(Used thrice) \\
+8.&\exists g(x) = x&EG(7) \\
+
+\end{myproof}
+}
+
+\item {
+\begin{myproof}
+1.&\forall x f(x, 0) = x&Premise \\
+2.&\forall x f(x, g(x)) = 0&Premise \\
+3.&f(0, 0) = 0&UI(1) \\
+4.&\exists x f(x, x) = x&EG(3) \\
+\end{myproof}
+}
+
+\item {Neither surjective nor injective.}
+
+\item {Not surjective but injective.}
+
+\item {Both surjective and injective.}
+
+\item {Surjective but not injective.}
+
+\item {Both Surjective and injective.
+
+Every natural number has a representation in Roman Numerals. Therefore $f$ is surjective.
+
+No two natural numbers have the same representation in Roman Numerals. Therefore $f$ is injective.
+}
+
+\item {Surjective but not injective
+
+Every element in $B$ is pointed to by at at least one element in $A$. Therefore $f$ is surjective.
+
+$f(1) = a$ and $f(27) = a$, but $1 \neq 27$. Also the domain is larger than the image, so every element can not map to a unique element. Therefore $f$ is not injective.
+}
+
+\item {Not surjective but injective.
+
+$\neg \exists x (f(x) = 1 \land x \in Dom(f))$. Therefore $f$ is not surjective.
+
+If $f(x_1) = y = f(x_2)$, then $2 x_1 = 2 x_2$ so $x_1 = x_2$. Therfore $f$ is injective.
+}
+
+\item {Surjective and injective.
+
+Given any $y \in Cod(f)$, $f(y - 1) = y$, therefore $\forall y \exists x (y \in Cod(f) \lif (f(x) = y \land x \in Dom(f)))$. Therefore $f$ is surjective.
+
+If $f(x_1) = y = f(x_2)$, then $x_1 - 1 = x_2 - 1$ so $x_1 = x_2$. Therfore $f$ is injective.
+}
+
+\item {Neither surjective nor injective.
+
+$\neg \exists x (f(x) = -1 \land x \in Dom(f))$. Therefore $f$ is not surjective.
+
+$f(-2) = 4 = f(2)$, but $2 \neq -2$. Therefore $f$ is not injective.
+}
+
+\item {Surjective and injective.
+
+Given any $y \in Cod(f)$, $f(\sqrt[3]{y}) = y$. Therefore $\forall y \exists x (y \in Cod(f) \lif (f(x) = y \land x \in Dom (f)))$. Therefore $f$ is surjective.
+
+If $f(x_1) = y = f(x_2)$, then $x_1^3 = x_2^3 $ so $x_1 = x_2$. Therfore $f$ is injective.
+}
+
+\item {Not surjective but injective
+
+$\neg \exists x (f(x) = -1 \land x \in Dom(f))$. Therefore $f$ is not surjective.
+
+$f(x_1) = f(x_2) \lif e^{x_1} = e^{x_2} \lif x_1 = x_2$. Therefore $f$ is injective.
+}
+
+\item {Neither surjective nor injective.
+
+$\neg \exists x (f(x) = 2 \land x \in Dom(f))$. Therefore $f$ is not surjective.
+
+
+$ f(0) = 0 = f(2 \pi) $. Therefore $f$ is not injective.
+}
+
+\item {Surjective but not injective.
+
+Given any $y \in Cod(f)$, $f(\sin^{-1} y) = y$. Therefore $\forall y \exists x (y \in Dom(f) \lif (f(x) = y \land x \in Dom(f)))$. Therefore $f$ is surjective.
+
+$ f(0) = 0 = f(2 \pi) $. Therefore $f$ is not injective.
+}
+
+\item {Neither surjective nor injective.
+
+Given any $y \in Cod(f)$, $f(\sin^{-1} y) = y$. Therefore $\forall y \exists x (y \in Cod(f) \lif (f(x) = y \land x \in Dom(f)))$. Therefore $f$ is surjective.
+
+$ f(0) = 0 = f(2 \pi) $. Therefore $f$ is not injective.
+}
+
+\item {Surjective but not injective.
+
+Given any $y \in Cod(f)$, $f(y) = y$. Therefore $\forall y \exists x (y \in Cod(f) \lif (f(x) = y \land x \in Dom(f)))$. Therefore $f$ is surjective.
+
+$f(\frac{1}{2}) = 0 = f(\frac{1}{3})$, but $\frac{1}{2} \neq \frac{1}{3}$.
+}
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:  
+%%% mode: latex 
+%%% TeX-master: t 
+%%% End: 

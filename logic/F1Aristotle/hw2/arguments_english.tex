@@ -1,0 +1,224 @@
+% parenthesis \forall x Sx
+% use extensions in informal proofs?
+% large hostile insect
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Cxy$: $x$ causes $y$} \\
+\forall x \exists y Cyx \\
+\hline
+\exists y \forall x Cyx
+\end{argument}
+\item Valid, soundness is indeterminate.
+\item consider the interpretation where $UD = {a, b}$ and $C = \{(a, b), (b, a)\}$.
+% \item Consider the interpretation where although every object has a cause, every object may not have the \textit{same} cause. For example, let there be three objects where the first causes the second, the second causes the third, and the third causes the first. While every object is caused by another object, every object is not caused by the same object.
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Hxy$: $x$ hates $y$} \\
+\textrm{$a$: Al} \\
+\textrm{$f$: Fred} \\
+\forall x (Hxa \lif Hfx) \\
+\forall x Hax \\
+\hline
+Haf \land Hfa
+\end{argument}
+\item Valid, soundness is indeterminate.
+\setcounter{enumii}{3}
+\item \begin{myproof}
+1.& \forall x (Hxa \lif Hfx) & Premise \\
+2.& \forall x Hax & Premise \\
+3.& Haf & UI(2) \\
+4.& Haa \lif Hfa & UI(1) \\
+5.& Haa & UI(2) \\
+6.& Hfa & MP(4,5) \\
+7.& Haf \land Hfa & Conj(3,6) \\
+\end{myproof}
+%\item Since Al hates everyone, Al hates himself and Fred. Since Fred hates everyone who hates Al, Fred hates Al. Al hates Fred, and Fred hates Al.
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Hx$: $x$ is an insect in this house} \\
+\textrm{$Lx$: $x$ is a large hostile insect} \\
+\textrm{$Ix$: $x$ is impervious to pesticides} \\
+\forall x (Hx \lif Lx) \\
+\exists x (Hx \land Ix) \\
+\hline
+\exists (Lx \land Ix)
+\end{argument}
+\item Valid, soundness is indeterminate.
+\setcounter{enumii}{3}
+\item \begin{myproof}
+1.& \forall x (Hx \lif Lx) & Premise \\
+2.& \exists x (Hx \land Ix) & Premise \\
+3.& Hc \land Ic & UI(2) \\
+4.& Hc \lif Lc & UI(1) \\
+5.& Hc & Simp(3) \\
+6.& Lc & MP(4,5) \\
+7.& Ic & Simp(3) \\
+8.& Lc \land Ic & Conj(6,7) \\
+9.& \exists x (Hx \land Ix) & EG(8)
+\end{myproof}
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Sx$: $x$ can succeed} \\
+\textrm{$Bx$: $x$ is bright} \\
+\textrm{$Mx$: $x$ is mature} \\
+\exists x \lnot Sx \\
+\forall x ((Bx \land Mx) \lif Sx) \\
+\hline
+\exists x (\lnot Bx \land \lnot Mx)
+\end{argument}
+\item Valid, soundness is indeterminate.
+%\item Assume the conclusion is false. Then there does not exist a student who is not bright and not mature. Then all of the students are bright and mature. Then all of the students succeed. Then we contradict the premise which states there exists students who don't succeed. Therefore the conclusion must be true.
+\setcounter{enumii}{3}
+\item \begin{myproof}
+1.& \exists x \lnot Sx & Premise \\
+2.& \forall x ((Bx \land Mx) \lif Sx) & Premise \\
+3.& \lnot Sc & UI(1) \\
+4.& (Bc \land Mc) \lif Sc & UI(2) \\
+5.& \lnot Sc \lif \lnot (Bc \land Mc) & ContraPos(4) \\
+6.& \lnot (Bc \land Mc) & MP(5,3) \\
+7.& \exists x \lnot (Bx \land Mx) & EG(6)
+\end{myproof}
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Px$: $x$ is a pig} \\
+\exists x \exists y \exists z (Px \land Py \land Pz \land x \neq y \land y \neq z \land x \neq z) \\
+\hline
+\exists x \exists y (Px \land Py \land x \neq y)
+\end{argument}
+\item Valid, sound.
+\setcounter{enumii}{3}
+\item \begin{myproof}
+1.& \exists x \exists y \exists z (Px \land Py \land Pz \land x \neq y \land y \neq z \land x \neq z) & Premise \\
+2.& Pa \land Pb \land Pc \land a \neq b \land b \neq c \land a \neq c & EI(1) (used three times) \\
+3.& Pa \land Pb \land a \neq b & Simp(2) used three times \\
+\end{myproof}
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Lxy$: $x$ likes $y$} \\
+\textrm{$p$: Popeye} \\
+\textrm{$o$: Olive Oyl} \\
+\forall x (Lxo \lif Lpx) \\
+\forall x (Lox) \\
+\hline
+Lpo \land Lop
+\end{argument}
+\item Valid, soundness is indeterminate.
+\setcounter{enumii}{3}
+\item \begin{myproof}
+1.& \forall x (Lxo \lif Lpx) & Premise \\
+2.& \forall x (Lox) & Premise \\
+3.& Loo & UI(2) \\
+4.& Loo \lif Lpo & UI(1) \\
+5.& Lpo & MP(5,4) \\
+6.& Lop & UI(2) \\
+7.& Lpo \land Lop & Conj(5,6) \\
+%\item Since there are at least three pigs, and three is greater than two, there are at least two pigs.
+\end{myproof}
+%\item Given that Olive Oyl likes everyone, Olive Oyl likes herself and Olive Oyl likes Popeye. Given Popeye likes everyone who likes Olive Oyl, Popeye likes Olive Oyl. In conclusion, Olive Oyl likes Popeye and Popeye likes Olive Oyl.
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Sx$: $x$ is sound} \\
+\textrm{$Cx$: The conclusion of $x$ is true} \\
+\textrm{$a$: This argument} \\
+\lnot Ca \\
+\lnot \exists x (Sx \land \lnot Cx) \\
+\hline
+\lnot Sa
+\end{argument}
+\item Valid, soundness is indeterminate.
+\item Consider, for the sake of contradiction, that an interpretation exists where the premises are true and the conclusion is false. The $ Sa $. Because of the second premise, we have $ Ca $. This contradicts our premise $ \lnot Ca $.
+\item \begin{myproof}
+1.& \lnot Ca & Premise \\
+2.& \lnot \exists x (Sx \land \lnot Cx) & Premise \\
+3.& \forall x \lnot (Sx \land \lnot Cx) & QEx(2) \\
+4.& \lnot (Sa \land \lnot Ca) & UI(3) \\
+5.& \lnot Sa \lor \lnot \lnot Ca & DeM(4) \\
+6.& \lnot Ca \lif \lnot Sa & CDis (5) \\
+7.& \lnot Sa & MP(6,1) \\
+\end{myproof}
+%\item Consider the interpretation where all the premises are true. Assume the conclusion is false. Then this argument is sound. Then there is a sound argument with a false conclusion. This contradicts a premise, therefore the argument is valid.
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Jx$: $x$ is Jones's killer} \\
+\textrm{$Wx$: $x$ weighs more than 200 pounds} \\
+\textrm{$s$: Smith} \\
+\forall x (Jx \implies Wx) \\
+\lnot Ws \\
+\hline
+\lnot Js
+\end{argument}
+\item Valid, soundness is indeterminate.
+\item Consider the interpretation where all the premises are true and the conclusion is false. Then we have that $ Js $. By our first premise, $ Wx $. This contradicts our second premise $ \lnot Wx $, therefore the conclusion is false.
+\item \begin{myproof}
+1.& \forall x (Jx \lif Wx) & Premise \\
+2.& \lnot Ws & Premise \\
+4.& Js \lif Ws & UI(1) \\
+5.& \lnot Ws \lif \lnot Js & ContraPos(4) \\
+6.& \lnot Js & MP(5,2) \\
+\end{myproof}
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$Lxy$: $x$ likes $y$} \\
+\textrm{$m$: Mandy} \\
+\textrm{$a$: Andy} \\
+\forall x Lxm \\
+\forall x (x = a \liff Lmx) \\
+\hline
+a = m
+\end{argument}
+\item Valid, soundness is indeterminate.
+%\item Given everyone likes Mandy, we can deduce Mandy likes Mandy. Then we have Mandy loves someone if and only if that person is Andy. Therefore Mandy is Andy.
+\setcounter{enumii}{3}
+\item \begin{myproof}
+1.& \forall x Lxm & Premise \\
+2.& \forall x (x = a \liff Lmx) & Premise \\
+3.& Lmm & UI(1) \\
+4.& m = a \liff Lmm & UI(2) \\
+5.& Lmm \lif m = a & Equiv(4) \\
+6.& m = a & MP(5,3)
+\end{myproof}
+\end{enumerate}
+
+\item \begin{enumerate}
+\item \begin{argument}
+\textrm{$j$: Dr. Jekyll} \\
+\textrm{$h$: Mr. Hyde} \\
+\textrm{$Axy$: $x$ is afraid of $y$} \\
+\forall x Axh \\
+\forall x (x = j \liff Ahx) \\
+\hline
+h = j
+\end{argument}
+\item Valid, soundness is indeterminate.
+\setcounter{enumii}{3}
+\item \begin{myproof}
+1.& \forall x Axh & Premise \\
+2.& \forall x (x = j \liff Ahx) & Premise \\
+3.& Ahh & UI(1) \\
+4.& h = j \liff Ahh & UI(2) \\
+5.& Ahh \lif h = j & Equiv(4) \\
+6.& h = j & MP(5,3)
+\end{myproof}
+\end{enumerate}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "hw2"
+%%% End:

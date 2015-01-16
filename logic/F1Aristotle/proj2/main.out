@@ -1,0 +1,22 @@
+\BOOKMARK [0][-]{chapter.1}{A Game We Can't Win: Undecidability of Quantificational Logic}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Computers}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{Alan Turing's life}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{Turing Machines' Formal definition}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.3}{Example Turing Program: Incrementing and decrementing}{section.1.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.4}{Example Turing Program: Adding Natural Numbers}{section.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.1.5}{Example Turing Program: Multiplying Natural Numbers}{section.1.1}% 7
+\BOOKMARK [2][-]{subsection.1.1.6}{Example Turing Program: Computing Natural exponents}{section.1.1}% 8
+\BOOKMARK [2][-]{subsection.1.1.7}{The Halting Problem}{section.1.1}% 9
+\BOOKMARK [1][-]{section.1.2}{Axiomatic systems}{chapter.1}% 10
+\BOOKMARK [2][-]{subsection.1.2.1}{What is an axiomatic system?}{section.1.2}% 11
+\BOOKMARK [2][-]{subsection.1.2.2}{Example Axiomatic System: Natural Numbers}{section.1.2}% 12
+\BOOKMARK [2][-]{subsection.1.2.3}{Models}{section.1.2}% 13
+\BOOKMARK [2][-]{subsection.1.2.4}{Completness and Consistency}{section.1.2}% 14
+\BOOKMARK [2][-]{subsection.1.2.5}{Entscheidungsproblem}{section.1.2}% 15
+\BOOKMARK [1][-]{section.1.3}{Observations}{chapter.1}% 16
+\BOOKMARK [2][-]{subsection.1.3.1}{Church-Turing Hypothesis}{section.1.3}% 17
+\BOOKMARK [2][-]{subsection.1.3.2}{G\366del's Incompleteness Theorems}{section.1.3}% 18
+\BOOKMARK [2][-]{subsection.1.3.3}{Informal proof}{section.1.3}% 19
+\BOOKMARK [2][-]{subsection.1.3.4}{Incompleteness implications: Entscheidungsproblem}{section.1.3}% 20
+\BOOKMARK [2][-]{subsection.1.3.5}{Incompleteness implications: Halting problem}{section.1.3}% 21
+\BOOKMARK [2][-]{subsection.1.3.6}{Incompletness implications: Continued implications}{section.1.3}% 22

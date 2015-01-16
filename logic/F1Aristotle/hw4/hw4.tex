@@ -1,0 +1,151 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[letterpaper, margin=0.75in]{geometry}
+\usepackage{array}
+\usepackage{amstext}
+\usepackage{setspace}
+
+%\renewcommand{\line}{[-1.5ex]\rule{\linewidth}{.4pt}} % Horizontal line
+\newcommand{\lif}{\rightarrow}
+\newcommand{\liff}{\leftrightarrow}
+\newenvironment{argument}{\begin{tabular}[t]{>{$}l<{$}}}{\end{tabular}}
+\newenvironment{myproof}{\begin{tabular}[t]{c >{$}c<{$} c}}{\end{tabular}}
+
+\title{Submission 4.1 (with \LaTeX)}
+\date{2014$-$11$-$11}
+\author{Sam Grayson}
+
+\begin{document}
+\maketitle
+\singlespacing
+
+\begin{enumerate}
+
+\item {If there is one student who has a black card, then when Charlie says ``I see a black card'', since that one student sees no black card, he or she infers that his or her card must be black on the first round. Once he or she does this, the others notice and reason that the student with a black card must see no other students with a black card. Therefore they all have red cards and the second round, they infer the color of their card.
+
+If there are $n$ students with black cards, assume that it takes exactly $n$ repetitions before the people with black cards infer that they have black cards and $n + 1$ repetitions before the students with red cards infer that they have red cards.
+
+If there are $n + 1$ students with black cards, each student with a black card sees $n$ students with black cards. Each person who has a black card looks around and sees $n$ people with a black card. Nobody has inferred their color on the $n$th repetition, therefore there are not $n$ students with a black card (by the contrapositive of the induction hypothesis). There are $n$ visible black cards in the crowd and 1 unknown card (the one held by the viewer) and there are not $n$ black cards total. Therefore the one unknown card (held by the viewer) must be black. This is inferred on the $n+1$ day. On that day, all other holders of black cards make the same inference. The students with red cards know this, and reason all of the students with black cards must see $n$ black cards where the I see $n+1$ black cards, therefore I do not have a black card.
+
+By the induction axiom, $n$ students holding red cards take exactly $n$ repetitions in order to infer the color of their own card.}
+
+\item {Let $n = 1$. $n^3 + 5n$ is divisible by $6$, because $n^3 + 5n = 6$.
+
+Assume $n^3 + 5n$ is divisible by $6$.
+
+Assume $n$ is odd, such that $n = 2k+1$. $3n(n^2 + 1) = 3n(4k^2 + 2k + 1 + 1) = 6n(2k^2 + k + 1)$. Therefore $3n(n^2 + 1)$ is divisible by $6$.
+
+Assume $n$ is even, such that $n = 2k$. $3n(n^2 + 1) = 6k(n^2 + 1)$. Therefore $3n(n^2 + 1)$ is divisible by $6$.
+
+Therefore, for any integer $n$, $3n(n^2 + 1)$ is divisible by $6$.
+
+$(n+1)^3 + 5(n+1) = (n^3 + 3n^2 + 3n + 1) + (5n + 5) = (n^3 + 5n) + (3n^2 + 3n + 6)$ Therefore $(n+1)^3 + 5(n+1)$ is the sum of things divisible by six (namely $(n^2 + 5n)$, $3n(n^2 + 1)$, and $6$).
+
+Therefore, by the induction axiom, $n^3 + 5n$ is divisible by $6$.
+}
+
+\item {If $n$ is an even number, there exists a $k$ such that $n = 2k$. Use $k$ 2-cent stamps.
+
+If $n$ is an odd number and $n>7$, $n = 2k+1$, with $k>3$. $n = 2k+1 = 2k - 6 + 7 = 2(k - 3) + 7$. Take 1 7-cent stamp and $k - 3$ 2-cent stamps.}
+
+\item {
+This is our base case $|x_1 + x_2| \leq |x_1| + |x_2|$.
+
+Assume an $n$ long sequence satisfies $|x_1 + x_2 + \ldots + x_n| \leq |x_1| + |x_2| + \ldots + |x_n|$. Add another element to this series. Let $y_1 = x_1 + x_2 + \ldots + x_n$, and $y_2 = x_{n+1}$. We know, from our base case, that $|y_1 + y_2| \leq |y_1| + |y_2|$, which implies $|x_1 + x_2 + \ldots + x_n + x_{n+1}| \leq |x_1 + x_2 + \ldots + x_n| + |x_{n+1}|$, but from our induction hypothesis, we know that $|x_1 + x_2 + \ldots + x_n| \leq |x_1| + |x_2| + \ldots + |x_n|$, so $|x_1 + x_2 + \ldots + x_n + x_{n+1}| \leq |x_1| + |x_2| + \ldots + |x_n| + |x_{n+1}|$. Therefore, by the induction hypothesis, this claim is true.
+}
+
+\item {For $n = 1$, Bernoulli's inequality claims that $1 + x \geq 1 + x$. This     is true because $1 + x = 1 + x$.
+
+Assume Bernoulli's inequality holds for $n$; $(1+x)^n \geq 1 + nx$. $(1 + x)^{n + 1} = (1 + x)^n (1 + x)$. $1 + (n + 1)x = 1 + nx + x$. You can see that the left hand side grows at the rate of multiplying by $x + 1$, where as the left hand side grows by adding $x$. Let the left hand side of the $n$th equation be represented as $a_n$, and the right hand side is $b_n$. Our inductive hypothesis is $ a_n > b_n$. Assume this is true for some $n$.
+
+$$ a_n = (1 + x)^n$$
+$$ a_{n+1} = (1 + x)^{n+1} = (1 + x)^n (1 + x) = (1 + x) a_n = a_n + x a_n $$
+$$ b_n = 1 + nx$$
+$$ b_{n + 1} = 1 + (n + 1)x = 1 + nx + x = b_n + x $$
+$$ a_{n+1} - a_n = x a_n $$
+$$ b_{n+1} - b_n = x$$
+$$ a_n > b_n$$
+\begin{center}(by the inductive hypothesis)\end{center}
+\begin{center}If $a_n > 1$ \end{center}
+$$ x a_n > x$$
+$$ a_n + x a_n > b_n + x $$
+$$ a_{n+1} > b_{n+1}$$
+\begin{center}Otherwise\end{center}
+$$a_n < 1$$
+$$ x > -1$$
+\begin{center}(by the premise)\end{center}
+$$ 1 + x  > 0$$
+$$ -1 < x < 0 $$
+\begin{center}(because we have $a_n < 1$)\end{center}
+$$ (1 + x)^{n + 1} > 0) $$
+\begin{center}(because a positive number to a power is a positive)\end{center}
+$$a_n > 0$$
+$$ 0 < a_n < 1 $$
+$$ x a_n > x$$
+\begin{center}(because a negative number times something less than one is greater than that original negative number)\end{center}
+$$ a_n > b_n$$
+\begin{center}(by the inductive hypothesis)\end{center}
+$$ a_n + x a_n > b_n + x $$
+$$ a_{n+1} > b_{n+1}$$
+
+Therefore for any $a_n$, if $ a_n > b_n $, then $ a_n > b_n $ or in other words, if $(1+x)^n \geq 1 + nx$ then $(1+x)^{n + 1} \geq 1 + (n + 1)x$. By the axiom of induction, $(1+x)^n \geq 1 + nx$.
+}
+
+\item {
+\begin{enumerate}
+\item {$s: \mathbb{Z} \to \mathbb{Z}$}
+
+\item {
+$$ 1 + \frac 1 {k+1} + \frac 1 {(k+1)(k+2)} + \cdots <  1 + \frac 1 {k+1} +\frac 1{(k+1)(k+1)} + \cdots $$
+
+$$\frac 1 {(k+1)!} \left( 1 + \frac 1 {k+1} + \frac 1 {(k+1)(k+2)} + \cdots\right) < \frac 1 {(k+1)!} \left( 1 + \frac 1 {k+1} + \frac 1{(k+1)^2} + \cdots\right)$$
+
+$$\sum_{i=0}^\infty \frac 1 {i!} - \sum_{i=0}^k \frac 1 {i!} < \frac 1 {(k+1)!}\left( 1 + \frac 1 {k+1} + \frac 1{(k+1)^2} + \cdots \right)$$
+
+$$ e - s(k) < \frac 1 {(k+1)!} \left( 1 + \frac 1 {k+1} + \frac 1{(k+1)^2} + \cdots \right)$$
+}
+
+\item {
+$$ 1 + \frac 1 {k+1} + \frac 1{(k+1)^2} + \cdots = \frac 1 {1 - \frac 1 {k+1}} = \frac 1 {\frac {k+1} {k+1} - \frac 1 {k+1}} = \frac 1 {\frac k {k + 1}} = \frac {k+1} k$$
+
+$$ e - s(k) < \frac 1 {(k+1)!} \left( 1 + \frac 1 {k+1} + \frac 1{(k+1)^2} + \cdots \right)$$
+
+$$ e - s(k) < \frac 1 {(k+1)!} \frac {k+1} k $$
+
+$$ e - s(k) < \frac 1 {k!k} $$
+}
+
+\item {
+$$ e = \frac m n$$
+
+$$ n! e = (n-1)! n \frac m n = (n - 1)! m \in \mathbb{Z} $$
+
+$$ n! s(n) = n! \sum_{i=0}^n \frac 1 {i!}  = \sum_{i=0}^n \frac {n!} {i!} = n (n - 1) \cdots i \in \mathbb{Z}$$
+}
+
+\item {
+$$ n! (e - s(n)) = n!e - n!s(n)$$
+
+$n!e \in \mathbb{Z}$ and $n!s(n) \in \mathbb{Z}$, because subtraction is closed for integers, $ n! (e - s(n)) = n!e - n!s(n)$.
+}
+\end{enumerate}
+}
+
+\end{enumerate}
+
+\end{document}
+
+% 1 + \frac{1}{k+1} + \frac{1}{k+1}
+% e - s(k) < \frac{1}{(k + 1)!} \frac{k+1}{k}
+% \sum_{i=k+1}^\infty \frac{1}{k!} < \frac{1}{k!}
+
+%clock
+%cup
+%golf
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

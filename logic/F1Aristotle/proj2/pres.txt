@@ -1,0 +1,42 @@
+Following his execution in 1940, Yezhov was edited out of the photo by Soviet censors.
+
+What is Turing Machine
+	idealized computer
+	used by Maths
+	not practical
+	but helps us know what is and isn't computable
+How do work?
+	tape
+	head
+	alphabet (programmer)
+	states (programmer)
+	rules (programmer):
+		input state
+		input read
+		output write (overwrite)
+		output movement
+		output new state
+Letz program
+	search for letter
+		go through states
+		recursion
+	decrement
+		binary subtraction rules
+		recursion/carry
+Letz test it
+	search for letter
+	which rule applies?
+	...
+	which rule applies?
+	add
+	...
+#Underflow
+#Better notation
+#	bubble: state
+#	arrow:
+#		from state
+#		read char
+#		write char
+#		indicate direction
+#		point to state
+#	undeflow

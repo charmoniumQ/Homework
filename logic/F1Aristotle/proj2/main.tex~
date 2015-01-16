@@ -1,0 +1,87 @@
+\documentclass[11pt, letterpaper, twoside, openright]{book}
+
+\usepackage{amscd}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsrefs}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{arydshln}
+\usepackage{bbm}
+\usepackage{calc}
+\usepackage[labelformat=empty, font=bf]{caption}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{etoolbox}
+\usepackage{eucal}
+\usepackage{fix-cm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{latexsym}
+\usepackage{lscape}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{rotating}
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{stmaryrd}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{vwcol}
+\usepackage[all]{xy}
+\usepackage{xparse}
+
+\NewDocumentCommand{\projectchapter}{o m m}{%
+\IfNoValueTF{#1}
+{\chapter[#2]{#2\origtitle{#3}}}
+{\chapter[#1]{#2\origtitle{#3}}}%
+}
+\newcommand\origtitle[1]{\\
+\parbox{\textwidth}{\normalsize\vspace*{2\baselineskip}#1}}
+
+
+
+
+
+
+%%%%%%% YOU SHOULDN'T NEED TO ADD ANY PACKAGES. IF YOU DO, PLEASE LET ME KNOW.
+
+
+
+
+\begin{document}
+\mainmatter
+
+\projectchapter[4]{Chapter Title} 	%%%%ONLY USE ONE CHAPTER FOR YOUR GROUP
+{Authors' names}			
+
+\section{Undecidability of QL}  %%USE SECTIONS AND SUBSECTIONS TO STRUCTURE YOUR PAPER
+
+\subsection{Godel’s incompleteness theorems}
+\begin{enumerate}
+\item Every set of axioms is either inconsistent or incomplete, where incomplete means that it cannot prove all truths about the natural numbers.
+\item The second incompleteness theorem shows that such a system cannot demonstrate its own consistency.
+\end{enumerate}
+\subsection{Turing}
+-His ~personal~ story
+\subsection{Church}
+\subsection{Turing\'s Thesis }
+\subsection{The Church-Turing theorem}
+\subsection{The halting problem}
+\subsection{Register machines}
+-Programming them\\
+-Examples of how to add, multiply, compute 2exponents,
+\subsection{Validity}
+\subsection{Algorithm or clerical routine}
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master: t 
+%%% End:

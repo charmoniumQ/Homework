@@ -1,0 +1,31 @@
+% \item \begin{enumerate}
+% \item Invalid
+% \item Consider the case where $UD = \{a\} $, $F = \{\}$, $H = \{\}$, and $G = % \{a\}$.
+% \end{enumerate}
+
+\setcounter{enumi}{1}
+\item \begin{enumerate}
+\item Valid
+\item Consider, for the sake of contradiction, that an interpretation exists where the premises are true and the conclusion is false. Then there exists an element, $ a $, for which $ \lnot (\lnot Ga \lif \lnot Fa) $. This is equivalent to $ \lnot Ga $ and $ Fa $ (this is the only way to falsify the conclusion). Then, $ Fa \lif Ga $ must be false. This contradicts the premise, therefore the conclusion is valid
+\item \begin{myproof}
+1.& \forall x (Fx \lif Gx) & Premise \\
+2.& Fc \lif Gc & UI(1) \\
+3.& \lnot Gc \lif \lnot Fc & ContraPos(2) \\
+4.& \forall x (\lnot Gx \lif \lnot Fx) & UG(3) \\
+\end{myproof}
+\end{enumerate}
+
+% \item \begin{enumerate}
+% \item Invalid
+% \item Consider the case where $UD = \{a\}$, $F = \{\}$, and $G = \{a\}$.
+% \end{enumerate}
+
+% \item \begin{enumerate}
+% \item Invalid
+% \item Consider the case where $UD = \{a\}$, $F = \{a\}$, $G = \{\}$, and $H = % \{a\}$.
+% \end{enumerate}
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master: "hw2" 
+%%% End: 

@@ -1,0 +1,25 @@
+\documentclass[convert={density=300,size=1080x800,outext=.png}]{standalone}
+\usepackage{color}
+\newcommand{\ac}{\textcolor{red}{$\bullet$}}
+\begin{document}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Current state    &     & Symbol read & Symbol wrote & Movement    & Next state           \\
+\hline
+Find             &     & 0           & 0            & Left        & Find                 \\
+(starting state) & \ac & 1           & 1            & Left        & Find                 \\
+                 &     & $A$         & $A$          & Left        & Crash (format error) \\
+                 &     & $B$         & $B$          & Left        & Increment            \\
+\hline
+Increment        &     & 0           & 1            & No movement & Halt                 \\
+                 &     & 1           & 0            & Left        & Increment            \\
+                 &     & $A$         & $A$          & None        & Crash (overflow)     \\
+                 &     & $B$         & $B$          & None        & Crash (format error) \\
+\hline
+\end{tabular}
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master: t
+%%% End:

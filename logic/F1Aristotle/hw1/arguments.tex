@@ -1,0 +1,363 @@
+\item
+\begin{enumerate}
+\item
+\begin{tabular}[t]{l}
+    He must have gone to Kings Pyland or to Mapleton.
+\\  He is not at Kings Pyland.
+    \line
+\\  He is in Mapleton.
+\end{tabular}
+\item Valid, soundness is difficult to determine.
+\begin{python}[truth.py]
+print argument_summary(
+[('K', 'He is at Kings Pyland.'), ('M', 'He is at Mapleton.')],
+[('K \lor M', lambda K,M: K or M), ('\lnot K', lambda K,M: not K)],
+('M', lambda K,M: M))
+\end{python}
+* Denotes a possible case (where all premises are true). \\
+*\ ! Denotes counterexample (where the conclusion is false and all premises are true).
+\item If he has gone to either Kings Pyland or Mapleton, and he is not at Kings Pyland, then by disjunctive syllogism (\textit{modus tollendo ponens}), he must be at Mapleton.
+\item
+\begin{myproof}
+1. & K \lor M & Premise \\
+2. & \lnot K & Premise \\
+3. & \lnot K \lif M & CDis(1) \\
+4. & M & MP(3)
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If we do not operate the patient will die.
+\\  We will operate.
+    \line
+\\  The patient will not die.
+\item Not valid (we could operate and the patient could dies), soundness is indeterminate.
+\eject
+\begin{python}[truth.py]
+print ( argument_summary(
+[('P', 'The patient will die.'), ('O', 'We will operate.')],
+[('\lnot O \lif P', lambda P, O: not (not O) or P), ('O', lambda P, O: O)],
+('\lnot P', lambda P, O: not P)))
+\end{python}
+* Denotes a possible case (where all premises are true). \\
+*\ ! Denotes counterexample (where the conclusion is false and all premises are true).
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If I'm right, then I'm a fool.
+\\  If I'm a fool, I'm not right.
+    \line
+\\  I'm no fool
+\item Not valid (I could be not right and a fool). Soundness is indeterminate.
+\begin{python}[truth.py]
+print argument_summary(
+[('R', 'I\'m right.'), ('F', 'I\'m a fool.')],
+[('R \lif F', lambda R, F: not R or F), ('F \lif \lnot R', lambda R, F: not F or not R)],
+('\lnot F', lambda R, F: not F))
+\end{python}
+\item If I'm right, then I'm a fool. If I'm a fool, then I'm not right. I can be not right and a fool without violating the premises. Therefore we can not conclude that I'm not a fool.
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If I'm right, then I am a fool.
+\\  If I'm a fool, I'm not right.
+    \line
+\\  I'm not right.
+\item Valid, soundness is indeterminate.
+\begin{python}[truth.py]
+print argument_summary(
+[('R', 'I am right.'), ('F', 'I am a fool.')],
+[('R \lif F', lambda R, F: not R or F), ('F \lif \lnot R', lambda R, F: not F or not R)],
+('\lnot R', lambda R, F: not R))
+\end{python}
+\setcounter{enumii}{5}
+\item
+\begin{myproof}
+1. & R \lif F & Premise \\
+2. & F \lif \lnot R & Premise \\
+3. & R \lif \lnot R & HS(1,2) \\
+4. & \lnot R \lor \lnot R & CDis(3) \\
+5. & \lnot R & Rep(4)
+\end{myproof}
+
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If the theory of relativity is correct, light bends in the vicinity of the sun.
+\\  Light bends in the vicinity of the sun.
+    \line
+\\  Einstein's theory is correct.
+\item Not valid (relativity could be incorrect and light may still bend for  other reasons), soundness is indeterminate.
+\begin{python}[truth.py]
+print argument_summary(
+[('L', 'Light bends in the vicinity of the sun.'), ('R', 'The Theory of  Relativity is correct.')],
+[('R \lif L', lambda L, R: not R or L), ('L', lambda L, R: L)],
+('R', lambda L, R: R))
+\end{python}
+\item Assuming relativity causes light to bend, and the fact that light bends, we can not conclude that relativity is correct. There could be some other reason for light to bend. Therefore, we can not conclude that relativity is correct.
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    Congress will agree to budget cuts only if the President announces support beforehand.
+\\  The President will not announce his support first.
+    \line
+\\  Congress will not agree to budget cuts.
+\item Valid, soundness is indeterminate
+\begin{python}[truth.py]
+print argument_summary(
+[('C', 'Congress will agree to budget cuts.'), ('P', 'The President announces his support beforehand.')],
+[('C \lif P', lambda C, P: not C or P), ('\lnot P', lambda C, P: not P)],
+('\lnot C', lambda C, P: not C))
+\end{python}
+\item If congress agrees to budget cuts, then the president announced his support first. By the contrapositive, if the president will not announce his support first, then congress will not agree. The president will not announce his support first. Therefore by \textit{modus tollendo tollens,} congress will not agree to budget cuts.
+\item
+\begin{myproof}
+1. & C \lif P & Premise \\
+2. & \lnot P & Premise \\
+3. & \lnot P \lif \lnot C & ContraPos(1) \\
+4. & \lnot C & MP(3,2) \\
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If you are ambitious, you'll never achieve all your goals.
+\\  Life has meaning only if you are ambitious.
+    \line
+\\  If you achieve your goals, life is meaningless
+\item Valid, soundness is indeterminate (but hopefully unsound).
+\begin{python}[truth.py]
+print argument_summary(
+[('A', 'You are ambitious.'), ('G', 'You will achieve your goals.'), ('M',  'Your life has meaning.')],
+[('A \lif \lnot G', lambda A, G, M: not A or not G), ('M \lif A', lambda A, G, M: not M or A)],
+('G \lif \lnot M', lambda A, G, M: not G or not M))
+\end{python}
+\setcounter{enumii}{5}
+\item
+\begin{myproof}
+1. & A \lif \lnot G & Premise \\
+2. & L \lif A & Premise \\
+3. & L \lif \lnot G & HS(2,1) \\
+4. & (\lnot \lnot G) \lif \lnot A & ContraPos(3) \\
+5. & G \lif L & DN(4) applied within parenthesis
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If Adams wins the election, Brown will retire.
+\\  If Brown dies before the election, Adams will win it.
+    \line
+\\  Therefore, if Brown dies, he will retire.
+\item Not valid (Adam could win the election, and Brown could retire without dying), soundness is indeterminate
+\begin{python}[truth.py]
+print argument_summary(
+[('A', 'Adam wins the election.'), ('R', 'Brown will retire.'), ('D', 'Brown dies.')],
+[('A \lif R', lambda A, R, D: not A or D), ('D \lif A', lambda A, R, D: not D or A)],
+('R \lif D', lambda A, R, D: not R or D))
+\end{python}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    \{Holmes is right, and Moriarty is guilty\}, or \{Homes is wrong, and Thin is guilty\} (braces denote grouping precedence not implied by the English language).
+\\  Thin and Moriarty are guilty, or neither Thin nor Moriarty is  guilty.
+    \line
+\\  Thin is guilty.
+\item Valid (interestingly), soundness is indeterminate
+\begin{python}[truth.py]
+print argument_summary(
+[('H', 'Holmes is right.'), ('M', 'Moriarty is guilty.'), ('T', 'Thin is  guilty.')],
+[('(H \land M) \lor (\lnot H \land T)', lambda H, M, T: (H and M) or (not H and T)), ('(M \land T) \lor \lnot (M \lor T)', lambda H, M, T: (M and T) or not (M or T))],
+('T', lambda H, M, T: T))
+\end{python}
+\item If Holmes is right, then by the first premise, Moriarty is guilty. If Homes is wrong, then by the second premise, Thin is guilty. Since they are either both guilty or both innocent, if Holmes is right, Moriarty and Thin are guilty. If Holmes is wrong, Thin and Moriarty are guilty. Homes is right. Therefore Thin is guilty.
+\end{enumerate}
+
+\eject
+\item
+\begin{enumerate}
+\item
+    Mittens meows if and only if she is hungry.
+\\  Mittens is meowing and she isn't hungry.
+    \line
+\\  The end of the world is here.
+\item Valid (the premises contradict), and not sound (as the world has not  ended)
+\begin{python}[truth.py]
+print argument_summary(
+[('M', 'Mittens is meowing.'), ('H', 'Mittens is hungry.'), ('E', 'End of world is here.')],
+[('M \liff H', lambda M, H, E: M == H), ('M \land \lnot H', lambda M, H, E: M and not H)],
+('E', lambda M, H, E: E))
+\end{python}
+\setcounter{enumii}{5}
+\item
+\begin{myproof}
+1. & M \liff H & Premise \\
+2. & M & Premise \\
+3. & \lnot H & Premise \\
+4. & (M \lif H) \land (H \lif M) & Equiv(1) \\
+5. & M \lif H & Simp(4) \\
+6. & H & MP(5,2) \\
+7. & H \land \lnot H & Conj(6,3) \\
+8. & E & ContraPrm(7)
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    The concept of God exists in my mind.
+\\  God is the greatest concept that can be conceived.
+\\  The concept of a God that exists in real life is greater than the concept of a God that exists only in my mind.
+    \line
+\\  God exists.
+\item Valid, soundness is indeterminate
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    God is omnipotent if and only if He can do everything.
+\\  If God can make an object so heavy that He can't lift it, then He can't do everything.
+\\  If He can't make an object so heavy that He can't lift it, then He can't do everything.
+    \line
+\\  God is not omnipotent.
+\item Valid, soundness is indeterminate
+\begin{python}[truth.py]
+print argument_summary(
+[('O', 'God is omnipotent.'), ('E', 'God can do everything'), ('H', 'God can make an object so heavy He can\'t lift it.')],
+[('O \liff E', lambda O,E,H: O == E), ('H \lif \lnot E', lambda O,E,H: lif(O, not E)), ('\lnot H \lif \lnot E',  lambda O,E,H: lif(not H, not E))],
+('\lnot O', lambda O,E,H: not O))
+\end{python}
+\item If God can't make an object that is so heavy He can't lift it, then because He couldn't make the object, He is not omnipotent. If God is can make an object so heavy that He can't lift it, then because He can't lift it, He is not omnipotent. Therefore God is not omnipotent.
+\item
+\begin{myproof}
+1. & O \liff E & Premise \\
+2. & S \lif \lnot E & Premise \\
+3. & \lnot S \lif \lnot E & Premise \\
+4. & \lnot E \lor \lnot E & CD(2,3) \\
+5. & \lnot E & Rep(4) \\
+6. & (E \lif O) \land (O \lif E) & Equiv(1) \\
+7. & (O \lif E) & Simp(6) \\
+8. & \lnot E \lif \lnot O & ContraPos(7) \\
+9. & \lnot O & MP(8,5)
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If the objects of mathematics are material things, then mathematics can't consist entirely of necessary truths.
+\\  Mathematical objects are immaterial only if the mind has access to a realm beyond the reach of the senses.
+\\  Mathematics does consist of necessary truths.
+\\  The mind has no access to any realm beyond the reach of the senses.
+    \line
+\\  Therefore the objects of mathematics are neither material nor immaterial.
+\item Valid (premises never true), not sound (premises never true).
+\begin{python}[truth.py]
+print argument_summary(
+[('M', 'Mathematical objects are material things.'), ('N', 'Mathematics  consists entirely of necessary truths.'), ('R', 'The mind has access to a realm beyond the senses.')],
+[('M \lif \lnot N', lambda M, N, R: not M or not N), ('\lnot M \lif R', lambda M, N, R: M or R), ('N', lambda M, N, R: N), ('\lnot R', lambda M, N, R: not R)],
+('M \land \lnot M', lambda M, N, R: False))
+\end{python}
+\setcounter{enumii}{5}
+\item
+\begin{myproof}
+1. & M \lif \lnot N & Premise \\
+2. & \lnot M \lif R & Premise \\
+3. & N \land \lnot R & Premise \\
+4. & \lnot \lnot N \lif \lnot M & ContraPos(1) \\
+5. & \lnot R \lif \lnot \lnot M & ContraPos(2) \\
+6. & N \lif \lnot M & DN(4) \\
+7. & \lnot R \lif M & DN(5) \\
+8. & N & Simp(3) \\
+9. & \lnot R & Simp(3) \\
+10. & \lnot M & MP(6,8) \\
+11. & M & MP(7,9) \\
+12. & M \land \lnot M & Conj(11,10) \\
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If the President pursues arms limitations, then if he gets the foreign  policy mechanism working more harmoniously, the European Left will acquiesce to the placement of additional nuclear weapons in Europe.
+\\  The European Left will never acquiesce to that.
+    \line
+\\  Either the President won't get the foreign policy mechanism working more harmoniously, or he won't pursue arms limitations.
+\item Valid, soundness is indeterminate
+\begin{python}[truth.py]
+print argument_summary(
+[('P', 'President pursues arms limitations.'), ('F', 'President gets foreign policy working.'), ('E', 'European left will acquiesce.')],
+[('P \lif (F \lif E)', lambda P, F, E: not P or (not F or E)), ('\lnot E',  lambda P, F, E: not E)],
+('\lnot F \lor \lnot P', lambda P, F, E: not F or not P))
+\end{python}
+\setcounter{enumii}{5}
+\item
+\begin{myproof}
+1. & P \lif (F \lif L) & Premise \\
+2. & \lnot L & Premise \\
+3. & \lnot P \lor (F \lif L) & CDis(1) \\
+4. & \lnot P \lor \lnot F \lor L & CDis(3) applied in parens \\
+5. & \lnot L \lif (\lnot F \lor \lnot P) & CDis(4) after regrouping \\
+6. & \lnot F \lor \lnot P & MP(5,2)
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If we continue to run a large trade deficit, then the government will yield to calls for protectionism.
+\\  We won't continue to run a large deficit only if our economy slows down or foreign economies recover.
+    \line
+\\  If foreign economies don't recover, then the government will not yield to protectionism only if our economy slows down.
+\item Valid, soundness is difficult to determine
+\begin{python}[truth.py]
+print argument_summary(
+[('D', 'We continue a trade deficit.'), ('P', 'The government yields to  protectionism.'), ('S', 'Our economy slows down.'), ('F', 'Foreign economies  recover.')],
+[('D \lif P', lambda D, P, S, F: not D or P), ('\lnot D \lif (S \lor F)',  lambda D, P, S, F: D or (S or F))],
+('\lnot F \lif (\lnot P \lif S)', lambda D, P, S, F: F or lif(not P, S)))
+\end{python}
+\setcounter{enumii}{5}
+\item
+\begin{myproof}
+1. & D \lif P & Premise \\
+2. & \lnot D \lif (S \lor F) & Premise \\
+3. & D \lor \lnot D & Tautology \\
+4. & P \lor S \lor F & CD(3,1,2) \\
+5. & \lnot F \lif (P \lor S) & CDis(4) \\
+6. & \lnot F \lif (\lnot P \lif S) & CDis(5) applied within parens
+\end{myproof}
+\end{enumerate}
+
+\item
+\begin{enumerate}
+\item
+    If we don't fail most students, We can't maintain high standards and accept most high-school students.
+\\  If we fail most students, most students will do poorly.
+\\  We will maintain high standards.
+\\  We will accept most high-school students.
+\\  We will placate the legislature.
+\\  We can't placate the legislature and fail most students.
+    \line
+\\  Not many students will do poorly.
+\item Valid (premises contradict), not sound
+\end{enumerate}
+
+%%% Local Variables:  
+%%% mode: latex 
+%%% TeX-master: "hw1" 
+%%% End: 

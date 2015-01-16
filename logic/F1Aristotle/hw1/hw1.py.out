@@ -1,0 +1,18 @@
+
+\(
+\begin{array}[t]{c|c||c||c||c}
+A & B &
+(A \land B) \liff \lnot (\lnot A \lor \lnot B) &
+(A \lif B) \liff (\lnot A \lor B) &
+(A \liff B) \liff \lnot (\lnot (\lnot A \lor B) \lor \lnot (\lnot B \lor A)) \\
+\hline
+\hline
+
+T & T & T & T & T \\
+T & F & T & T & T \\
+F & T & T & T & T \\
+F & F & T & T & T
+
+\end{array}
+\)
+

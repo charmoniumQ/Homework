@@ -1,0 +1,53 @@
+%\begin{tabular}[t]{c|c|c|c|c}
+%\rule{12cm}{0.4pt} \\
+%\renewcommand{\hrulefill}{\rule{6cm}{0.4pt}}
+
+\documentclass[12pt,letterpaper]{article}
+
+%\usepackage{ifpdf,mla}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[letterpaper, margin=0.75in]{geometry}
+\usepackage{setspace}
+\usepackage{python}
+\usepackage{array}
+\usepackage{amstext}
+
+\renewcommand{\line}{\\[-1.5ex]\rule{\linewidth}{.4pt}} % Horizontal line
+\newcommand{\lif}{\rightarrow}
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+\newenvironment{myproof}{\begin{tabular}[t]{c >{$}c<{$} c}}{\end{tabular}}
+
+\title{Submission 1.2 (with \LaTeX)}
+\date{2014$-$09$-$15}
+\author{Sam Grayson}
+
+\begin{document}
+%\begin{mla}{Sam}{Grayson}{Barnes}{Period 1}{2014-08-26}{Homework (with \LaTeX)}
+\maketitle
+\singlespacing
+
+\section{Arguments in English}
+\begin{enumerate}
+\input{arguments}
+\end{enumerate}
+
+\section{Claims}
+\begin{enumerate}
+\input{claims}
+\end{enumerate}
+
+\section{Other}
+\begin{enumerate}
+\input{other}
+\end{enumerate}
+
+%\end{mla}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

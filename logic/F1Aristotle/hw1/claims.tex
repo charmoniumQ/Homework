@@ -1,0 +1,210 @@
+\item Das gospel truth brudder.
+
+An argument is valid if and only if in every world where the premises are true, the conclusion is also true. Consider a true argument. Adding more premises restricts (subsets) the number of worlds where all of the premises are true. If the conclusion is true for a every element in a set of worlds, it must be true for every element in a subset of those worlds.
+
+Therefore, since the conclusion is true for any subset of worlds in which the conclusion is true, the claim is true.
+
+\item Das also da gospel truth homes.
+
+An argument is invalid if and only if there exists some world where the premises are true and the conclusion is false. Removing premises expands the number of worlds where all of the premises are true. The world in which the argument was demonstrated to be invalid is still a world that makes all of the premises true, even if you remove any number of premises.
+
+Therefore, since removing premises expands the number of possible worlds, and does not remove the existing counter-example world, the claim is true.
+
+\item Let X move to 3. O is obliged to move in 7 to stay alive. Then X moves to 1. No matter where O goes, X can win by either taking 2 or 9. See attached page for more information.
+
+\item Sometimes true. Given that the argument is sometimes true, we can deduce there are some cases where the argument is false (worlds where the premises are true and the conclusion is false). This world acts as a counter-example to the sentence ``\( (A \land B) \lif C \).'' Therefore the sentence is sometimes true (which is useless).
+
+\item We can say that \( (A \land B) \lif C \) is true for all cases.
+
+Let us use ``the argument \(
+\begin{smallmatrix}
+A \\ B \\ \hline \\ C
+\end{smallmatrix}
+\) is valid'' as our premise, and ``\((A \land B) \lif C\)'' as our conclusion. In every world where the premise is true, the conclusion is also true.
+
+\begin{python}[truth.py]
+print truthtable(
+[('A', ''), ('B', ''), ('C', ''), ],
+[(r'\begin{smallmatrix}A \\ B \\ \hline \\ C\end{smallmatrix}\ \textrm{is valid}', lambda A,B,C: not (A and B) or C)],
+('(A \land B) \lif C', lambda A,B,C,: not (A and B) or C))
+\end{python}
+
+Therefore we can say the claim is true for all cases.
+
+\item False.
+
+Let us take a hypothetical argument \(
+\begin{smallmatrix}
+P \\ \hline \\ C
+\end{smallmatrix}
+\). Since the premises are contradictory, we say as our meta-premise: ``\( \lnot P \).'' Then we say as our meta-conclusion ``The argument is valid.'' This is enough information to fill out a truth table varying \(P\) and \(C\).
+
+\begin{python}[truth.py]
+print truthtable(
+[('P', ''), ('C', '')],
+[('\lnot P', lambda P,C: not P)],
+(r'\begin{smallmatrix}P \\ \hline \\ C\end{smallmatrix}\ \textrm{is valid}', lambda P,C: not P or C))
+\end{python}
+
+As you can see, the meta-conclusion ``\(
+\begin{smallmatrix}
+P \\ \hline \\ C
+\end{smallmatrix}
+\) is valid'' true when the meta-premise ``\( \lnot P \)'' is true, therefore the claim ``Some arguments with contradictory premises aren't valid'' is false.
+
+\setcounter{enumi}{10}
+
+\item \( \lnot (A \land B \land C) \). The government is lying to you.
+
+Since \( \{A, B, C \} \) is inconsistent, there exists no world where all of the sentences are true. Therefore there is not a world where $A$ and $B$ and $C$ are true. Therefore $\lnot (A \land B \land C)$.
+
+\setcounter{enumi}{12}
+
+\item
+\begin{python}[truth.py]
+funcs = [
+    lambda A,B,C: (A and (B and C)) == ((A and B) and C),
+    lambda A,B,C: (A or (B or C)) == ((A or B) or C),
+    lambda A,B,C: lif(A, lif(B, C)) == lif(lif(A, B), C),
+    lambda A,B,C: (A == (B == C)) == ((A == B) == C),
+]
+tfText = {True:'T', False:'F'}
+output = []
+for tf in tfSeq(3):
+    values = [tfText[val] for val in tf]
+    for func in funcs:
+        values += [tfText[func(*tf)], ('' if func(*tf) else '!')]
+    output.append(' & '.join(values))
+output = (' \\\\\n'.join(output))
+print '''
+\\(
+\\begin{array}[t]{c|c|c||cc||cc||cc||cc}
+A & B & C &
+\\begin{array}{c} (A \\land (B \\land C)) \\liff \\\\ ((A \\land B) \\land C) \\end{array} &&
+\\begin{array}{c} (A \\lor (B \\lor C)) \\liff \\\\ ((A \\lor B) \\lor C) \\end{array} &&
+\\begin{array}{c} (A \\lif (B \\lif C)) \\liff \\\\ ((A \\lif B) \\lif C) \\end{array} &&
+\\begin{array}{c} (A \\liff (B \\liff C)) \\liff \\\\ ((A \\liff B) \\liff C) \\end{array}  & \\\\
+\\hline
+\\hline
+'''
+print output
+print '''
+\\end{array}
+\\)
+'''
+\end{python}
+
+Therefore we know that \(\land, \lor, \liff\) are commutative.
+
+\setcounter{enumi}{17}
+
+\item $C$ is a tautology, which means that it is true for all cases. ${A, B}$ is a specific case, therefore $C$ is true. The argument is valid.
+
+\item
+It ain't necessarily so.
+
+\begin{python}[truth.py]
+print truthtable(
+[('A', ''), ('B', '')],
+[('A \liff B', lambda A,B: A == B)], ('A \lor B', lambda A,B: A or B))
+\end{python}
+
+\item
+\( A \lor B \) is true.
+
+\begin{python}[truth.py]
+print truthtable(
+[('A', ''), ('B', '')],
+[('\lnot (A \liff B)', lambda A,B: A != B)], ('A \lor B', lambda A,B: A or B))
+\end{python}
+
+\item
+
+\begin{python}[truth.py]
+funcs = [
+    lambda A,B: (A or B) == (lif(not A, B)),
+    lambda A,B: (A and B) == (not lif(A, not B)),
+    lambda A,B: (A == B) == (not lif(lif(A, B), not lif(B, A)))
+]
+tfText = {True:'T', False:'F'}
+output = []
+for tf in tfSeq(2):
+    values = [tfText[val] for val in tf]
+    values += [tfText[func(*tf)] for func in funcs]
+    output.append(' & '.join(values))
+output = (' \\\\\n'.join(output))
+print '''
+\\(
+\\begin{array}[t]{c|c||c||c||c}
+A & B &
+(A \land B) \liff (\lnot A \lif B)&
+(A \lor B) \liff \lnot (A \lif \lnot B)&
+(A \liff B) \liff \lnot ((A \lif B) \lif \lnot (B \lif A)) \\\\
+\\hline
+\\hline
+'''
+print output
+print '''
+\\end{array}
+\\)
+'''
+\end{python}
+
+\(
+\begin{array}{c|c}
+\textrm{Statement} & \textrm{Logically equivalent statement} \\
+\hline
+A \lor B & (\lnot A \lif B) \\
+A \land B & \lnot (A \lif \lnot B) \\
+A \liff B & \lnot ((A \lif B) \lif \lnot (B \lif A)) \\
+\end{array}
+\)
+
+\item
+
+\begin{python}[truth.py]
+funcs = [
+    lambda A,B: (A and B) == (not (not A or not B)),
+    lambda A,B: lif(A, B) == (not A or B),
+    lambda A,B: (A == B) ==  (not (not (not A or B) or not (not B or A)))
+]
+tfText = {True:'T', False:'F'}
+output = []
+for tf in tfSeq(2):
+    values = [tfText[val] for val in tf]
+    values += [tfText[func(*tf)] for func in funcs]
+    output.append(' & '.join(values))
+output = (' \\\\\n'.join(output))
+print '''
+\\(
+\\begin{array}[t]{c|c||c||c||c}
+A & B &
+(A \land B) \liff \lnot (\lnot A \lor \lnot B) &
+(A \lif B) \liff (\lnot A \lor B) &
+(A \liff B) \liff \lnot (\lnot (\lnot A \lor B) \lor \lnot (\lnot B \lor A)) \\\\
+\\hline
+\\hline
+'''
+print output
+print '''
+\\end{array}
+\\)
+'''
+\end{python}
+
+\(
+\begin{array}{c|c}
+\textrm{Statement} & \textrm{Logically equivalent statement} \\
+\hline
+A \land B & \lnot (\lnot A \lor \lnot B) \\
+A \lif B & \lnot A \lor B \\
+A \liff B & \lnot (\lnot (\lnot A \lor B) \lor \lnot (\lnot B \lor A)) \\
+\end{array}
+\)
+
+Starting with $\{ \lor, \lnot \}$ we have derived $\{ \land, \lif, \liff \}$. Thus any statement in truth-functional logic can be translated so that it only uses $\{ \lor, \lnot \}$.
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master: "hw1"
+%%% End: 
