@@ -1,0 +1,56 @@
+% page
+% enumeration
+% proof layout
+% symbols (\pmod, |, )
+% sub enum
+% skip to question
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,letterpaper]{article}
+%\usepackage{ifpdf,mla}
+\usepackage{amssymb} % for $\blacksquare$ and $\therefore$
+\usepackage[letterpaper, margin=1in]{geometry} % for margins
+\usepackage{setspace} % for \singlespace
+\usepackage{enumitem} % for [leftmargin=]
+\newenvironment{proof}{\begin{tabular}[t]{l l}}{\tiny {$~\blacksquare$} \\ \end{tabular}}
+\begin{document}
+\singlespacing % remove if no package setspace
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+{\Large Sam Grayson's Notebook (with \LaTeX)} \\
+\today
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{\theenumi.\theenumii}
+\renewcommand{\theenumiii}{\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\theenumiii.}
+\begin{enumerate}[leftmargin=0mm]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item 
+\begin{enumerate}[leftmargin=0mm]
+
+\input{s1.tex}
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master: t 
+%%% End:

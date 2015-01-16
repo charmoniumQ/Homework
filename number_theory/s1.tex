@@ -1,0 +1,290 @@
+\item 
+\begin{proof}
+$ma = b$ & Definition of `divides' \\
+$na = c$ & Definition of `divides' \\
+$na + ma = b + c$ & Algebra \\
+$(n + m) a = b + c$ & Algebra \\
+$a | (b + c)$ & Definition of `divides'
+\end{proof}
+
+\item 
+\begin{proof}
+Let $d = -c$ \\
+$a | (b + d)$ & Theorem 1.1 \\
+$a | (b - c)$ & substitution
+\end{proof}
+
+\item 
+\begin{proof}
+$ma = b$ & Definition of `divides' \\
+$na = c$ & Definition of `divides' \\
+$mana = b c$ & Algebra \\
+$a | bc$ & Definition of `divides'
+\end{proof}
+
+\item 
+\begin{proof}
+$mana = b c$ & see last proof \\
+$a^2 | bc$ & Definition of `divides'
+\end{proof}
+
+\item 
+\textit{If $a|b$ then $a|b^n$}
+
+\begin{proof}
+$b = ka$ & Definition of `divides' \\
+$b^n = (ka)^n = k k^{(n-1)} a^n$ & Algebra \\
+$k | b^n$ & Definition of `divides'
+\end{proof}
+
+\item 
+\begin{proof}
+$ka = b$ & Definition of `divides' \\
+$ack = bc$ & Algebra \\
+$a|bc$ & Definition of `divides'
+\end{proof}
+
+\item 
+\begin{enumerate}
+\item $45 - 9 = 36 = 9 \cdot 4$. True
+\item $37-2=35=7\cdot5$. True
+\item $37-3=34$. False
+\item $37 - (-3) = 40 = 8\cdot5$. True
+\end{enumerate}
+
+\item 
+\begin{proof}
+let $k$ be all the numbers \\
+where $k \equiv b \pmod 3$ \\
+$3 | (k - b)$ & Definition of `mod' \\
+$3n = k - b$ & Definition of `divides' \\
+$3n + k = n$ & Algebra
+\end{proof}
+\begin{enumerate}
+\item $3n$
+\item $3n + 1$
+\item $3n + 2$
+\item $3n$
+\item $3n + 1$
+\end{enumerate}
+
+\item 
+\begin{proof}
+$a - a = 0 = 0n$ & Arithmetic \\
+$n | (a - a)$ & Definition of `divides' \\
+$a \equiv 0 \pmod n$ & Definition of `mod'
+\end{proof}
+
+\item 
+\begin{proof}
+$n | (a - b)$ & Definition of `mod' \\
+$kn = a - b$ & Definition of `divides' \\
+$-kn = b - a$ & Algebra \\
+$n|(b - a)$ & Definition of `divides' \\
+$b \equiv a \pmod n$
+\end{proof}
+
+\item 
+\begin{proof}
+$n | (a - b)$ & Definition of `mod' \\
+$n | (b - c)$ & Definition of `mod' \\
+$n | (a - b + b - c)$ & Theorem 1.1 \\
+$n | (a - c)$ & Algebra \\
+$a \equiv c \pmod n$ & Definition of `mod'
+\end{proof}
+
+\item 
+\begin{proof}
+$n|(a - b)$ & Definition of `mod' \\
+$n|(c - d)$ & Definition of `mod' \\
+$n|(a + c - b - d))$ & Theorem 1.1 \\
+$n|((a + c) - (b + d))$ & Algebra \\
+$a + c \equiv b + d \pmod n$ & definion `mod'
+\end{proof}
+
+\item 
+\begin{proof}
+let $e = -c$ and $f = -d$ \\
+$a + e \equiv b + f$ & Theorem 1.12 \\
+$a - c \equiv b - d$ & substitution
+\end{proof}
+
+\item 
+\begin{proof}
+$n | (a - b)$ & Definition of `mod' \\
+$n | (c - d)$ & Definition of `mod' \\
+$n | (a - b)(c - d)$ & Theorem 1.3
+\end{proof}
+
+\item 
+\begin{proof}
+$a \equiv b \pmod n$ & Premise \\
+$a^2 \equiv b^2 \pmod n$ & Theorem 1.14
+\end{proof}
+
+\item 
+\begin{proof}
+$a \equiv b \pmod n$ & Premise \\
+$a^2 \equiv b^2 \pmod n$ & Theorem 1.15 \\
+$a^2 a \equiv b^2 b \pmod n$ & Theorem 1.14 \\
+$a^3 \equiv b^3 \pmod n$ & Algebra
+\end{proof}
+
+\item 
+\begin{proof}
+$a \equiv b \pmod n$ & Premise \\
+$a^{k - 1} \equiv b^{k - 1} \pmod n$ & Premise \\
+$a^{k - 1} a \equiv b^{k - 1} b \pmod n$ & Theorem 1.14 \\
+$a^k \equiv b^k \pmod n$ & Algebra
+\end{proof}
+
+\item 
+\begin{proof}
+Base case: \\
+$a \equiv b \pmod n$ & Premise \\
+Inductive Hypothesis: \\
+$a^{k - 1} \equiv b^{k - 1} \pmod n$ & (assumption) \\
+Inductive step: \\
+$a^{k - 1} a \equiv b^{k - 1} b \pmod n$ & Theorem 1.14 \\
+$a^k \equiv b^k \pmod n$ & Algebra \\
+Conclusion: \\
+$a^k \equiv b^k \pmod n$ & inductively
+\end{proof}
+
+\item 
+\begin{enumerate}
+\setcounter{enumiii}{11}
+\item
+$6 \equiv 2 \pmod 4$ \\
+$5 \equiv 1 \pmod 4$ \\
+$6 + 5 \equiv 2 + 1 \pmod 4$ \\
+\item 
+$6 - 5 \equiv 2 - 1 \pmod 4$ \\
+\item 
+$6 \cdot 5 \equiv 2 \cdot 1$ \\
+\item 
+$6^2 \equiv 2^2 \pmod 4$ \\
+\item 
+$6^3 \equiv 2^3 \pmod 4$ \\
+\item 
+$6^4 \equiv 2^4 \pmod 4$ \\
+\item 
+$6^k \equiv 2^k \pmod 4$ \\
+\end{enumerate}
+
+\item No \\
+Consider the case wehre $n = 4$, $c = 0$, $a = 1$, and $b = 2$. \\
+$ac \equiv bc \pmod n$ \\
+$a \neq b$ \\
+
+\item See 1.22 and 1.23
+
+\item 
+\begin{proof}
+$3|a$ & Premise (Base Case) \\
+$3|b$ & Let $b$ be an integer where\ldots (Inductive Hypothesis) \\
+$3|9$ & Arithmetic \\
+$3|(9  b_k  10^{k - 1})$ & Theorem 1.3 \\
+$3|(b - 9  b_k  10^{k - 1})$ & Theorem 1.2 \\
+$3|(b_{k - 1} + b_{k})b_{k - 2} \ldots b_0$ & Algebra* (Inductive Step)\\
+$3|(a_{k} + a_{k - 1} + a_{k - 2} + \ldots a_1 + a_0)$ & Inductive axiom
+\end{proof}
+
+Here is the algebra I used in the step labeled `Algebra*':
+
+\(
+\begin{array}{rc}
+b - b_k 9 10^{k - 1} & = \\
+b - b_k (10 - 1) 10^{k - 1} & = \\
+b + (-b_k  10 \cdot 10^{k - 1} + b_k  1  10^{k - 1}) & = \\
+b + (-b_k  10^k + b_k  10^{k - 1}) & = \\
+\begin{array}{r ccccc l}
+& b_k & b_{k - 1} & b_{k - 2} & \ldots & b_0 \\
++ \quad & (-b_k) & b_k & 0 &\ldots & 0 & \quad = \\
+\hline
+& & (b_k + b_{k - 1}) & b_{k - 2} & \ldots & b_0 \\
+\end{array}
+\end{array}
+\)
+
+\item
+\begin{proof}
+$3|a$ & Premise (Base Case) \\
+$3|(b_k + b_{k - 1} + \ldots + b_0)$ & Assumption (Inductive Hypothesis) \\
+$3|9$ & Arithmetic \\
+$3|(b_k 9  c)$ where c is $k$ ones in a row & Theorem 1.3 \\
+$3|(b_k + b_{k - 1} + \ldots + b_0 + b_k  9  c)$ & Theorem 1.2 \\
+$3|(b_k  10^k + b_{k - 1} + \ldots + b_0)$ & Algebra* \\
+$3|(a_k 10^k + a_{k - 1} 10^{k - 1} + \ldots + a_0 10^0)$ & Inductive Axiom \\
+$3|(a_k a_{k - 1} \ldots a_0)$ & Definition of digits
+\end{proof}
+
+Here is the algebra I used in the step labeled `Algebra*':
+
+\(
+\begin{array}{rcl}
+b_k + b_{k - 1} + \ldots + b_0 + b_k  9  c & = \\
+b_k + b_{k - 1} + \ldots + b_0 + b_k d & = & \textrm{where d is a number with $k$ nines} \\
+b_k + b_{k - 1} + \ldots + b_0 + b_k (10^k - 1) & = \\
+b_k + b_{k - 1} + \ldots + b_0 + b_k 10^k - b_k & = \\
+b_{k - 1} + \ldots + b_0 + b_k 10^k
+\end{array}
+\)
+
+\item
+$4|a$ if and only if $4|(a_1 + a_3 + \ldots)(a_0 + a_2 + a_4 + \ldots)$
+
+\item
+\begin{enumerate}
+\item $m = nq + r$ where $m = 25$, $n = 7$, $q = 3$, and $r = 4$
+\item $m = 277$, $n = 4$, $q = 66$, and $r = 1$
+\item $m = 33$, $n = 11$, $q = 3$, $r = 0$
+\item $m = 33$, $n = 45$, $q = 0$, $r = 33$
+\end{enumerate}
+
+\item 
+\begin{tabular}[t]{p{4 in} l}
+Setup: \\
+\textit{Make a list of multiples of $n$ that are greater than $m$ and choose the smallest one to define $n(q + 1)$.} \\
+$A := \{k | k \in \mathbb{N}\ \wedge kn > m \}$ &  \\
+$\exists a \ni (a \in A \wedge an > m \wedge \forall k \in A (a \leq k))$ & Well-ordering Principle \\
+$q : = a - 1 $ &  \\
+$r := m - nq$ &  \\
+\\
+Proving $r$ satisfies upper bound: \\
+\textit{If it didn't, then $a$ wouldn't be an element of $A$, but we know that $a$ is in $A$.} \\
+$r > n - 1$ & Assume for contradiction \\
+$r \geq n$ & Inequality over integers \\
+$\exists j \ni (r - n = j \wedge j \geq 0)$ & Property of inequalities \\
+$nq + r = m $ & Algebra (from definition of $r$) \\
+$nq + (n + j) = m$ & Algebra \\
+$n(q + 1) + j = m$ & Algebra \\
+$n(q + 1) \leq m$ & Property of inequalities \\
+$n(q + 1) > m$ & Algebra (from definition of $a$) \\
+$\therefore r \leq n - 1$ & Contradiction \\
+\\
+Proving $r$ satisfies lower bound: \\
+\textit{If it didn't, then there would be another element smaller than $a$ in $A$, but $a$ is the least element in $A$.} \\
+$r < 0$ & Assume for contradiction \\
+$nq + r = m $ & Algebra (from definition of $r$) \\
+$nq > m$ & Property of inequalities \\
+$q \in A$ & $q \in \mathbb{N} \wedge nq > m$ is the condition for $A$ \\
+$\forall k (k \in A \rightarrow q + 1 \leq k)$ & Definition of $a$ (smallest element in $A$)\\
+$q \leq q + 1$ & Universal instantiation \\
+$\therefore r \geq 0$ & Contradiction \\
+\\
+Proving $q$ and $r$ are integers: \\
+\textit{They all came from sets that only contain integers.} \\
+$A \subset \mathbb{N} \subset \mathbb{Z}$ & Stuff I learned \\
+$a \in A$ & Definition of $a$ \\
+$a \in \mathbb{Z}$ & Property of sets \\
+$q \in \mathbb{Z}$ & Closure (Definition of $q$) \\
+$r \in \mathbb{Z}$ & Closure (definition of $r$) \\
+\\
+
+\end{tabular}
+
+%%% Local Variables: 
+%%% mode: latex 
+%%% TeX-master: "main" 
+%%% End:
