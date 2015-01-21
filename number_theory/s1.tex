@@ -301,6 +301,26 @@ $q'n + r' > m$ & Property of inequalities (add a positive number to the bigger s
 $\neg \exists q', r' \in \mathbb{Z} (m = q'n + r' \wedge r' \neq r \wedge q' \neq q \wedge 0 \leq r \leq q' - 1)$ & Contradiction \\
 \end{tabular}
 
+\item 
+\begin{proof}
+$n|(a - b)$ & Definition of modulo \\
+$a - b = cn$ & Definition of divides \\
+$b = dn + e \wedge 0 \leq e \leq n - 1$ & Division algorithm \\
+$a - dn - e = cn$ & Algebra \\
+$a = (c + d)n + e \wedge 0 \leq e \leq n - 1$ & Algebra \\
+This satisfies the division algorithm \\
+$(c + d)n + e - b = cn$ & Algebra \\
+$b = dn + e \wedge 0 \leq e \leq n - 1$ & Algebra \\
+Therefore, same remainder (namely $e$) & 
+\end{proof}
+
+\begin{proof}
+$a = cn + r$ & Let \\
+$b = dn + r$ & Let \\
+$a - b = cn - dn = (c - d)n$ & Algebra \\
+$n|(a - b)$ & Definition of divides \\
+\end{proof}
+
 \item  Yes. $1$
 
 \item No. There are a finite number of integer factors.
@@ -324,21 +344,78 @@ $k|r$ & Subsitution
 \end{proof}
 
 \item 
+Lemma: Let $a = n b + r$. $k|b$ and $k|r$ imply $k|a$.
+
 \begin{proof}
+$k|nb$ & Therorem 1.3 \\
+$k|(nb + r)$ & Theorem 1.1 \\
+$k|a$ & Substitution
+\end{proof}
+
+\begin{tabular}[t]{p{4 in} l}
 $(a, b) = k$ & Let \\
 $k|a$ & Definition of $k$ (GCD) \\
 $k|b$ & Definition of $k$ (GCD) \\
 $k|r_1$ & Theorem 1.32 \\
 \hline
-$n_1 = 0$ & Assume temporarily
-$a = r_1$
-$(a, b) = (b, r_1)$ & Substitution \\
-\hline
-$n_1b > 0$ & Assume temporarily
-$a > r_1$
+\textit{At this point, we know that $k$ is a common divisor. Assume for the sake of contradiction that $k$ is not the greatest common divisor.} \\
+$(b, r_1) = m \wedge m > k$ & Assume for contradiction \\
+$m|a$ & Lemma \\
+$m|b$ & Definition of GCD \\
+$(b, r_1) > m \wedge m > k$ & Definition of GCD \\
+$(b, r_1) = k$ & Contradiction \\
+\end{tabular}
 
-\hline
+\item
+\(
+\begin{array}[t]{c c c c l}
+(51, 15) & = & (51 - 3 \cdot 15, 15) & =\\
+(6, 15) & = & (6, 15 - 2 \cdot 6) & = \\
+(6, 3) & = & (6 - 2 \cdot 3, 3) & =\\
+(0, 3) &  & & = & 3\\
+\end{array}
+\)
 
+\item
+\begin{enumerate}
+\item Let $a$ and $b$ be arguments of GCD where (WLOG) $a > b$.
+\item If $b = 0$, $(a, b) = a$.
+\item If $b = 1$, $(a, b) = 1$.
+\item Else divide $a$ by $b$ such that ($a = nb + r$ and $0 \leq r \leq n - 1$)
+\item $(a, b) = (r, b)$
+\end{enumerate}
+
+\item 
+\begin{enumerate}
+\item 16
+\item 1
+\item 256
+\item 2
+\item 1
+\end{enumerate}
+
+\item $x = 9$, $y = -47$
+
+\item IDK
+
+\item
+\begin{proof}
+$(a, b) = c$ & Let \\
+$c|a \wedge c|b$ & Definition of GCD \\
+$a = dc \wedge b = ec$ & Definition of divides \\
+$ax + by = 1$ & Premise \\
+$dcx + ecy = (dx + ey)c = 1$ & Algebra \\
+$c = 1$ & Multiplication over integers
+\end{proof}
+
+\item 
+\begin{proof}
+$(a, b) = c$ & Let \\
+$c|a \wedge c|b$ & Definition of GCD \\
+$a = dc \wedge b = ec \wedge (d, e) = 1$ & Definition of divides \\
+$\exists x, y \ni (dx + ey = 1)$ & Theorem 1.38 \\
+$ax + by = dcx + ecy = (dx + ey)c = 1c =  c$ & Algebra \\
+$ax + by = (a, b)$ & Substitution
 \end{proof}
 
 %%% Local Variables: 
