@@ -376,13 +376,20 @@ $(b, r_1) = k$ & Contradiction \\
 \end{array}
 \)
 
-\item
+\item The Euclidean Algorithm:
 \begin{enumerate}
-\item Let $a$ and $b$ be arguments of GCD where (WLOG) $a > b$.
-\item If $b = 0$, $(a, b) = a$.
-\item If $b = 1$, $(a, b) = 1$.
-\item Else divide $a$ by $b$ such that ($a = nb + r$ and $0 \leq r \leq n - 1$)
-\item $(a, b) = (r, b)$
+\item Let $a$ and $b$ be arguments of GCD where (WLOG) $a > b > 0$.
+\item Find $q_0$ and $r_0$ such that $a = b \cdot q_0 + r_0$
+\item Observe $(a, b) = (b, r_1)$ by 1.33
+\item Find $q_1$ and $r_1$ such that $b = r_0 \cdot q_1 + r_1$
+\item Observe $(b, r_1) = (r_1, r_2)$ by 1.33
+\item Starting wtih $i = 2$, until $r_i = 0$:
+\begin{enumerate}
+\item Find $q_i$ and $r_i$ such that $r_{i - 2} = r_{i - 1} \cdot q_{i} + r_i$
+\item Observe $(r_{i - 1}, r_i) = (r_i, r_{i + 1})$ by 1.33
+\item Let $i := i + 1$
+\end{enumerate}
+\item $r_i = 0$, therefore $(a, b) = (r{i - 1}, 0) = r_{i - 1}$
 \end{enumerate}
 
 \item 
@@ -396,7 +403,25 @@ $(b, r_1) = k$ & Contradiction \\
 
 \item $x = 9$, $y = -47$
 
-\item IDK
+\item The Linear Diophantine Algorithm:
+\begin{enumerate}
+\item Complete the EA
+\item Recall the result: $r_i = 0$ and $r_{i - 1} = 1$
+\item Recall the second-to-last step: $r_{i - 3} = r_{i - 2} \cdot q_{i -} + r_i$
+\item Let Equation A represent: $r_{j - 2} - r_{j - 1} \cdot q_j = 1$
+\item Starting with $i := i - 1$, until $i = 0$:
+\begin{enumerate}
+\item Justification: $r_{i - 2} = r_{i - 1} \cdot q_{i} + r_{i}$ \\
+$r_{i - 2} - r_{i - 1} \cdot q_{i} = r_{i}$ \\
+$r_{i}$ is a linear combination of $r_{i - 1}$ and $r_{i - 2}$
+\item Substitute $r_{i}$ for $r_{i - 2} - r_{i - 1} \cdot q_{i}$ in Equation A
+\item $i := i - 1$
+\end{enumerate}
+\item Observe that the left hand side is a linear combination of $r_0$ and $r_1$
+\item Observere that the right hand side of Equation A is $1$
+\item Substitute $r_1 = b - r_0 \cdot q_0$, and substitue $r_0 = a - b \cdot q_0$
+\item Now a linear combination of $a$ and $b$ sums to $1$
+\end{enumerate}
 
 \item
 \begin{proof}
@@ -416,6 +441,53 @@ $a = dc \wedge b = ec \wedge (d, e) = 1$ & Definition of divides \\
 $\exists x, y \ni (dx + ey = 1)$ & Theorem 1.38 \\
 $ax + by = dcx + ecy = (dx + ey)c = 1c =  c$ & Algebra \\
 $ax + by = (a, b)$ & Substitution
+\end{proof}
+
+\item 
+\begin{proof}
+$a = a_0 a_1 \ldots a_{n} \wedge b = b_0 b_1 \ldots b_{n'} \wedge c = c_0 c_1 \ldots c_{n''}$ & Fundamental Theorem of 'rithmetic \\
+$A = \{a_0, a_1, \ldots a_{n} \} \wedge B = \{b_0, b_1, \ldots b_{n'} \} \wedge C = \{c_0, c_1, \ldots c_{n''} \}$ & Let \\
+$A \cap B = \emptyset $ & Coprime common factors lemma \\
+$A \subset (B \cup C)$ & Divisibility-subset lemma \\
+$\forall a_i \in A \{a \in (B \cup C)\}$ & Definition of subset \\
+$\forall a_i \in A \{a \in B \vee a \in C\}$ & Definition of union \\
+$\forall a_i \in A \{a \notin B\}$ & Null intersection \\
+$\forall a_i \in A \{a \in C\}$ & Disjunctive syllogism \\
+$A \subset C $ & Definition of subset \\
+$a|c$ & Subset divides superset lemma
+\end{proof}
+
+\item 
+\begin{proof}
+$A = \{\textrm{factors of a}\}, B = \{\textrm{factors of b}\}, N = \{\textrm{factors of n}\}$ & Fundamental theorem of 'rithmetic \\
+$A \subset N \wedge B \subset N$ & Divisibility-subset lemma \\
+$\forall a \in A \{a \in N\} \wedge \forall b \in B \{a \in N\}$ & Definition of Subset \\
+$A \cap B = \emptyset$ & Coprime common factors lemma \\
+$\forall a \in A \{a \notin B\} \wedge \forall b \in B \{b \notin A\}$ & Null intersection \\
+$\forall a \in A \{a \notin B \wedge a \in N\} \wedge \forall b \in B \{b \notin A \wedge b \in N\}$ & Conjunction Introduction \\
+$\forall c \in (A \cup B) \{c \in N\}$ & Definition of union (without duplicates) \\
+$(A \cup B) \subset N$ & Definition of subset \\
+$ab|n$ & Divisibility-subset lemma
+\end{proof}
+
+\item 
+\begin{proof}
+$A = \{\textrm{factors of a}\}, B = \{\textrm{factors of b}\}, N = \{\textrm{factors of n}\}$ & Fundamental theorem of 'rithmetic \\
+$A \cap N = \emptyset \wedge B \cap N = \emptyset$ & Coprime common factors lemma \\
+$\forall a \in A \{a \notin N\} \wedge \forall b \in B \{b \notin N\}$ & Null intersection \\
+$\neg(\exists a \in A \{a \in N\} \vee \exists b \in B {b \in N})$ & DeMorgan's \\
+$\neg \exists c \in (A \cup B) \{c \in N\}$ & Definition of union \\
+$\forall c \in (A \cup B) \{c \notin N\}$ & Quantificaional Negation \\
+$(A \cup B) \not\subset N$ & Definition of subset \\
+$(ab, n) = 1$ & Coprime common factors lemma
+\end{proof}
+
+\item 
+\begin{proof}
+$(n, c) = 1$ & Missing hypothesis \\
+$n|(ac - bc) = n|c(a - b)$ & Definition of mod \\
+$n|(a - b)$ & 1.41 \\
+$a \equiv b \pmod n$ & Definition of mod
 \end{proof}
 
 %%% Local Variables: 
