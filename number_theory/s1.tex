@@ -1,7 +1,7 @@
 \item 
 \begin{proof}
-$ma = b$ & Definition of `divides' \\
-$na = c$ & Definition of `divides' \\
+$ma = b \fs m$ & Definition of `divides' \\
+$na = c$ \fs n& Definition of `divides' \\
 $na + ma = b + c$ & Algebra \\
 $(n + m) a = b + c$ & Algebra \\
 $a | (b + c)$ & Definition of `divides'
@@ -16,8 +16,8 @@ $a | (b - c)$ & substitution
 
 \item 
 \begin{proof}
-$ma = b$ & Definition of `divides' \\
-$na = c$ & Definition of `divides' \\
+$ma = b \fs m$ & Definition of `divides' \\
+$na = c \fs n$ & Definition of `divides' \\
 $mana = b c$ & Algebra \\
 $a | bc$ & Definition of `divides'
 \end{proof}
@@ -32,14 +32,14 @@ $a^2 | bc$ & Definition of `divides'
 \textit{If $a|b$ then $a|b^n$}
 
 \begin{proof}
-$b = ka$ & Definition of `divides' \\
+$b = ka \fs k$ & Definition of `divides' \\
 $b^n = (ka)^n = k k^{(n-1)} a^n$ & Algebra \\
 $k | b^n$ & Definition of `divides'
 \end{proof}
 
 \item 
 \begin{proof}
-$ka = b$ & Definition of `divides' \\
+$ka = b \fs k$ & Definition of `divides' \\
 $ack = bc$ & Algebra \\
 $a|bc$ & Definition of `divides'
 \end{proof}
@@ -57,7 +57,7 @@ $a|bc$ & Definition of `divides'
 let $k$ be all the numbers \\
 where $k \equiv b \pmod 3$ \\
 $3 | (k - b)$ & Definition of `mod' \\
-$3n = k - b$ & Definition of `divides' \\
+$3n = k - b \fs n$ & Definition of `divides' \\
 $3n + k = n$ & Algebra
 \end{proof}
 \begin{enumerate}
@@ -78,7 +78,7 @@ $a \equiv 0 \pmod n$ & Definition of `mod'
 \item 
 \begin{proof}
 $n | (a - b)$ & Definition of `mod' \\
-$kn = a - b$ & Definition of `divides' \\
+$kn = a - b \fs k$ & Definition of `divides' \\
 $-kn = b - a$ & Algebra \\
 $n|(b - a)$ & Definition of `divides' \\
 $b \equiv a \pmod n$
@@ -182,7 +182,7 @@ $a \neq b$ \\
 \item 
 \begin{proof}
 $3|a$ & Premise (Base Case) \\
-$3|b$ & Let $b$ be an integer where\ldots (Inductive Hypothesis) \\
+$3|b$ & Let $b$ be an integer \ldots (Inductive Hypothesis) \\
 $3|9$ & Arithmetic \\
 $3|(9  b_k  10^{k - 1})$ & Theorem 1.3 \\
 $3|(b - 9  b_k  10^{k - 1})$ & Theorem 1.2 \\
@@ -304,7 +304,7 @@ $\neg \exists q', r' \in \mathbb{Z} (m = q'n + r' \wedge r' \neq r \wedge q' \ne
 \item 
 \begin{proof}
 $n|(a - b)$ & Definition of modulo \\
-$a - b = cn$ & Definition of divides \\
+$a - b = cn \fs c$ & Definition of divides \\
 $b = dn + e \wedge 0 \leq e \leq n - 1$ & Division algorithm \\
 $a - dn - e = cn$ & Algebra \\
 $a = (c + d)n + e \wedge 0 \leq e \leq n - 1$ & Algebra \\
@@ -315,8 +315,8 @@ Therefore, same remainder (namely $e$) &
 \end{proof}
 
 \begin{proof}
-$a = cn + r$ & Let \\
-$b = dn + r$ & Let \\
+$a = cn + r$ & Let $r$\\
+$b = dn + r$ & Let $r$\\
 $a - b = cn - dn = (c - d)n$ & Algebra \\
 $n|(a - b)$ & Definition of divides \\
 \end{proof}
@@ -427,7 +427,7 @@ $r_{i}$ is a linear combination of $r_{i - 1}$ and $r_{i - 2}$
 \begin{proof}
 $(a, b) = c$ & Let \\
 $c|a \wedge c|b$ & Definition of GCD \\
-$a = dc \wedge b = ec$ & Definition of divides \\
+$a = dc \fs d \wedge b = ec \fs e$ & Definition of divides \\
 $ax + by = 1$ & Premise \\
 $dcx + ecy = (dx + ey)c = 1$ & Algebra \\
 $c = 1$ & Multiplication over integers
@@ -437,7 +437,7 @@ $c = 1$ & Multiplication over integers
 \begin{proof}
 $(a, b) = c$ & Let \\
 $c|a \wedge c|b$ & Definition of GCD \\
-$a = dc \wedge b = ec \wedge (d, e) = 1$ & Definition of divides \\
+$a = dc \fs d \wedge b = ec \fs e \wedge (d, e) = 1$ & Definition of divides \\
 $\exists x, y \ni (dx + ey = 1)$ & Theorem 1.38 \\
 $ax + by = dcx + ecy = (dx + ey)c = 1c =  c$ & Algebra \\
 $ax + by = (a, b)$ & Substitution
@@ -445,42 +445,59 @@ $ax + by = (a, b)$ & Substitution
 
 \item 
 \begin{proof}
-$a = a_0 a_1 \ldots a_{n} \wedge b = b_0 b_1 \ldots b_{n'} \wedge c = c_0 c_1 \ldots c_{n''}$ & Fundamental Theorem of 'rithmetic \\
-$A = \{a_0, a_1, \ldots a_{n} \} \wedge B = \{b_0, b_1, \ldots b_{n'} \} \wedge C = \{c_0, c_1, \ldots c_{n''} \}$ & Let \\
-$A \cap B = \emptyset $ & Coprime common factors lemma \\
-$A \subset (B \cup C)$ & Divisibility-subset lemma \\
-$\forall a_i \in A \{a \in (B \cup C)\}$ & Definition of subset \\
-$\forall a_i \in A \{a \in B \vee a \in C\}$ & Definition of union \\
-$\forall a_i \in A \{a \notin B\}$ & Null intersection \\
-$\forall a_i \in A \{a \in C\}$ & Disjunctive syllogism \\
-$A \subset C $ & Definition of subset \\
-$a|c$ & Subset divides superset lemma
+$bc = ka \fs k$ & Definition of divides \\
+$ax + by = 1$ & 1.38 \\
+$axc + byc = c = axc + kay  = c = a(xc + ky) = c$ & Algebra \\
+$a|c$ & Definition of divides
 \end{proof}
+% \begin{proof}
+% $a = a_0 a_1 \ldots a_{n} \wedge b = b_0 b_1 \ldots b_{n'} \wedge c = c_0 c_1 \ldots c_{n''}$ & Fundamental Theorem of 'rithmetic \\
+% $A = \{a_0, a_1, \ldots a_{n} \} \wedge B = \{b_0, b_1, \ldots b_{n'} \} \wedge C = \{c_0, c_1, \ldots c_{n''} \}$ & Let \\
+% $A \cap B = \emptyset $ & Coprime common factors lemma \\
+% $A \subset (B \cup C)$ & Divisibility-subset lemma \\
+% $\forall a_i \in A \{a \in (B \cup C)\}$ & Definition of subset \\
+% $\forall a_i \in A \{a \in B \vee a \in C\}$ & Definition of union \\
+% $\forall a_i \in A \{a \notin B\}$ & Null intersection \\
+% $\forall a_i \in A \{a \in C\}$ & Disjunctive syllogism \\
+% $A \subset C $ & Definition of subset \\
+% $a|c$ & Subset divides superset lemma
+% \end{proof}
 
 \item 
 \begin{proof}
-$A = \{\textrm{factors of a}\}, B = \{\textrm{factors of b}\}, N = \{\textrm{factors of n}\}$ & Fundamental theorem of 'rithmetic \\
-$A \subset N \wedge B \subset N$ & Divisibility-subset lemma \\
-$\forall a \in A \{a \in N\} \wedge \forall b \in B \{a \in N\}$ & Definition of Subset \\
-$A \cap B = \emptyset$ & Coprime common factors lemma \\
-$\forall a \in A \{a \notin B\} \wedge \forall b \in B \{b \notin A\}$ & Null intersection \\
-$\forall a \in A \{a \notin B \wedge a \in N\} \wedge \forall b \in B \{b \notin A \wedge b \in N\}$ & Conjunction Introduction \\
-$\forall c \in (A \cup B) \{c \in N\}$ & Definition of union (without duplicates) \\
-$(A \cup B) \subset N$ & Definition of subset \\
-$ab|n$ & Divisibility-subset lemma
+$n = ia \fs i \wedge n = jb \fs j$ & Definition of divides \\
+$ax + by = 1$ & 1.38 \\
+$axn + byn = n = axjb + byia = n = ab(xj + ui) = n$ & Algebra \\
+$ab|n$ & Definitin of divides
 \end{proof}
+% \begin{proof}
+% $A = \{\textrm{factors of a}\}, B = \{\textrm{factors of b}\}, N = \{\textrm{factors of n}\}$ & Fundamental theorem of 'rithmetic \\
+% $A \subset N \wedge B \subset N$ & Divisibility-subset lemma \\
+% $\forall a \in A \{a \in N\} \wedge \forall b \in B \{a \in N\}$ & Definition of Subset \\
+% $A \cap B = \emptyset$ & Coprime common factors lemma \\
+% $\forall a \in A \{a \notin B\} \wedge \forall b \in B \{b \notin A\}$ & Null intersection \\
+% $\forall a \in A \{a \notin B \wedge a \in N\} \wedge \forall b \in B \{b \notin A \wedge b \in N\}$ & Conjunction Introduction \\
+% $\forall c \in (A \cup B) \{c \in N\}$ & Definition of union (without duplicates) \\
+% $(A \cup B) \subset N$ & Definition of subset \\
+% $ab|n$ & Divisibility-subset lemma
+% \end{proof}
 
 \item 
 \begin{proof}
-$A = \{\textrm{factors of a}\}, B = \{\textrm{factors of b}\}, N = \{\textrm{factors of n}\}$ & Fundamental theorem of 'rithmetic \\
-$A \cap N = \emptyset \wedge B \cap N = \emptyset$ & Coprime common factors lemma \\
-$\forall a \in A \{a \notin N\} \wedge \forall b \in B \{b \notin N\}$ & Null intersection \\
-$\neg(\exists a \in A \{a \in N\} \vee \exists b \in B {b \in N})$ & DeMorgan's \\
-$\neg \exists c \in (A \cup B) \{c \in N\}$ & Definition of union \\
-$\forall c \in (A \cup B) \{c \notin N\}$ & Quantificaional Negation \\
-$(A \cup B) \not\subset N$ & Definition of subset \\
-$(ab, n) = 1$ & Coprime common factors lemma
+$ax + ny = 1 \fs x, y \wedge bw + nz = 1\fs w, z$ & Theorem 1.38 \\
+$(ax + ny)(bw + nz) = 1 = abxw + n(axz + ybw + yzn)$ & Algebra \\
+$(ab, n) = 1$ & Theorem 1.38 (converse) \\
 \end{proof}
+% \begin{proof}
+% $A = \{\textrm{factors of a}\}, B = \{\textrm{factors of b}\}, N = \{\textrm{factors of n}\}$ & Fundamental theorem of 'rithmetic \\
+% $A \cap N = \emptyset \wedge B \cap N = \emptyset$ & Coprime common factors lemma \\
+% $\forall a \in A \{a \notin N\} \wedge \forall b \in B \{b \notin N\}$ & Null intersection \\
+% $\neg(\exists a \in A \{a \in N\} \vee \exists b \in B {b \in N})$ & DeMorgan's \\
+% $\neg \exists c \in (A \cup B) \{c \in N\}$ & Definition of union \\
+% $\forall c \in (A \cup B) \{c \notin N\}$ & Quantificaional Negation \\
+% $(A \cup B) \not\subset N$ & Definition of subset \\
+% $(ab, n) = 1$ & Coprime common factors lemma
+% \end{proof}
 
 \item 
 \begin{proof}
@@ -488,6 +505,127 @@ $(n, c) = 1$ & Missing hypothesis \\
 $n|(ac - bc) = n|c(a - b)$ & Definition of mod \\
 $n|(a - b)$ & 1.41 \\
 $a \equiv b \pmod n$ & Definition of mod
+\end{proof}
+
+\item See 1.44
+
+\item $c = k (a, b) \fs k$
+
+\item Given integers $a$, $b$, and $c$, there exist integers $x$ and $y$ that satisfy the equation if and only if $c = k (a, b) \fs k$
+
+\item 
+\begin{proof}
+Show: $ax + by = c \rightarrow (a, b)|c$ \\
+$(a, b)|a \wedge (a, b)|b$ & Definition of GCD \\
+$(a, b)|ax \wedge (a, b)|by$ & Theorem 1.3 \\
+$(a, b)|(ax + by)$ & Theorem 1.1 \\
+$(a, b)|c$ \\
+Show: $(a, b)|c \leftarrow \exists x, y \{ax + by = c\}$ \\
+$au + bv = (a, b)$ & Theorem 1.40 \\
+$c = k(a, b)$ & Definition of divides \\
+$kau + kbv = k(a, b) = c$ & Algebra \\
+Putting the two halves together \\
+$ax + by = c \leftrightarrow (a, b)|c$ & 
+\end{proof}
+
+\item 
+The linear diophantine equation can be represented as a line on a grid. \\
+$ax + by = c$ \\
+$y = -\frac{a}{b}x + \frac{c}{b}$ \\
+The slope of this line is $-a/b$. \\
+First we must simplify the fraction: $-\frac{a}{b} = -\frac{{a} / {(a, b)}}{{b} / {(a, b)}}$ \\
+ Given one point, moving $\frac{b}{(a, b)}$ on the x-coordinate to the right moves $\frac{a}{(a, b)}$ down on the y-coordinate by the properties of slope. \\
+$(y - \frac{a}{(a, b)}) = -{\frac{a}{(a, b)}} / {\frac{b}{(a, b)}}(x + \frac{b}{(a, b)}) + \frac{c}{b}$ \\
+$\frac{6}{(6, 15)} = 2 \wedge \frac{15}{(6, 15)} = 5$ \\
+$6 \cdot (-3 + 5) + 15 \cdot (5 - 2) = 12 = 6 \cdot 2 = 12$ \\
+$\forall c, d \in \mathbb{Z} \{6 \cdot (-3 + 5c) + 15 \cdot (5 - 2d) = 12\}$ \\
+
+\item 
+$\forall a, b \{31 \cdot (30 - 21a) + 21 \cdot (40 + 31b) = 1770\}$ \\
+
+\item 
+\begin{proof}
+$ax_0 + by_0 = c$ & Premise \\
+$a(x_0 + \frac{b}{(a, b)}) + b(y_0 - \frac{a}{(a, b)}) = ax_0 + \frac{ab}{(a, b)} + by_0 - \frac{ab}{(a, b)}$ & Distributive property \\
+$ax_0 + \frac{ab}{(a, b)} + by_0 - \frac{ab}{(a, b)} = ax_0 + by_0$ & Commutative property \\
+$a(x_0 + \frac{b}{(a, b)}) + y(y_0 - \frac{a}{(a, b)}) = c$ & Substitution 
+\end{proof}
+
+\item See 1.51 and 1.53
+
+\item 
+\begin{proof}
+$ax + by = c$ \\
+$(a, b)|a \wedge (a, b)|b$ & Definition of GCD \\
+$(a, b)|c$ & Theorem 1.40 \\
+$p(a, b) = c \wedge m(a, b) = a \wedge n(a, b) = b$ & Definition of divides \\
+$m = \frac{a}{(a, b)} \wedge n = \frac{b}{(a, b)}$ & Algebra* \\
+$(m, n) = 1$ & Lemma \\
+$mx + ny = p$ & Algebra \\
+$m(x + h) + n(y - k) = p \fs h, k \in \mathbb{Z}$ & Let \\
+$mx + mh + ny - nk = mx + ny$ & Distributive \\
+$mh = nk$ & Algebra \\
+$m|mh \wedge m|nk$ & Definition of divides \\
+$m|k$ & Theorem 1.41 (recall $(m, n) = 1$) \\
+$k = mj \fs j \in \mathbb{Z}$ & Definition of divides* \\
+$mh = nmj$ & Substitution \\
+$h = nj$ & Algebra* \\
+$k = \frac{aj}{(a, b)} \wedge h = \frac{jb}{(a, b)}$ & Substitution (steps with asterisks in them)
+\end{proof}
+
+\item $(24, 9) = 3$ \\
+$24 \cdot 1 + 9 \cdot 1 = 33$ \\
+$\forall x, y \in \mathbb{Z} \{24 \cdot (1 + 3n) + 9 \cdot (1 - 8m) = 33\}$
+
+\item 
+First without Diophantine equations:
+
+\begin{proof}
+{Show that $k \cdot \gcd(a, b)$ is a common divisor} \\
+$ \gcd(a, b)|a \wedge \gcd(a, b)|b$ & Definition of GCD \\
+$m \cdot \gcd(a, b) = a \fs m$ \\ $n \cdot \gcd(a, b) = b \fs n$ & Definition of divides \\
+$km \cdot \gcd(a, b) = ka \wedge kn \cdot \gcd(a, b) = b$ & Algebra \\
+$k \cdot \gcd(a, b)|a \wedge k \cdot \gcd(a, b)|b$ & Definition of divides \\
+\hline
+{Show that $k \cdot \gcd(a, b)$ is the \textbf{greatest}} \\
+{common divisor by contradiction} \\
+$h > k \cdot \gcd(a, b) \wedge h|ka \wedge h|kb$ & Assume (for contradiction) \\
+$h = k \cdot \gcd(a, b) \cdot j \fs j$ & \textbf{Unjustified Step} \\
+$(k \cdot \gcd(a, b) \cdot j)|ka \wedge (k \cdot \gcd(a, b) \cdot j)|kb$ & Substitution \\
+$mjk \cdot \gcd(a, b) = ka \fs m $ \\ $njk \cdot \gcd(a, b) = kb \fs n$ & Definition of divides \\
+$mj \cdot \gcd(a, b) = a \wedge nj \cdot \gcd(a, b) = b$ & Algebra \\
+$j \cdot \gcd(a, b)|a \wedge j \cdot \gcd(a, b)|b$ & Definition of divides (contradicts GCD) \\
+$\neg \exists h \{h > k \cdot \gcd(a, b) \wedge h|ka \wedge h|kb\}$ & Contradiction
+\end{proof}
+
+The book doesn't give a very good definition of GCD. Let $\gcd(a, b) = c$ if and only if $a = m c \fs m \in \mathbb{Z}$ and, $b = n c \fs n \in \mathbb{Z}$, and (crucially) $\gcd(m, n) = 1$
+
+\begin{proof}
+$\gcd(a, b) = c$ & Let \\
+$a = cj \wedge b = ci \fs j, i \in \mathbb{Z}$ & Revised definition of GCD \\
+$\gcd(i, j) = 1$ & Revised definition of GCD \\
+$ka = kcj \wedge kb = kci$ & Substitution \\
+$\gcd(ka, kb) = kc$ & Reivsed definition of GCD \\
+& (referencing previous two steps) \\
+$\gcd(ka, kb) = kc = k \cdot \gcd(a, b)$ & Substitution
+\end{proof}
+
+\item Here is my definifion of LCM. Let $a = \gcd(a, b) \cdot h \fs h \in \mathbb{Z}$ and $b = \gcd(a, b) \cdot k \fs k \in \mathbb{Z}$. I define the LCM such that $\lcm(a, b) = hk \cdot \gcd(a, b)$
+
+\item 
+\begin{proof}
+$a = h \cdot \gcd(a, b) \fs h \in \mathbb{Z}$ \\
+$b = k \cdot \gcd(a, b) \fs k \in \mathbb{Z}$ & Let \\
+$\lcm(a, b) = h k \cdot \gcd(a, b)$ & Definition of LCM \\
+$\gcd(a, b) \cdot \lcm(a, b) = h k \cdot \gcd(a, b) \cdot \gcd(a, b) = a b$ & Substitution
+\end{proof}
+
+\item
+\begin{proof}
+$\lcm(a, b) = ab$ & Premise \\
+$\lcm(a, b) = ab \cdot \gcd(a, b)$ & Previous theorem \\
+$ab \cdot \gcd(a, b) = ab$ & Substitution \\
+$\gcd(a, b) = 1$ & Identity property
 \end{proof}
 
 %%% Local Variables: 
