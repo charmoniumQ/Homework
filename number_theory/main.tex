@@ -14,12 +14,24 @@
 \usepackage[letterpaper, margin=1in]{geometry} % for margins
 \usepackage{setspace} % for \singlespace
 \usepackage{enumitem} % for [leftmargin=]
+\usepackage[pdftex]{graphicx}
 \usepackage{adjustbox}
 \usepackage{tabularx} % for proofs spanning multiple pages
 \usepackage{longtable}
-\newcommand{\fs}{\textrm{~for some~}}
-\newcommand{\lcm}{\textrm{lcm}}
-\newenvironment{proof}{\begin{tabular}[t]{l l}}{\tiny {$~\blacksquare$} \\ \end{tabular}}
+\usepackage{python}
+\usepackage{cancel}
+\usepackage{tikz}
+\usepackage{pifont}
+\newcommand{\fs}{\textrm{\ for some\ }}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newenvironment{proof}{
+\mbox{}\vspace*{-1.68\baselineskip}
+%\setlength{\LTleft}{\leftmargin}
+\begin{longtable}[l]{@{} l l}
+}{
+\tiny {$~\blacksquare$}
+\end{longtable}
+}
 \begin{document}
 \singlespacing % remove if no package setspace
 
@@ -47,8 +59,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \item 
 \begin{enumerate}[leftmargin=0mm]
+%\setcounter{enumi}{1}
+%\setcounter{enumii}{0}
+%\input{s1.tex}
 
-\input{s1.tex}
+%\hrule
+
+\setcounter{enumi}{2}
+\setcounter{enumii}{0}
+\input{s2.tex}
 
 \end{enumerate}
 \end{enumerate}

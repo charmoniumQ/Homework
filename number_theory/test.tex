@@ -1,0 +1,203 @@
+\documentclass[12pt,letterpaper]{article}
+%\usepackage{ifpdf,mla}
+\usepackage{amssymb} % for $\blacksquare$ and $\therefore$
+\usepackage[letterpaper, margin=1in]{geometry} % for margins
+\usepackage{setspace} % for \singlespace
+\usepackage{enumitem} % for [leftmargin=]
+\usepackage{adjustbox}
+\usepackage{tabularx} % for proofs spanning multiple pages
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{longtable}
+\newcommand{\fs}{\textrm{~for some~}}
+\newcommand{\lcm}{\textrm{lcm}}
+\newenvironment{proof}{
+\mbox{}\vspace*{-1.68\baselineskip}
+%\setlength{\LTleft}{\leftmargin}
+\begin{longtable}[l]{@{} l l}
+}{
+\tiny {$~\blacksquare$}
+\end{longtable}
+}
+\begin{document}
+\singlespacing % remove if no package setspace
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+{\Large Sam Grayson: Test 1} \\
+\today
+\end{center}
+
+All new numbers instantiated with `for some' are assumed to be integers.
+
+\begin{enumerate}[leftmargin=0cm]
+
+\item 
+$\{a, b \in \mathbb{N} \wedge a|b \wedge b|a\} \rightarrow (a = b) $
+
+\begin{proof}
+$a = bc \fs c$ \\
+$b = da \fs d$ & Definition of divides \\
+$a = cda$ & Substitution \\
+$cd = 1$ & Identity property \\
+$c = \pm 1 \wedge d = \pm 1$ & Algebra \\
+$a = \pm b$ & Substitution \\
+$a = b$ & Eliminating extraneous solutions \\
+& (noting $a, b \in \mathbb{N}$)
+\end{proof}
+
+\item 
+$\{a, b, c \in \mathbb{Z} \wedge c > 0 \wedge a \equiv b \pmod c\} \rightarrow (a, c) = (b, c) $
+
+\begin{proof}
+$c|(b - a)$ & Definition of modulo \\
+$cn = b - a$ & Definition of divides \\
+$(a, c) = d$ & Let \\
+$(a, c)|a \wedge (a, c)|c$ & Definition of GCD \\
+\end{proof}
+
+\item 
+$\{a, b, d \in \mathbb{Z} \wedge (a \neq 0 \vee b \neq 0) \wedge d > 0 \wedge d|a \wedge d|b\} \rightarrow d|(a, b)$
+
+\begin{proof}
+$d \neg (a, b)$ & Assume for contradiction \\
+$(a, b)|a \wedge (a, b)|b$ & Definition of GCD \\
+$m (a, b) = a \wedge n (a, b) = b \fs m, n$ & Definition of divides \\
+$(m, n) = 1$ & Test question 4 \\
+$d|m (a, b) \wedge d|n (a, b)$ & Substitution \\
+$(d, (a, b)) = 1$ & Contradictive assumption\\
+$d|m \wedge d|n$ & Theorem 1.41 \\
+$(m, n) > d$ & Definition of GCD \\
+This contradicts $(m, n) = 1$ \\
+$a | (a, b)$ & Contradiction
+\end{proof}
+
+$\gcd(0, 0)$ is undefined. That is why we must specify that $a$ and $b$ are not both zero.
+
+\item
+$d = (a, b) \rightarrow (\frac{a}{d}, \frac{b}{d}) = 1$
+
+\begin{proof}
+$d|a \wedge d|b$ & Definition of GCD \\
+$d \frac{a}{d} = a \wedge d \frac{b}{d} = b \fs \frac{a}{d}, \frac{b}{d}$ & Definition of divides \\
+$c = (\frac{a}{d}, \frac{b}{d}) \wedge \fs c $ & Let \\
+$c \neq 1$ & Assume for contradiction \\
+$c|\frac{a}{d} \wedge c|\frac{b}{d}$ & Definition of GCD \\
+$c \frac{a}{dc} = \frac{a}{d} \wedge c \frac{b}{dc} = \frac{b}{d} \fs \frac{a}{dc}, \frac{b}{dc}$ & Definition of divides \\
+$d c \frac{a}{dc} = a \wedge d c \frac{b}{dc} = b$ & Substitution \\
+$dc | a \wedge dc | b$ \\
+We don't know if dc is positive or negative \\
+Therefore I try both \\
+$-d c (-\frac{a}{dc}) = a \wedge -d c (-\frac{b}{dc}) = b$ & Substitution \\
+$-dc | a \wedge -dc | b$ & Definition of divides \\
+$dc > d \vee -dc > d$ & Property of inequality \\
+$(a, b) > dc \vee (a, b) > -dc$ & Definition of GCD \\
+\parbox[t]{11cm}{Either way, I have found a common divisor (namely $dc$ or $-dc$) greater than $d$. This contradicts the definition of GCD.}\\
+$c = 1$ & Contradiction \\
+$1 = (\frac{a}{d}, \frac{b}{d})$ & Substitution
+\end{proof}
+
+\item Let $a = 6$, $b = 2$, $c = 3$.
+\begin{itemize}
+\item $a|(bc)$ since $6 | 6$
+\item $a \not | b$ since $6 \not | 2$
+\item $a \not | c$ since $6 \not | 3$
+\end{itemize}
+
+\item
+$\{a, b, c, n_1, n_2 \in \mathbb{Z} \wedge a \equiv b \pmod{n_1} \wedge a \equiv c \pmod{n_2}\} \rightarrow b \equiv c \pmod{(n_1, n_2)}$
+
+\item % Question 7
+\begin{enumerate} % part  a, b, c
+\item 
+\begin{enumerate} % steps 1, 2, 3...
+\item $2072 = 1813 \cdot 1 + 259$. Therefore $(2072, 1813) = (1813, 259)$
+\item $1813 = 259 \cdot 7 + 0$. Therefore $(1813, 259) = (259, 0) = 259$
+\item Therefore $(2072, 1813) = 259$
+\end{enumerate}
+\item 
+$2072 = 1813 \cdot 1 + 259$ \\
+$1813 = 259 \cdot 7$ \\
+$2072 = (259 \cdot 7) + 259$ \\
+$2072 = 259 \cdot 8$ \\
+$2072 x + 1813 y = 2048$ \\
+$259 \cdot 8 x + 259 \cdot 7 y = 2048 = 11 \cdot 259$ \\
+$259 \cdot (8x + 7y) = 259 \cdot 11$ \\
+$259 \cdot 11 \cdot (8 + (-7)) = 259 \cdot 11$ \\
+$259 \cdot (8 \cdot 11 + 7 \cdot (-11)) = 2849$ \\
+$8 \cdot 259 \cdot 11 + 7 \cdot 259 \cdot (-11) = 2849$ \\
+$2072 \cdot 11 +  1813 \cdot (-11) = 2849$ \\
+$x = 11 \wedge y = -11$ \\
+\item 
+$259 \cdot (8x + 7y) = 259 \cdot 11$ \\
+$259 \cdot 11 \cdot (8 + (-7) + 0) = 259 \cdot 11$ \\
+$259 \cdot 11 \cdot (8 \cdot 1 + 7 \cdot (-1) + 0) = 259 \cdot 11$ \\
+$259 \cdot 11 \cdot (8 \cdot 1 + 7 \cdot (-1) + 8 \cdot 7 - 7\cdot 8) = 259 \cdot 11$ \\
+$259 \cdot 11 \cdot (8 \cdot (1 - 7) + 7 \cdot (-1 + 8)) = 259 \cdot 11$ \\
+$259 \cdot 11 \cdot (8 \cdot (-6) + 7 \cdot 7) = 2849$ \\
+$259 \cdot (8 \cdot (-66) + 7 \cdot 77) = 2849$ \\
+$8 \cdot 259 \cdot (-66) + 7 \cdot 259 \cdot 77 = 2849$ \\
+$2072 \cdot (-66) + 1813 \cdot 77 = 2849$ \\
+$x = -66 \wedge y = 77$ \\
+\end{enumerate}
+
+\item
+$\{a, b, c \in \mathbb{Z} \wedge (a \neq 0 \vee b \neq 0) \wedge c \neq 0\} \rightarrow (ca, cb) = |c|(a, b)$
+
+$|x| = \left \{ \begin{array}{cc} x & x \geq 0 \\ -x & x < 0\end{array} \right. $
+
+\begin{proof}
+$c \in \mathbb{Z} \backslash \{0\}$ & Premise \\
+Either $c>0 \vee c = 0 \vee c < 0$ & Trichotomy \\
+$c \neq 0$ & Premise \\
+Temporarily assume $c > 0$ \\
+$|c| = c$ & Definition of absolute value \\
+$|c| \in \mathbb{N}$ & Definition of $\mathbb{N}$ \\
+$(ca, cb) = (|c|a, |c|b)$ & Substitution \\
+$(|c|a, |c|b) = |c|(a, b)$ & Theorem 1.55 \\
+Temporarily assume $c < 0$ \\
+$|c| = -c$ & Definition of absolute value \\
+$-c > 0$ & Property of inequalities \\
+& (multiplying by $-1$ flips direction) \\
+$-c \in \mathbb{Z}$ & Definition of $\mathbb{N}$ \\
+$(-ca, -cb) = -c(a, b)$ & Theorem 1.55 \\
+$(|c|a, |c|b) = |c|(a, b)$ & Substitution \\
+All possibilities were tried \\
+$(|c|a, |c|b) = |c|(a, b)$ & Constructive Dilemma
+\end{proof}
+
+\item 
+
+\item {\textbf{Problem:} $\forall n \in \mathbb{N} \{ 6|(n^3 + 5n)\}$
+
+\textbf{Lemma:} $6|(3n(n^2 + 1))$
+
+Assume $n$ is odd, such that $n = 2k+1$. $3n(n^2 + 1) = 3n(4k^2 + 2k + 1 + 1) = 6n(2k^2 + k + 1)$. Therefore $3n(n^2 + 1)$ is divisible by $6$.
+
+Assume $n$ is even, such that $n = 2k$. $3n(n^2 + 1) = 6k(n^2 + 1)$. Therefore $3n(n^2 + 1)$ is divisible by $6$.
+
+Therefore, for any integer $n$, $3n(n^2 + 1)$ is divisible by $6$. $\square$
+
+\textbf{Proof:}
+
+Let $n = 1$. $n^3 + 5n$ is divisible by $6$, because $n^3 + 5n = 6$.
+
+Assume $n^3 + 5n$ is divisible by $6$.
+
+$(n+1)^3 + 5(n+1) = (n^3 + 3n^2 + 3n + 1) + (5n + 5) = (n^3 + 5n) + (3n^2 + 3n + 6)$
+
+Therefore $(n+1)^3 + 5(n+1)$ is the sum of things divisible by six (namely $(n^3 + 5n)$, $3n(n^2 + 1)$, and $6$).
+
+Therefore, by the induction axiom, $n^3 + 5n$ is divisible by $6$.
+}
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
