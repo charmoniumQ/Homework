@@ -12,7 +12,7 @@ $\forall a, b \in \mathbb{N} \neg(p = ab \wedge 1 < a < p) $ & Quantifier exchan
 $\neg (p = ab \wedge 1 < a < p) $ & Universal instantiation \\
 $\neg (p = ab) \wedge \neg (1 < a < p) $ & DeMorgan's law \\
 $p = ab \rightarrow \neg (1 < a < p) $ & Conditional disjunction \\
-$p = ab \rightarrow \neg 1 < a \wedge a < p $ & Property of inequality \\
+$p = ab \rightarrow \neg (1 < a \wedge a < p) $ & Property of inequality \\
 $p = ab \rightarrow \neg (1 < a) \vee \neg (a < p) $ & DeMorgan's law \\
 $p = ab \rightarrow 1 \geq a \vee a \geq p $ & Property of inequality \\
 $p = ab \rightarrow (1 = a \wedge a \geq p) $ & Property of Natural numbers \\
@@ -28,9 +28,9 @@ $\neg (\forall d (d \mid n \rightarrow (d = 1 \vee d = n)))$ & Definition of pri
 $\exists d \neg (d \mid n \rightarrow (d = 1 \vee d = n))$ & Quantifier exchange \\
 $\exists d \neg (\neg(d \mid n) \vee (d = 1 \vee d = n))$ & Conditional disjunction \\
 $\exists d \neg \neg (d \mid n) \wedge \neg (d = 1 \vee d = n)$ & DeMorgan's law \\
-$\exists d d \mid n \wedge \neg (d = 1 \vee d = n)$ & Double Negation \\
-$\exists d d \mid n \wedge \neg d = 1 \wedge \neg d = n$ & DeMorgan's law \\
-$\exists d d \mid n \wedge 1 < d < n$ & Inequality over naturals \\
+$\exists d (d \mid n \wedge \neg (d = 1 \vee d = n))$ & Double Negation \\
+$\exists d (d \mid n \wedge d \neq 1 \wedge d \neq n)$ & DeMorgan's law \\
+$\exists d (d \mid n \wedge 1 < d < n)$ & Inequality over naturals \\
 $\exists d \exists c (cd = n) \wedge 1 < d < n$ & Definition of divides \\
 $\exists d \exists c (cd = n \wedge 1 < c < n) \wedge 1 < d < n$ & Inequality over naturals \\
 $p$ is composite
@@ -50,22 +50,24 @@ $a \mid c$ & Definition of divides
 Theorem: $n \in \mathbb{N} \wedge n \neq 1 \rightarrow \exists p (p \in \mathbb{P} \wedge p \mid n)$
 
 \begin{proof}
-If $p \in \mathbb{P}$ & \\
+Assume: $p \in \mathbb{P}$ & \\
 $p = 1p$ & Identity of Multiplication \\
-$p \mid p$ & Definition of divides $\square$ \\
-Otherwise, $p \notin \mathbb{P}$ \\
+Conclude: $p \mid p$ & Definition of divides $\square$ \\
+Otherwise: $p \notin \mathbb{P}$ \\
 Follow this algorithm: \\
+\textbf{Initial step:} \\
 $p = a_1 b_1 \wedge 1 < a_1, b_1 < p \fs a_1, b_1$ & Definition of composite ($\notin \mathbb{P}$) \\
 $a_1 \mid p$ & Definition of divides \\
-If $a_1 \in \mathbb{P}$ halt \\
-Otherwise $a_1 \notin \mathbb{P}$ \\
+If $a_1 \in \mathbb{P}$: halt \\
+Otherwise: $a_1 \notin \mathbb{P}$ \\
 $a_1 = a_2 b_2 \wedge 1 < a_2 < a_1 < p$ & Definition of composite \\
-\vdots \\
+Repeat with \(a_1 \gets a_2\) \\
+\textbf{\(i\)th step} \\
 $a_i = a_{i+1} b_{i+2} \wedge 1 < a_i < a_{i-1} < \underbrace{\dots}_{i \mathrm{~times}} < p$ & Definition of composite \\
 $a_{i+1} \mid a_{i}$ & Definition of divides \\
 If $a_i \in \mathbb{P}$ halt \\
-Otherwise $a_i \notin \mathbb{P}$ and repeat \\
-\vdots \\
+Otherwise $a_i \notin \mathbb{P}$ and repeat\\
+\textbf{Result:} \\
 $a_{n - 1} = a_n b_n \wedge 1 < a_n < \underbrace{\dots}_{p \mathrm{~times}} < p$ \\
 There can not be $p$ unique numbers between $1$ and $p$\\
 Therefore this process must terminate (call that place $a_j$) & Algorithm halts\\
@@ -115,7 +117,7 @@ $101 < 121$ \\
 $\sqrt{101} < \sqrt{121}$ since they are all positive \\
 $\sqrt{101} < 11$ \\
 $\{p \mid p \in \mathbb{P} \wedge p < 11\} = \{2, 3, 5, 7\}$ \\
-$2 \not \mid 101 \wedge 3 \not \mid 101 \wedge 5 \not \mid 101 \wedge 7 \not \mid 101$ \\
+$2 \nmid 101 \wedge 3 \nmid 101 \wedge 5 \nmid 101 \wedge 7 \nmid 101$ \\
 $\therefore 101 \in \mathbb{P}$
 
 \item 
@@ -142,28 +144,53 @@ The blue line is $\frac{\Pi(x)}{x}$.
 
 The green line is $\frac{1}{\ln(x)}$
 
-\includegraphics[width=5.5in]{primes_small.png}
+\includegraphics[width=6in]{primes_small.png}
 
-\includegraphics[width=5.5in]{primes_large.png}
+\includegraphics[width=6in]{primes_large.png}
 
-\item Every natural number excluding one has a prime factorization.
+\item Every natural number \(n\) excluding one can be written as the product of primes \(\{p_1, p_2, \dots, p_m\}\) raised to natural-number powers \(\{t_1, t_2, \dots, t_m\}\). (In other words \(n = p_1^{t_1} p_2^{t_2} \dots p_m^{t_m}\).)
 
-$\forall_{n \in \mathbb{N}\backslash\{1\}} (\exists _{\{p_1, p_2, \dots, p_n\} \subset \mathbb{P}} ~ \exists _{\{r_1, r_2, \dots r_3\} \subset \mathbb{N}} (\prod\limits^i p_i^{r_i} = n))$
+\begin{proof}
+\(n \in \mathbb{N} \wedge n \neq 1\) & Premise \\
+\(\exists p_1 (p_1 \mid n)\) & Theorem 2.1 \\
+\(\frac{n}{p_1} = 1 \vee \frac{n}{p_1} \neq 1\) & Excluded Middle \\
+&\(\frac{n}{p_1}\) is legal since \(p_1 | n\) \\
+Assume: \(\frac{n}{p_1} = 1\) \\
+Conclude: \(n = p_1\) & Algebra \\
+Otherwise: \(\frac{n}{p_1} \neq 1\) \\
+Conclude: \(\exists p_2 (p_2 \mid \frac{n}{p_1})\) & Theorem 2.1 \\
+Follow this algorithm: \\
+\textbf{Initial step:} \\
+If \(\frac{n}{p_1 p_2} = 1\): \\
+Conclude: \(p_1 p_2 = n\) \\
+Otherwise: \(\exists p_3 (p_3 \mid \frac{n}{p_1 p_2})\) & Theorem 2.1
+Repeat with \(\frac{n}{p_1 p_2} \gets \frac{n}{p_1 p_2 p_3}\) \\
+\textbf{\(i\)th step:} \\
+If \(\frac{n}{p_1 p_2 \dots p_i} = 1\): \\
+Conclude: \(p_1 p_2 \dots p_i = n\) \\
+Otherwise: \(\frac{n}{p_1 p_2 \dots p_i} \neq 1\) \\
+\(\exists p_{i + 1} (p_{i+1} \mid \frac{n}{p_1p_2})\) & Theorem 2.1\\
+\textbf{Result:} \\
+Each iteration, \(n\) decreases.\\
+Therefore the algorithm halts. \\
+\(p_1 p_2 \dots p_m = n\) & Halting condition
+\end{proof}
 
 \item 
 
 Coprime primes lemma: any prime number ($p$) is coprime to any other prime number ($q$).
 
 \begin{proof}
+\(p \in \mathbb{P} \wedge q \in \mathbb{P} \wedge p \neq q\) & Premise \\
 $\gcd(p, q) \mid p \wedge \gcd(p, q) \mid q $ & Definition of GCD \\
 $(a = 1 \vee a = q) \wedge (a = 1 \vee a = p)$ & Definition of prime \\
-$p \neq q$ & Premise \\
 $a = 1 \vee a = p = q$ & Simplification \\
+$p \neq q$ & Premise \\
 $a = 1$ & Disjunctive syllogism
 \end{proof}
 
 \begin{proof}
-$p \neq \mid 1$ & Premise \\
+$p \neq 1$ & Premise \\
 $p \mid (\prod\limits_{i=1}^{n} q_i)$ & Definition of divides \\
 $\forall i \{ q_i \neq p\}$ & Assume for contradiction \\
 $\forall i \{ (q_i, p) = 1\}$ & Coprime primes lemma (applied over all $p_i$) \\
@@ -217,6 +244,7 @@ There are 6 zeros at the end of $25!$
 \item \(a \mid b \leftrightarrow \pf(a) \subseteq \pf(b)\)
 
 Let \(\pf(a) = A, \pf(b) = B\)
+
 \begin{proof}
 \(\rightarrow\) \\
 \(a \mid b\) & Premise \\
@@ -544,10 +572,10 @@ Let \(b\) be any integer where \(1 < b \leq k\) \\
 
 \item There exists a prime larger than \(k\) for all \(k > 1\).
 
-There exists a number \(n\) that is coprime to every number below
+There exists a number \(n\) that is coprime to every number below \(k\).
 
 \begin{proof}
-Let \(b\) be any integer where \(1 < b \leq k\)
+Let \(b\) be any integer where \(1 < b \leq k\)\\
 \(\exists n \forall b (1 < b \leq k \rightarrow b \nmid n)\) & Theorem 2.33 \\
 \(\forall b (1 < b \leq k \rightarrow b \nmid n)\) & Existantial instantiation \\
 \(1 < b \leq k \rightarrow b \nmid n\) & Universal instantiation \\
@@ -568,6 +596,16 @@ If there were not an infinite number of primes, take the largest prime and use T
 \item 
 
 The most important setp is the claim \(\gcd(a, a+1) = 1\). This is the initial seed that grows into the rest of the proof.
+
+\item \(r_1 \equiv 1 \pmod 4 \wedge r_2 \equiv 1 \pmod 4 \wedge \dots \wedge r_m \equiv 1 \pmod 4 \rightarrow \)
+
+\item 
+
+\item 
+
+\item As of February 2015, the longest and largest known AP-k is an AP-26, found on February 19, 2015 by Bryan Little with an AMD R9 290 GPU using modified AP26 software. \url{http://primerecords.dk/aprecords.htm}
+
+\item 
 
 %%% Local Variables:
 %%% mode: latex

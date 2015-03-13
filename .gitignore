@@ -2,5 +2,6 @@ mlclass-ex*
 *.ipynb_checkpoints
 *.log
 *.aux
+*.out
 auto/
 _region_.tex
