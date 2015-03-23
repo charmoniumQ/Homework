@@ -1,3 +1,19 @@
+% 2.25, 2.26, 2.38
+
+% List notation theorems
+% addend-subset theorem
+% pf uniquness
+% pf of product
+% Division-subset theorem (2.12)
+% Cardinality of equal lists
+% Cardinality of sum
+% GCD-intersection theorem
+% LCM-union theorem
+% Identity property
+% coprime-disjoint theorem
+% pf of fraction
+% min(a, b) = a \vee min(a, b) = b
+
 \item Theorem: $n \in \mathbb{N} \wedge n \neq 1 \rightarrow \exists p (p \in \mathbb{P} \wedge p \mid n)$
 
 But first, Prime or composite lemma: Any natural number $p$ greater than one is either prime or composite. In other words if $p$ is not composite, it is prime. If $p$ is not prime, it is composite.
@@ -148,7 +164,7 @@ The green line is $\frac{1}{\ln(x)}$
 
 \includegraphics[width=6in]{primes_large.png}
 
-\item Every natural number \(n\) excluding one can be written as the product of primes \(\{p_1, p_2, \dots, p_m\}\) raised to natural-number powers \(\{t_1, t_2, \dots, t_m\}\). (In other words \(n = p_1^{t_1} p_2^{t_2} \dots p_m^{t_m}\).)
+\item Theorem: Every natural number \(n\) excluding one can be written as the product of primes \(\{p_1, p_2, \dots, p_m\}\) (not necessarily all unique). (In other words \(n = p_1 p_2 \dots p_m\).)
 
 \begin{proof}
 \(n \in \mathbb{N} \wedge n \neq 1\) & Premise \\
@@ -176,7 +192,9 @@ Therefore the algorithm halts. \\
 \(p_1 p_2 \dots p_m = n\) & Halting condition
 \end{proof}
 
-\item 
+Note that I don't have exponents on the primes because I am letting them be necessarily unique. It is easier to prove this way.
+
+\item Theorem: \(p k = q_1 q_2 q_3 \dots q_mn \wedge p \in \mathbb{P} \wedge \forall i (q_i \in \mathbb{P}) \rightarrow \exists i (p = q_i)\)
 
 Coprime primes lemma: any prime number ($p$) is coprime to any other prime number ($q$).
 
@@ -204,26 +222,31 @@ $p \mid \prod\limits_{i=j+1}^n$ & Theorem 1.41 (Inductive Step)\\
 $p \mid \prod\limits_{i=n}^n$ & Inductive axiom \\
 $p \mid 1 \wedge p \neg \mid 1$ & Product rule \\
 $\neg \forall i \{ q_i \neq p\}$ Contradiction \\
-$\exists i\{ q_i = p\}$ & Simplification
+$\exists i\{ q_i = p\}$ & Quantifier Exchange
 \end{proof}
 
-\item Every natural number excluding one has a \textbf{unique} prime factorization.
+\item Theorem: Every natural number excluding one has a \textbf{unique} prime factorization. Given a natural-number \(n\) greater than one, if \(n = p_1 p_2 \dots p_m = q_1 q_2 \dots q_s\) then \(\forall p_i \exists q_j (p_i = q_j) \wedge \forall q_j \exists p_i (p_i = q_j)\).
 
-$\forall_{n \in \mathbb{N}\backslash\{1\}}
-(\exists _{\{p_1, p_2, \dots, p_n\} \subset \mathbb{P}} ~
-\exists _{\{r_1, r_2, \dots, r_n\} \subset \mathbb{N}}
-\exists _{\{q_1, q_2, \dots, q_m\} \subset \mathbb{P}} ~
-\exists _{\{t_1, t_2, \dots, t_m\} \subset \mathbb{N}}
-(\prod\limits^i p_i^{r_i} = \prod\limits^j q_j^{t_j}) \rightarrow
-m = n \wedge \{p_1, p_2, \dots, p_n\} = \{q_1, q_2, \dots, q_m\} \wedge (p_i = q_j \rightarrow r_i = t_j))$
+\begin{proof}
+\(p_1 p_2 p_3 p_4 \dots p_m = q_1 q_2 q_3 q_4 \dots q_s\) & Premise \\
+\(\exists i (p_1 = q_i) \wedge p_2 p_3 p_4 \dots p_m = q_1 q_2 q_3 q_4 \dots q_{i - 1} q_{i + 1} \dots q_s\) & Lemma 2.8 \\
+\(p_1 = q_1 \wedge p_2 p_3 p_4 \dots p_m = q_2 q_3 q_4 \dots q_s\) & Reordering \\
+& I am allowed to write the list in any order \\
+& So I choose to write the matching \(q_i\) at the front \\
+\(p_2 = q_2 \wedge  p_3 p_4 \dots p_m = q_3 q_4 \dots q_s\) & Lemma 2.8 (similar reordering)\\
+\(p_3 = q_3 \wedge p_4 \dots p_m = q_4 \dots q_s\) & Lemma 2.8 (similar reordering)\\
+\(\vdots\)\\
+\(p_i = q_i\) & By repetition \\
+\(m = s\) & By repetition
+\end{proof}
 
-\item $
+\item \(
 \begin{array}[t]{rl}
 12!& = 2 \cdot 3 \cdot 4 \cdot 5 \cdot 6 \cdot 7 \cdot 8 \cdot 9 \cdot 10 \cdot 11 \cdot 12 \\
 &= 2 \cdot 3 \cdot 2^2 \cdot 5 \cdot (2 \cdot 3) \cdot 7 \cdot 2^3 \cdot 3^2 \cdot (2 \cdot 5) \cdot 11 \cdot (2^2 \cdot 3) \\
 &= 2^{10} \cdot 3^5 \cdot 5^2 \cdot 7 \cdot 11 \\
 \end{array}
-$
+\)
 
 \item $25! = 1 \cdot 2 \cdot 3 \dots 25$ \\
 %5 multiples of 5 were written down \\
@@ -241,7 +264,7 @@ The largest power of 10 that divides 25 is $10^6$ \\
 There are 6 zeros at the end of $25!$
 
 \newcommand{\pf}{\mathrm{pf}}
-\item \(a \mid b \leftrightarrow \pf(a) \subseteq \pf(b)\)
+\item Theorem: \(a \mid b \leftrightarrow \pf(a) \subseteq \pf(b)\)
 
 Let \(\pf(a) = A, \pf(b) = B\)
 
@@ -249,30 +272,32 @@ Let \(\pf(a) = A, \pf(b) = B\)
 \(\rightarrow\) \\
 \(a \mid b\) & Premise \\
 \(ma = b \fs m \in \mathbb{Z}\) & Definition of divides \\
-Let \(pf(m) = M\)
+Let \(\pf(m) = M\) \\
 \(\pf(ma) = B\) & pf uniqueness \\
-\(M + A = B \) & pf of product theorem \\
-\(A \subseteq B\) & addend-subset theorem 
+\(M + A = B \) & pf of product \\
+\(A \subseteq B\) & Addend-subset theorem 
 \end{proof}
 
 \begin{proof}
 \(\leftarrow\) \\
 \(A + (B - A) = B\) & Definition of list-subtraction \\
-\(\pf(a \cdot \prod (\pf(b) - \pf(a)) = b\) & pf of product \\
-\(a \cdot \prod \pf(b) - \pf(a) = b\) & Uniquness of pf \\
-\(a \mid b\)
+\(\prod(\pf(a) \cdot (\pf(b) - \pf(a))) = b\) & pf of product \\
+\(a \cdot \prod (\pf(b) - \pf(a)) = b\) & pf uniquness \\
+\(a \mid b\) & Definition of divides
 \end{proof}
 
-\item \(\pf(a^2) \subseteq \pf(b^2) \rightarrow \pf(a) \subseteq \pf(b)\)
+\item Theorem: \(a^2 | b^2 \rightarrow a | b\)
 
 \begin{proof}
-\(a = p_1^{r_1} p_2^{r_2} \dots\) \\ 
-\(b = q_1^{t_1} q_2^{t_2} \dots\) & Fundamental Theorem of Arithmetic \\
-\(a^2 = p_1^{2r_1} p_2^{2r_2} \dots\) \\
-\(b^2 = q_1^{2t_1} q_2^{2t_2} \dots\) & Algebra \\
-\(2r_1 \leq 2t_2 \) & Definition of subset \\
-\(r_1 \leq t_2 \) & Property of inequality \\
-\(\pf(a) \subset \pf(b)\) & Definition of subset
+\(a^2 | b^2\)
+\(\pf(a^2) \subseteq \pf(b^2)\) & Division-subset theorem \\
+\(x \# \pf(a^2) \leq x \# \pf(b^2)\) & Definition of subset-or-equal \\
+\(x \# (\pf(a) + \pf(a)) \leq x \# (\pf(b) + \pf(b))\) & pf of product \\
+\(x \# \pf(a) + x \# \pf(a) \leq x \# \pf(b) + x \# \pf(b)\) & pf of product \\
+\(2 (x \# \pf(a)) \leq 2 (x \# \pf(b))\) & Algebra \\
+\(x \# \pf(a) \leq x \# \pf(b)\) & Algebra \\
+\(\pf(a) \subseteq \pf(b)\) & Definition of subset-or-equal \\
+\(a | b\) & Division-subset theorem
 \end{proof}
 
 \item \(\gcd(3^14 \cdot 7^22 \cdot 11^5 \cdot 17^3, 5^2 \cdot 11^4 \cdot 13^8 \cdot 17) = 11^4 \cdot 17\)
@@ -283,59 +308,70 @@ Let \(pf(m) = M\)
 
 \(\lcm(a, b) = \pf(a) \cup \pf(b)\)
 
-\item It depends on how easy it is to factor. I easily recognize the prime factorization if and only if the prime factorization method is clearly better.
+\item It depends on how easy it is to factor. I easily recognize the prime factorization if and only if the prime factorization method is clearly better. Let us generalize this problem.
 
-In general, factoring a number assuming the density of primes is proportional \(\frac{1}{\ln(x)}\) as proposed in 2.6, the number of primes less than \(n\) should be \(\int \limits_{x=1}^{x=n} \frac{1}{\ln(x)} \, dx = n \ln(n) - n - 1 \). Lets assume I need to do long division to test for divisibility. Long division has complexity of \(\mathcal{O}(log(x))\). Now for every prime, I need to do this check. The worst case scenario is that the number under test is itself prime, therefore the problem does not reduce as I continue (what normally happens when factoring). The worst-case run-time is \(\mathcal{O}(log^2(n))\) where \(n\) is the number under test.
+Lets assume I have a list of primes, but I need to do long-division to test for divisibility. In general, factoring a number assuming the \(\pi(n) = \frac{n}{\ln(n)}\) as proposed in 2.6. This is in \(\mathcal{O}(n)\) The number of steps in long-division is \(\frac{n}{q}\). This is in \(\mathcal{O}(n)\). In the worst case, I need to do the long division once for all \(\pi(n)\) primes. Thus prime-factorizing can be done in \(\mathcal{O}(n^2)\)
 
-On the other hand, the Euclidean Algorithm replaces the larger number with the difference of the two. For the worst-case scenario, we will assume the difference is such that half the next term is close to half of the smaller term. Thus we divide by two every time. The worst-case run-time is \(\mathcal{O}(log(n))\).
+On the other hand, we have the Euclidean Algorithm. Subtracting can be done digit-by-digit. It is in \(\mathcal{O}(\log n)\) for this reason. For the worst-case scenario, we will assume the difference is such that half the next term is close to half of the smaller term. Thus we divide by two every time. This runs in \(\mathcal{O}(log(n))\) steps. Thus the Euclidean Algorithm as a whole runs in \(\mathcal{O}(\log^2 (n))\)
 
 Because of this, I think the Euclidean Algorithm is more efficient as the $n$ approaches $\infty$.
 
-\item 
+\item Theorem: For any set of \(n\) numbers from \(1\) to \(2n\), there exists a number that divides another number in that set.
 
+{
+\small
 \begin{tabular}[t]{l}
+\textbf{Base Case:} \\
 If \(n = 1\), the theorem is true, \\
-since there is only one number to pick from (\textbf{Base Case}) \\
-The theorem holds for picking \(n\) numbers less than or equal to \(\{1, \dots 2n\}\) (\textbf{Inductive Hypothesis}) \\
-Additionally assume it holds for picking all \(k < n\) that picking \(n\) numbers less than or equal to \(\{1, \dots, 2k\}\)
-Lets say we pick \(n + 1\) numbers less than or equal to \(2(n + 1)\) \\
-We pick from \(1 to 2n + 2\) \\
-We pick from \(\{1, \dots, 2n, 2n + 1, 2n + 2\}\) \\
+since there is only one number to pick from.  \\
+\textbf{Inductive Hypothesis:} \\
+The theorem holds for picking \(n\) numbers \(1\) to \(2n\). \\
+Assume it holds for picking all \(k < n\) that picking \(n\) numbers less than or equal to \(\{1, \dots, 2k\}\). \\
+\textbf{Inductive Step:} \\
+Lets say we pick \(n + 1\) numbers less than or equal to \(2(n + 1)\). \\
+%We pick from \(\{1, \dots, 2n + 2\}\) \\
+We pick from \(\{1, \dots, 2n, 2n + 1, 2n + 2\}\). \\
 There are three options: \\
-First, we can pick \(n + 1\) numbers from \(\{1, \dots, 2n\) \\
-Second, we can pick \(n\) numbers from \(\{1, \dots, 2n\}\) and \(1\) number from \(\{2n+1, 2n+2\}\) \\
-Third, we can pick \(n - 1\) numbers from \(\{1, \dots, 2n\}\) and both \(\{2n + 1, 2n + 2\}\) \\
-In the first case, the theorem holds, by the Inductive Hypothesis \\
-In the second case, the theorem holds by the Inductive Hypothesis \\
-In the third case, either \(n+1\) is among the chosen (case 3a) or \(n+1\) is not (case 3b) \\
-In the 3a case, \((n+1) \mid (2n+1)\)
-
+First, we can pick \(n + 1\) numbers from \(\{1, \dots, 2n\). \\
+Second, we can pick \(n\) numbers from \(\{1, \dots, 2n\}\) and \(1\) number from \(\{2n+1, 2n+2\}\). \\
+Third, we can pick \(n - 1\) numbers from \(\{1, \dots, 2n\}\) and both \(\{2n + 1, 2n + 2\}\). \\
+In the first case, the theorem holds, by the Inductive Hypothesis. \\
+In the second case, the theorem holds by the Inductive Hypothesis. \\
+In the third case, either \(n+1\) is among the chosen (case 3a) or \(n+1\) is not (case 3b). \\
+In the 3a case, \((n+1) \mid (2n+1)\) \\
+In the 3b case, construct a new set with \(n - 1\) numbers form \(\{1, \dots, 2n\}\) and \(n+1\). \\
+By the inductive hypothesis, There exists a number, call it \(j\), \\
+where \(j \neq n + 1 \wedge (j \mid (n + 1) \vee (n + 1) \mid j)\). \\
+\((n + 1) \mid j \wedge j \neq n + 1 \rightarrow j \geq 2n + 2\), but this is out of range for the list \\
+Therefore \(j \mid (n + 1)\) \\
+\((n + 1) \mid (2n + 2)\), therefore \(j \mid (2n + 2)\) \\
+Therefore the theorem holds.
 \end{tabular}
+}
 
-\item \(\neg \exists m, n (7m^2 = n^2)\)
+\item Theorem: \(\neg \exists m, n (7m^2 = n^2)\)
 
 \begin{proof}
 \(7 m^2 = n^2 \fs m, n \in \mathbb{N}\) & Assume for contradiction \\
 \(\pf(7 m^2) = \pf(n^2)\) & Uniqueness of pf \\
-\(\pf(7) + \pf(m^2) = \pf(n^2)\) & pf of product \\
+\(\pf(7) + \pf(m) + \pf(m) = \pf(n) + \pf(n)\) & pf of product \\
 \(\pf(7) = \{7\} \) & \\
-\(|\pf(7) + \pf(m^2)| = |\pf(n^2)|\) & Cardinality of equal lists \\
-\(|\pf(7)| + |\pf(m^2)| = |\pf(n^2)|\) & Cardinality of sum \\
-\(|\pf(7)| + 2|\pf(m)| = 2|\pf(n)|\) & Cardinality of power \\
+\(|\pf(7) + \pf(m) + \pf(m)| = |\pf(n) + \pf(n)|\) & Cardinality of equal lists \\
+\(|\pf(7)| + 2|\pf(m)| = 2|\pf(n)|\) & Cardinality of sum \\
 \(1 + 2|\pf(m)| = 2|\pf(n)|\) &  \\
 \(1 = 2(|\pf(n)| - |\pf(m)|)\) & Algebra \\
 \(2|1\) & Definition of divides \\
-& Contradiction of known fact \\
-\(\neg \exists m, n 7 m^2 = n^2\) & Contradiction
+\(2 \leq 1\) & \(m|n \rightarrow m \leq n\) \\
+\(\neg \exists m, n (7 m^2 = n^2)\) & Contradiction
 \end{proof}
 
-\item \(\neg \exists m, n (24 m^3 = n^3)\)
+\item Theorem: \(\neg \exists m, n (24 m^3 = n^3)\)
 
 The heart of the proof of 2.19 is that if you prime factorize is that on the left-hand side you have a number whose prime factorization contains 7 and \(m^2\) (an odd number of factors). On the right hand side the prime factorization is \(n^2\) (an even number of factors). Since there is one unique way to prime-factorize numbers, it follows that these two different prime-factorizations do not represent the same number.
 
-Similarly, if we let \(24 m^3 = n^3\), then \(3 \cdot 2^3 m^3 = n^3\). The two cubed is fine. It can be absorbed into the \(n\). But the three is `left over'. There is only one way to factorize numbers and the left-hand side has an extra 3. If the right hand side contained a three, it would be three cubed, three to the sixth power, or three to the ninth power, etc. The left hand side would have to have three, three to the fourth, or three to the seventh, etc. It follows from the FTA that since the prime factorizations are different, the equality isn't true.
+Similarly, if we let \(24 m^3 = n^3\), then \(3 \cdot 2^3 m^3 = n^3\). The two cubed can be absorbed into the \(n\). But the three is `left over'. If the right hand side contained a three, it would be three cubed, three to the sixth power, or three to the ninth power, etc. The left hand side would have to have three, three to the fourth, or three to the seventh, etc. It follows from the FTA that since the prime factorizations are different, the equality isn't true.
 
-\item \(\sqrt{7} \notin \mathbb{Q}\)
+\item Theorem: \(\sqrt{7} \notin \mathbb{Q}\)
 
 \begin{proof}
 \(\sqrt{7} \in \mathbb{Q}\) & Assume for contradiction \\
@@ -345,7 +381,7 @@ This contradicts theorem 2.19 \\
 \(\sqrt{7} \notin \mathbb{Q}\) & Contradiction
 \end{proof}
 
-\item \(\sqrt{12} \notin \mathbb{Q}\)
+\item Theorem: \(\sqrt{12} \notin \mathbb{Q}\)
 
 \begin{proof}
 \(\sqrt{12} \in \mathbb{Q}\) & Assume for contradiction \\
@@ -354,32 +390,30 @@ This contradicts theorem 2.19 \\
 Let \(n = n_0 n_1 n_2 \dots\) \\
 and \(m = m_0 m_1 m_2 \dots\) & FTA \\
 \(3 2^2 n_0^2 n_1^2 n_2^2 \dots = m_0^2 m_1^2 m_2^2 \dots\) & Substitution \\
-\(3 n_0^2 n_1^2 n_2^2 \dots = m_1^2 m_2^2 \dots\) & Theorem 2.8 \\
-\(3 n_1^2 n_2^2 \dots = m_2^2 \dots\) & Theorem 2.8 \\
-\(3 n_1^2 n_2^2 \dots = m_2^2 \dots\) & Theorem 2.8 \\
+\(3 n_0^2 n_1^2 n_2^2 \dots = m_1^2 m_2^2 \dots\) & Theorem 2.8 (with reordering) \\
+\(3 n_1^2 n_2^2 \dots = m_2^2 \dots\) & Theorem 2.8 (with reordering) \\
+\(3 n_1^2 n_2^2 \dots = m_2^2 \dots\) & Theorem 2.8 (with reordering) \\
 Continuing this process \\
-\(3 = 1\) & Theorem 2.8 \\
-This contradicts known fact \\
+\(3 = 1\) & Theorem 2.8 (with reordering) \\
 \(\sqrt{12} \notin \mathbb{Q}\) & Contradiction
 \end{proof}
 
-\item \(\sqrt[3]{7} \notin \mathbb{Q}\)
+\item Theorem: \(\sqrt[3]{7} \notin \mathbb{Q}\)
 
 \begin{proof}
 \(\sqrt[3]{7} \in \mathbb{Q}\) & Assume for contradiction \\
 \(\sqrt[3]{7} = \frac{m}{n} \fs m, n \in \mathbb{Z}\) & Definition of rational \\
 \(7 n^3 = m^3\) & Algebra \\
-\(7 n_0^3 n_1^3 n_2 n^3 \dots = m_0^3 m_1^3 m_2^3 \dots\) & Theorem 2.8 \\
-\(7 n_0^3 n_1^3 n_2 n^3 \dots = m_0^3 m_1^3 m_2^3 \dots\) & Theorem 2.8 \\
-\(7 n_1^3 n_2 n^3 \dots = m_1^3 m_2^3 \dots\) & Theorem 2.8 \\
-\(7 n_2 n^3 \dots = m_2^3 \dots\) & Theorem 2.8 \\
+\(7 n_0^3 n_1^3 n_2 n^3 \dots = m_0^3 m_1^3 m_2^3 \dots\) & Theorem 2.8 (with reordering) \\
+\(7 n_0^3 n_1^3 n_2 n^3 \dots = m_0^3 m_1^3 m_2^3 \dots\) & Theorem 2.8 (with reordering) \\
+\(7 n_1^3 n_2 n^3 \dots = m_1^3 m_2^3 \dots\) & Theorem 2.8 (with reordering) \\
+\(7 n_2 n^3 \dots = m_2^3 \dots\) & Theorem 2.8 (with reordering) \\
 Repeating this process \\
-\(7 = 1\) & Theorem 2.8 \\
-Contradiction \\
+\(7 = 1\) & Theorem 2.8 (with reordering) \\
 \(\sqrt[3]{7} \notin \mathbb{Q}\) & Contradiction
 \end{proof}
 
-\item Let \(n, x \in \mathbb{N}\). If \(\sqrt[n]{x} \notin \mathbb{N} \rightarrow \sqrt[n]{x} \notin \mathbb{Q}\)
+\item Theorem: Let \(n, x \in \mathbb{N}\). If \(\sqrt[n]{x} \notin \mathbb{N} \rightarrow \sqrt[n]{x} \notin \mathbb{Q}\)
 
 \begin{proof}
 \(\sqrt[n]{x} \notin \mathbb{N}\) & Premise \\
@@ -387,8 +421,8 @@ Assume \(\sqrt[n]{x} \in \mathbb{Q}\) & For contradiction \\
 \(\sqrt[n]{x} = \frac{j}{k} \fs j, k \in \mathbb{Z}\) & Definition of rational \\
 \(x k^n = j^n\) & Algebra \\
 \(x k_0^n k_1^n k_2^n \dots = j_0^n j_1^n j_2^n \dots\) & FTA \\
-\(x k_1^n k_2^n \dots = j_1^n j_2^n \dots\) & Theorem 2.8 \\
-\(x k_2^n \dots = j_2^n \dots\) & Theorem 2.8 \\
+\(x k_1^n k_2^n \dots = j_1^n j_2^n \dots\) & Theorem 2.8 (with reordering) \\
+\(x k_2^n \dots = j_2^n \dots\) & Theorem 2.8 (with reordering) \\
 Repeating this process \\
 Stop when all \(k\) are eliminated \\
 Lets call it the \(i\)th step \\
@@ -410,58 +444,66 @@ Lets call it the \(i\)th step \\
 
 \setcounter{enumii}{26}
 
-\item Let \(p \in \mathbb{P}\) and \(a, b \in \mathbb{Z}\). \(p \mid ab \rightarrow p \mid a \vee p \mid b\).
+\item Theorem: Let \(p \in \mathbb{P}\) and \(a, b \in \mathbb{Z}\). \(p \mid ab \rightarrow p \mid a \vee p \mid b\).
 
 \begin{proof}
-\multicolumn{2}{l}{Let \(\pf(a) = A, \pf(b) = B, \pf(p) = P\)} \\
+\multicolumn{2}{l}{Let \(\pf(a) = A, \pf(b) = B, \pf(p) = P = [p]\)} \\
 \(P \subseteq \pf(ab)\) & Division-subset theorem \\
-\(P \subseteq \pf(a) + \pf(b)\) & pf of product theorem \\
-\(p \in A + B\) & Prime divisor theorem \\
-Assume \(p \mid a\) \\
-\(p \mid a \vee p \mid b\) & Addition \(\square\) \\
-Conclude: theorem holds \\
-Assume: \(p \nmid a\) \\
-\(p \notin A\) & Prime divisor theorem \\
-\(p \in B\) & Element of disjunction \\
-\(p \mid b\) & Prime divisor theorem \\
-\(p \mid a \vee p \mid b\) & Addition \(\square\) \\
-Conclude: theorem holds \\
+\(P \subseteq A + B\) & pf of product \\
+\(p\#P \leq p \# (A + B)\) & Prime divisor theorem \\
+\(1 \leq p \# (A + B)\) & Substitution \\
+If: \(p \mid a\) \\
+Conclude: \(p \mid a \vee p \mid b\) & Addition \(\square\) \\
+Otherwise: \(p \nmid a\) \\
+\(P \not \subseteq A\) & Divisor-subset theorem \\
+\(\exists j \in [p] (j \# P > j \# A)\) & Definition of subset-or-equal (negated) \\
+\(p \# P > p \# A\) & Quantifying over one element \\
+\(1 > p \# A \) & Substition \\
+\(p \# A = 0\) & Property of Natural numbers \\
+\(1 \leq p \# A  + p \# B\) & Definition of list-addition \\
+\(1 \leq p \# B\) & Substition \\
+\(p \# P \leq p \# B\) & Substitution \\
+\(\forall j \in [p] (j \# P \leq j \# A)\) & Quantifying over one element \\
+\(P \subseteq A\) & Definition of subset-or-equal \\
+\(p|a\) & Subset-divisor theorem \\
+Conclude: \(p \mid a \vee p \mid b\) & Addition \(\square\) \\
 \(p \mid a \vee p \mid b\) & Either way (constructive dilemma)
 \end{proof}
 
-\item \(\gcd(b, c) = 1 \rightarrow \gcd(a, bc) = \gcd(a, b) \cdot \gcd(a, c)\)
+\item Theorem: \(\gcd(b, c) = 1 \rightarrow \gcd(a, bc) = \gcd(a, b) \cdot \gcd(a, c)\)
 
 \begin{proof}
 \multicolumn{2}{l}{Let \(\pf(a) = A, \pf(b) = B, \pf(c) = C\)} \\
 \(B \cap C = \{\}\) & Coprime-disjoint theorem \\
 \(\pf(\gcd(a, b) \cdot \gcd(a, c))\) \\
-\(\quad = \pf(\gcd(a, b)) + \pf(\gcd(a, c))\) & Product of pf theorem \\
+\(\quad = \pf(\gcd(a, b)) + \pf(\gcd(a, c))\) & pf of product theorem \\
 \(\quad = A \cap B + A \cap C\) & GCD-intersection theorem \\
 \(\pf(\gcd(a, bc))\) \\
 \(\quad = A \cap \pf(bc)\) & GCD-intersection theorem \\
-\(\quad = A \cap (B + C)\) & Product of pf theorem \\
-\(\quad = A \cap (B \cap C + B \cup C)\) & Product of pf theorem \\
+\(\quad = A \cap (B + C)\) & pf of product theorem \\
+\(\quad = A \cap (B \cap C + B \cup C)\) & pf of product theorem \\
 \(\quad = A \cap (\{\} + B \cup C)\) & Substitution \\
 \(\quad = A \cap (B \cup C)\) & Identity property \\
-\(\quad = A \cap B + A \cup C\) & IDK \\
+\(\quad = A \cap B + A \cup C\) & Empty-intersection theorem \\
 \(\pf(\gcd(a, b) \cdot \gcd(a, c)) = \pf(\gcd(a, bc))\) & Substitution \\
 \(\gcd(a, b) \cdot \gcd(a, c) = \gcd(a, bc)\) & Uniqueness of pf
 \end{proof}
 
-\item \(\gcd(a, b) = 1 \wedge \gcd(a, c) = 1 \rightarrow \gcd(a, bc) = 1\)
+\item Theorem: \(\gcd(a, b) = 1 \wedge \gcd(a, c) = 1 \rightarrow \gcd(a, bc) = 1\)
 
 \begin{proof}
-\multicolumn{2}{l}{Let \(\pf(a) = A, \pf(b) = B, \pf(c) = C\)} \\
+\multicolumn{2}{l}{Let \(\pf(a) = A\), \(\pf(b) = B\), \(\pf(c) = C\)} \\
 \(A \cap B = \{\}\) \\
 \(A \cap C = \{\}\) & Coprime-disjoint theorem \\
-\(\{\} + \{\} = A \cap B + A \cap C\) & Substitution \\
-\(\{\} = A \cap B + A \cap C\) & Identity \\
-\(\{\} = A \cap (B + C)\) & IDK \\
-\(\{\} = A \cap \pf(bc)\) & pf of product \\
+\(\gcd(a, bc) = A \cap (\pf(bc))\) & GCD-intersection theorem \\
+\(\quad = A \cap (B + C)\) & pf of product \\
+\(\quad = A \cap B + A \cap C\) & Empty-intersection theorem \\
+\(\quad = \{\} + \{\}\) & Substitution \\
+\(\quad = \{\}\) & Identity \\
 \(\gcd(a, bc) = 1\) & Coprime-disjoint theorem
 \end{proof}
 
-\item \(\gcd(\frac{a}{\gcd(a, b)}, \frac{b}{\gcd(a, b)}) = 1\)
+\item Theorem: \(\gcd(\frac{a}{\gcd(a, b)}, \frac{b}{\gcd(a, b)}) = 1\)
 
 
 {
@@ -469,13 +511,13 @@ Conclude: theorem holds \\
 \begin{proof}
 Let \(x \in \mathbb{P}\) \\
 \(x \# \pf(\gcd(\frac{a}{\gcd(a, b)}, \frac{b}{\gcd(a, b)})) = \) \\
-\(\quad = x \# \pf(\frac{a}{\gcd(a, b)}) \cap \pf(\frac{b}{\gcd(a, b)})\) & GCD-intersection theorem \\
-\(\quad = x \# (\pf(a) - \pf(\gcd(a, b))) \cap (\pf(b) - \pf(\gcd(a, b)))\) & pf of fraction theorem \\
+\(\quad = x \# (\pf(\frac{a}{\gcd(a, b)}) \cap \pf(\frac{b}{\gcd(a, b)}))\) & GCD-intersection theorem \\
+\(\quad = x \# (\pf(a) - \pf(\gcd(a, b))) \cap (\pf(b) - \pf(\gcd(a, b)))\) & pf of fraction  \\
 \(\quad = x \# (\pf(a) - \pf(a) \cap \pf(b)) \cap (\pf(b) - \pf(a) \cap \pf(b))\) & GCD-intersection theorem \\
-\(\quad = \min (x \# \pf(a) - x \# \pf(a) \cap \pf(b), x \# \pf(b) - x \# \pf(a) \cap \pf(b))\) & Definition of intersection \\
-\(\quad = \min (x \# \pf(a) - x \# \pf(a) \cap \pf(b), x \# \pf(b) - x \# \pf(a) \cap \pf(b))\) & Definition of list subtraction \\
+\(\quad = \min (x \# \pf(a) - x \# (\pf(a) \cap \pf(b)), x \# \pf(b) - x \# (\pf(a) \cap \pf(b)))\) & Definition of intersection \\
+\(\quad = \min (x \# \pf(a) - x \# (\pf(a) \cap \pf(b)), x \# \pf(b) - x \# (\pf(a) \cap \pf(b)))\) & Definition of list subtraction \\
 \(\quad = \min (x \# \pf(a) - \min (x \# \pf(a), x \# \pf(b)),\) \\ \( \quad \quad x \# \pf(b) - \min (x \# \pf(a), x \# \pf(b)))\) & Definition of intersection \\
-Assume \(\min x \# pf(a), x \# \pf(b) = x \# \pf(a)\) \\
+Assume \(\min (x \# pf(a), x \# \pf(b) = x \# \pf(a))\) \\
 \(\quad = \min (x \# \pf(a) - x \# \pf(a), x \# \pf(b) - x \# \pf(a))\) & Assumption \\
 \(\quad = \min (0, x \# \pf(b) - x \# \pf(a))\) & Algebra \\
 \(\quad = 0\) & Definition of min \\
@@ -491,7 +533,7 @@ Conclude \(x \# \pf(\gcd(\frac{a}{\gcd(a, b)}, \frac{b}{\gcd(a, b)})) = 0\) \\
 \end{proof}
 }
 
-\item \(\gcd(a, b) = 1 \wedge u \mid a \wedge v \mid b \rightarrow \gcd(u, v) = 1\)
+\item Theorem: \(\gcd(a, b) = 1 \wedge u \mid a \wedge v \mid b \rightarrow \gcd(u, v) = 1\)
 
 \begin{proof}
 \multicolumn{2}{l}{Let \(\pf(u) = U, \pf(v) = V, \pf(a) = A, \pf(b) = B\)} \\
@@ -510,7 +552,7 @@ Conclude \(x \# \pf(\gcd(\frac{a}{\gcd(a, b)}, \frac{b}{\gcd(a, b)})) = 0\) \\
 \(\gcd(u, v) = 1\) & Coprime-disjoint theorem
 \end{proof}
 
-\item \(\forall n \in \mathbb{N} (\gcd(n, n + 1) = 1)\)
+\item Theorem: \(\forall n \in \mathbb{N} (\gcd(n, n + 1) = 1)\)
 
 \begin{proof}
 Let \(\gcd(n, n + 1) = d\) \\
@@ -531,22 +573,25 @@ Let \(\gcd(n, n + 1) = d\) \\
 \(1 = d\) & Property of inequality over \(\mathbb{N}\)
 \end{proof}
 
-\item Let \(k\) be a natural number greater than 1. \(\exists n \forall b (1 < b \leq k \rightarrow b \nmid n)\)
+\item Theorem: Let \(k\) be a natural number greater than 1. \(\exists n \forall b (1 < b \leq k \rightarrow b \nmid n)\)
 
 GCD-divides Lemma: \(\gcd(a, b) = a \leftrightarrow a \mid b\)
 
 \begin{proof}
-\(\rightarrow\)
+\(\rightarrow\) \\
 \(\gcd(a, b) = a\) & Premise \\
-\(\gcd(a, b) \mid b\) & Definition of GCD \\
-\\
+\(\gcd(a, b) \mid b\) & Definition of GCD
+\end{proof}
+
+\begin{proof}
 \(\leftarrow\) \\
 \(a \mid b\) & Premise \\
 \(1a = a\) & Identity property \\
 \(a \mid a\) & Definition of divides \\
 \(\gcd(a, b) \geq a\) & Definition of GCD \\
 & (\(a\) is a common factor) \\
-\(\gcd(a, b) \leq a\) & Definition of GCD \\
+\(\gcd(a, b) \leq a\) & Property of GCD \\
+& (\(gcd(a, b)\) is bounded by \(a\) and \(b\)) \\
 \(\gcd(a, b) = a\) & Property of inequality
 \end{proof}
 
@@ -570,7 +615,7 @@ Let \(b\) be any integer where \(1 < b \leq k\) \\
 \(n = a + 1\)
 \end{proof}
 
-\item There exists a prime larger than \(k\) for all \(k > 1\).
+\item Theorem: There exists a prime larger than \(k\) for all \(k > 1\).
 
 There exists a number \(n\) that is coprime to every number below \(k\).
 
@@ -587,7 +632,7 @@ Let \(b\) be any integer where \(1 < b \leq k\)\\
 \(p > k\) & Modus ponens
 \end{proof}
 
-\item There are infinitely many primes.
+\item Theorem: There are infinitely many primes.
 
 I don't think this requires a proof seperate from theorem 2.34. I will however restate the proof of 2.34 and show that it is equivalent to the infinitude of primes.
 
@@ -597,15 +642,111 @@ If there were not an infinite number of primes, take the largest prime and use T
 
 The most important setp is the claim \(\gcd(a, a+1) = 1\). This is the initial seed that grows into the rest of the proof.
 
-\item \(r_1 \equiv 1 \pmod 4 \wedge r_2 \equiv 1 \pmod 4 \wedge \dots \wedge r_m \equiv 1 \pmod 4 \rightarrow \)
+\item Theorem: \(\forall i (r_i \equiv 1 \pmod 4) \rightarrow r_1 r_2 \dots r_m \equiv 1 \pmod 4\)
+
+\begin{proof}
+Let \(i = 2\) & \textbf{Base case} \\
+\(r_1 r_2 \equiv 1 \pmod 4\) & Theorem 1.14 \\
+Let \(r_1 r_2 \dots r_{m - 1} \equiv 1 \pmod 4\) & \textbf{Inductive Hypothesis} \\
+\((r_1 r_2 \dots r_{m - 1}) r_m \equiv 1 \pmod 4 \) & Theorem 1.14 \\
+\(r_1 r_2 \dots r_m \equiv 1 \pmod 4\) & \textbf{Inductive Step}
+\end{proof}
+
+\item Theorem: There are an infinite number of primes, \(p\), where \(p \equiv 1 \pmod 4\)
+
+Lemma: All primes are odd except for two.
+
+\begin{proof}
+Assume there is an even prime that isn't two. \\
+\(p \in \mathbb{P} \wedge p \neq 2 \wedge p = 2n \fs n\) & Assume for contradiction \\
+\(n|p\) & Definition of divides \\
+\(p \notin \mathbb{P}\) & Definition of prime
+\(\neg \exists (p \in \mathbb{P} \wedge p \neq 2 \wedge p = 2n \fs n)\) \\
+\(\forall p \in \mathbb{P} (p = 2 \vee p = 2n + 1 \fs n)\) & Contradiction
+\end{proof}
+
+All statements with \(\equiv\) are assumed to be taken mod 4.
+
+\begin{proof}
+Assume: \(p_k\) is the greatest prime where \(p_k \equiv 3\) & For contradiction \\
+\(\forall i (p_i = 2 \vee p_i = 2j + 1 \fs j)\) & Lemma \\
+\(\forall i (p_i = 2 \vee p_i = 4j + 1 \vee p_i = 4j + 3 \fs j)\) & Algebra \\
+\(\forall i (p_i \equiv 2 \vee p_i \equiv 1 \vee p_i \equiv 3)\) & Algebra \\
+\(\prod\limits_{i=1}^k p_i \equiv 2 1^m 3^n\) & Substitution \\
+If: \(n = 2j \fs j\) (\(n\) is even) \\
+\(\prod\limits_{i=1}^k p_i \equiv 2 \cdot 1^m (3^2)^j\) & Algebra \\
+\(\prod\limits_{i=1}^k p_i \equiv 2 \cdot 1^m 1^j\) & Substitution \\
+\(\prod\limits_{i=1}^k p_i \equiv 2 \cdot 1^{m + j}\) & Substitution \\
+Conclude: \(\prod\limits_{i=1}^k p_i \equiv 2\) & Substitution \\
+Otherwise: \(n = 2j + 1\) \\
+\(\prod\limits_{i=1}^k p_i \equiv 2 \cdot 1^m (3^2)^j 3\) & Algebra \\
+\(\prod\limits_{i=1}^k p_i \equiv 2 \cdot 3\) & Algebra and Substitution \\
+Conclude: \(\prod\limits_{i=1}^k p_i \equiv 2\) & Algebra \\
+\(\prod\limits_{i=1}^k p_i \equiv 2\) & Either way \\
+\(1 + \prod\limits_{i=1}^k p_i \equiv 3\) & Substitution \\
+\(\forall i (p_i \nmid (1 + \prod\limits_{i=1}^k)) \) & Same reasoning as 2.33 \\
+If: \(\exists n (n \equiv 3 \wedge n \mid (1 + \prod\limits_{i=1}^k))\) \\
+Conclude: theorem holds \\
+Otherwise: \(\neg \exists n (n \equiv 3 \wedge \mid (1 + \prod\limits_{i=1}^k))\) \\
+\(\forall n (n \equiv 3 \rightarrow n \nmid (1 + \prod\limits_{i=1}^k))\) & Quantifier exchange, DeMorgan's, \\ & Conditional Disjunction, Contrapositive \\
+\(\prod\limits_{i=1}^k p_i \equiv 2 \cdot 1^m 3^n \equiv 2 \cdot 1^m\) & Prime factorization \\
+\(\prod\limits_{i=1}^k p_i \equiv 2\) & Substitution \\
+That contradicts: \(\prod\limits_{i=1}^k p_i \equiv 2\) \\
+This branch of the conditional is impossible\\
+\end{proof}
 
 \item 
 
-\item 
+\item As of February 2015, the longest and largest known AP-k is an AP-26, found on February 19, 2015 by Bryan Little with an AMD R9 290 GPU using modified AP26 software. Source: \mbox{\url{http://primerecords.dk/aprecords.htm}}
 
-\item As of February 2015, the longest and largest known AP-k is an AP-26, found on February 19, 2015 by Bryan Little with an AMD R9 290 GPU using modified AP26 software. \url{http://primerecords.dk/aprecords.htm}
+\item Theorem: \((x - 1) \mid (x^n - 1)\)
 
-\item 
+\(
+\arraycolsep=.4pt
+\begin{array}[t]{cccccccc}
+& x^{n-1} & +x^{n-2} & +x^{n-3} & +x^{n-4} & ~ \dots & & +1\\
+\hline
+x-1 \mid & x^n & & & & & & -1 \\
+& -x^n & +x^{n-1} \\
+& & -x^{n-1} & +x^{n-2} \\
+& & & -x^{n-2} & +x^{n-3} \\
+& & & & & \ddots \\
+& & & & & & -x & +1 \\
+\end{array}
+\)
+
+\item Theorem: \(2^p - 1 \in \mathbb{P} \rightarrow p \in \mathbb{P}\)
+
+\begin{proof}
+Assume \(p \notin \mathbb{P}\) & For conditional \\
+\(p = ab\) & Definition of composite \\
+\((2^a - 1) | (2^{ab} - 1)\) & Theorem 1.41 \\
+Conclude: \(2^p - 1 \notin \mathbb{P}\) & Definition of composite \\
+\(p \notin \mathbb{P} \rightarrow 2^p - 1 \notin \mathbb{P}\) & Conditional \\
+\(2^p - 1 \in \mathbb{P} \rightarrow p \in \mathbb{P}\) & Contrapositive
+\end{proof}
+
+\item Theorem: \(2^p \in \mathbb{P} \rightarrow p = 2^n \fs n\)
+
+\begin{proof}
+Assume: \(p \neq 2^n \fs n\) & For conditional \\
+\(p = 2^n j \fs j \ni j\) is odd & FTA \\
+\(2^{2^n} | 2^{2^n j}\) & Polynomial long division \\
+Conclude: \(2^{2^n j} \notin \mathbb{P}\) & Definition of composite \\
+\(p \neq 2^n \fs n \rightarrow 2^{2^n j} \notin \mathbb{P}\) & Conditional \\
+\(2^p \in \mathbb{P} \rightarrow p = 2^n \fs n\) & Contrapositive
+\end{proof}
+
+\item Theorem: there exists arbitrarily long (\(k\)-long) consecutive strings of composite integers.
+
+\begin{proof}
+Let \(i\) be any number where \(1 < i \leq k\) & Let \\
+\(k! + i = 1 \cdot 2 \cdot 3 \cdot \dots \cdot (i - 1) \cdot i \cdot (i + 1) \cdot \dots k + i\) & Definition of factorial \\
+\(\quad = i \cdot(1 \cdot 2 \cdot 3 \cdot \dots \cdot (i - 1) \cdot (i + 1) \cdot\ \dots k + 1)\) & distributive property \\
+\(i | (k! + i)\) & Definition of divides \\
+\(i \neq 1\) & Premise for \(i\) \\
+\((k! + i) \in \not\mathbb{P}\) & Definition of composite
+\end{proof}
 
 %%% Local Variables:
 %%% mode: latex
