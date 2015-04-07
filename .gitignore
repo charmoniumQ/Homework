@@ -1,3 +1,4 @@
+*.pyc
 mlclass-ex*
 *.ipynb_checkpoints
 *.log

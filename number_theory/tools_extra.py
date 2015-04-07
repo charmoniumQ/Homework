@@ -1,6 +1,8 @@
 from __future__ import print_function
 from itertools import tee
 
+__all__ = ['memoize_iterator', 'memoize_generator']
+
 class memoize_iterator(object):
     # one class for each original-iterator I source from
     def __init__(self, it):

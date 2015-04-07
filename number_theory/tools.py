@@ -2,7 +2,9 @@ from __future__ import print_function
 from math import *
 from itertools import *
 from operator import *
-from tools_extra import *
+from functools import reduce
+from collections import Counter
+from tools_extra import memoize_generator, memoize_iterator
 
 def first(n):
     return lambda iterator: (next(iterator) for _ in range(n))
@@ -111,6 +113,24 @@ def hilbert_prime_factorization(n, printing=False):
                     possibilities.append([hilbert_prime, continuation])
             return possibilities
 
+def hilbert_prime_factorization(n, prefix=None):
+    if prefix is None:
+        prefix = []
+    if is_hilbert_prime(n):
+        factorizations = [sorted(prefix + [n])]
+        return factorizations
+    else:
+        possibilities = []
+        hilbert_primes_truncated = takewhile(lambda x: x <= sqrt(n), hilbert_primes())
+        for hilbert_prime in hilbert_primes_truncated:
+            if n % hilbert_prime == 0:
+                quotient = int(n / hilbert_prime)
+                factorizations = hilbert_prime_factorization(quotient, prefix + [hilbert_prime])
+                for factorization in factorizations:
+                    if factorization not in possibilities:
+                        possibilities.append(factorization)
+        return possibilities
+
 def primorial(n):
     return reduce(mul, first(n)(primes()), 1)
 
@@ -122,6 +142,7 @@ def main():
         f = factorial(i) + 1
         if is_composite(f):
             prime_fac = ' * '.join(map(str, prime_factorization(f)))
+            print('n! + 1 is composite:')
             print('{i}! + 1 = {f} = {prime_fac}'.format(**locals()))
             break
     print('')
@@ -133,6 +154,7 @@ def main():
         if is_composite(p):
             factorization_minus_one = ' * '.join(map(str, first(i)(primes())))
             factorization = ' * '.join(map(str, prime_factorization(p)))
+            print ('nth primorial plus one is composite:')
             print('{p} = {factorization_minus_one} + 1\n{p} = {factorization}'.format(**locals()))
             break
     print('')
@@ -140,10 +162,20 @@ def main():
     # Question: what are the first ten hilbert primes?
     print('Hilbert primes:')
     print(list(first(10)(hilbert_primes())))
+    print('')
 
     # Question: what are the five ten hilbert numbers with multiple prime factorizations
     # or equivalently: Could Harrelson have used a smaller number than 693?
-    # TODO
+    print('Numbers with multiple hilbert factorizations:')
+    numbers = []
+    for h in hilbert_set():
+        hpf = hilbert_prime_factorization(h)
+        if len(hpf) > 1:
+            numbers.append(h)
+            print(h, hpf)
+        if len(numbers) > 10:
+            break
 
 if __name__ == '__main__':
+    pass
     main()
