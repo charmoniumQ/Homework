@@ -1,9 +1,11 @@
 from __future__ import print_function
 from math import *
 from itertools import *
+from operator import *
+from tools_extra import *
 
-def first_n(n, iterator):
-    return (next(iterator) for _ in range(n))
+def first(n):
+    return lambda iterator: (next(iterator) for _ in range(n))
 
 def divides(d, a):
     return a % d == 0
@@ -16,12 +18,11 @@ def gcd(a1, b1, printing=True):
     b = min(abs(a1), abs(b1))
     q = a / b
     r = a % b
-    if printing: print ('{a} = {b} * {q} + {r}'.format(**locals()))
     if r == 0:
-        if printing: print ('gcd({a}, {b}) = {b} since {b}|{a}'.format(**locals()))
+        if printing: print('gcd({a}, {b}) = {b} since {b}|{a}'.format(**locals()))
         return b
     else:
-        if printing: print ('gcd({a}, {b}) = gcd({b}, {r})'.format(**locals()))
+        if printing: print('gcd({a}, {b}) = gcd({b}, {r}) since {a} = {b} * {q} + {r}'.format(**locals()))
         return gcd(b, r, printing)
 
 def coprime(a, b):
@@ -33,16 +34,13 @@ def division(m, n):
     assert 0 <= r < n
     return q, r
 
-# def linear_diophantine(a, b, c):
-#     j = 0
-#     x = 0
-#     while j % b != c:
-#         j += a
-#         x += 1
-#     y = a * x / b
-#     print a * x, b * y, c
-#     return x, y
+def linear_diophantine(a, b, c):
+    for x in count():
+        if a * x % b == c:
+            break
+    return x, (a*x - c) / b
 
+@memoize_generator
 def primes():
     # absolutely no optimization here
     all_primes = [2]
@@ -77,6 +75,7 @@ def hilbert_set():
         yield h
         h = h + 4
 
+@memoize_generator
 def hilbert_primes():
     hilbert_primes = [5]
     h = hilbert_primes[-1]
@@ -97,7 +96,7 @@ def is_hilbert_prime(h):
     else:
         return False
 
-def hilbert_prime_factorization(n, printing=True):
+def hilbert_prime_factorization(n, printing=False):
     if n == 1:
         return [[]]
     else:
@@ -105,15 +104,17 @@ def hilbert_prime_factorization(n, printing=True):
             return [[n]]
         else:
             possibilities = []
-            if printing: print ('factors of {n} less-than-or-equal-to {0}'.format(sqrt(n), **locals()))
+            if printing: print('factors of {n} less-than-or-equal-to {0}'.format(sqrt(n), **locals()))
             for hilbert_prime in takewhile(lambda x: x <= sqrt(n), hilbert_primes()):
                 if n % hilbert_prime == 0:
                     continuation = hilbert_prime_factorization(n / hilbert_prime, printing)
                     possibilities.append([hilbert_prime, continuation])
             return possibilities
 
-if __name__ == '__main__':
+def primorial(n):
+    return reduce(mul, first(n)(primes()), 1)
 
+def main():
     # Question: is n! + 1 prime for all n?
     # we know that there exists a prime between n and n! + 1
     # but is it n! + 1?
@@ -121,12 +122,28 @@ if __name__ == '__main__':
         f = factorial(i) + 1
         if is_composite(f):
             prime_fac = ' * '.join(map(str, prime_factorization(f)))
-            print ('{i}! + 1 = {f} = {prime_fac}'.format(**locals()))
+            print('{i}! + 1 = {f} = {prime_fac}'.format(**locals()))
             break
+    print('')
+
+    # Question: is the 1 plus the primorial of n prime for all n?
+    # This is like a possible 'fix' for the negative answer of the previous question
+    for i in count(1):
+        p = primorial(i) + 1
+        if is_composite(p):
+            factorization_minus_one = ' * '.join(map(str, first(i)(primes())))
+            factorization = ' * '.join(map(str, prime_factorization(p)))
+            print('{p} = {factorization_minus_one} + 1\n{p} = {factorization}'.format(**locals()))
+            break
+    print('')
 
     # Question: what are the first ten hilbert primes?
-    print (list(first_n(10, hilbert_primes())))
+    print('Hilbert primes:')
+    print(list(first(10)(hilbert_primes())))
 
     # Question: what are the five ten hilbert numbers with multiple prime factorizations
     # or equivalently: Could Harrelson have used a smaller number than 693?
     # TODO
+
+if __name__ == '__main__':
+    main()
