@@ -1,53 +1,54 @@
-% page
-% enumeration
-% proof layout
-% symbols (\pmod, |, )
-% sub enum
-% skip to question
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Preamble
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[12pt,letterpaper]{article}
-%\usepackage{ifpdf,mla}
-\usepackage{amssymb} % for $\blacksquare$ and $\therefore$
-\usepackage[letterpaper, margin=1in]{geometry} % for margins
-\usepackage{setspace} % for \singlespace
-\usepackage{enumitem} % for [leftmargin=]
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{enumitem}
 \usepackage[pdftex]{graphicx}
-\usepackage{adjustbox}
-\usepackage{tabularx} % for proofs spanning multiple pages
 \usepackage{longtable}
-\usepackage{python}
+\usepackage{calc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
 \usepackage{cancel}
-\usepackage{tikz}
-\usepackage{pifont}
-\usepackage{hyperref}
-\usepackage{polynom}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[HR]{\thepage\ of \pageref{LastPage}}
+
 \newcommand{\fs}{\textrm{\ for some\ }}
-\newcommand{\lcm}{\mathrm{lcm}}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\pf}{pf}
+\DeclareMathOperator{\ccrs}{CCRS}
+\DeclareMathOperator{\crs}{CRS}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\rem}{rem}
 \newenvironment{proof}{
+\textbf{Proof: } \\
 \mbox{}\vspace*{-1.68\baselineskip}
-%\setlength{\LTleft}{\leftmargin}
-\begin{longtable}[l]{@{} l l}
+\setlength\LTleft{\leftmargin+20pt}
+\setlength\LTright\fill
+\begin{longtable}{@{} ll}
 }{
-\tiny {$~\blacksquare$}
+\tiny {\(~\blacksquare\)}
 \end{longtable}
 }
-\begin{document}
-\singlespacing % remove if no package setspace
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\doublespacing
 \begin{center}
-{\Large Sam Grayson's Notebook (with \LaTeX)} \\
-\today
+{\Large Notebook Swag} \\[14pt]
+{\large Sam Grayson} \\[0pt]
+{\today} \\
 \end{center}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Setup
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\singlespacing
+\setlength{\parindent}{0pt}
+
 \renewcommand{\theenumi}{\arabic{enumi}}
 \renewcommand{\labelenumi}{}
 \renewcommand{\theenumii}{\arabic{enumii}}
@@ -56,20 +57,11 @@
 \renewcommand{\labelenumiii}{\theenumiii.}
 \begin{enumerate}[leftmargin=0mm]
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Section 1
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \item 
 \begin{enumerate}[leftmargin=0mm]
-% \setcounter{enumi}{1}
-% \setcounter{enumii}{0}
-% \input{s1.tex}
-
-% \hrule
-
-\setcounter{enumi}{2}
+\setcounter{enumi}{3}
 \setcounter{enumii}{0}
-\input{s2.tex}
+\input{s3.tex}
 
 \end{enumerate}
 \end{enumerate}
