@@ -1,0 +1,176 @@
+\setcounter{enumii}{13}
+\item \textbf{Theorem:} \(\forall i \in \mathbb Z (\forall j \in \mathbb N (\exists ! r \in \mathbb N (i \equiv r \pmod j \wedge 0 \leq r < j)))\)
+
+\begin{proof}
+Let \(i \in \mathbb N\) & (for universal generalization) \\
+Let \(j \in \mathbb N\) & (for universal generalization) \\
+If \(i > 0\) \\
+Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Division algorithm \\
+Otherwise \(i < 0\) \\
+\(\exists ! p, r \in \mathbb N (-i = pj + t \wedge 0 \leq t < j) \) & Division algorithm \\
+\(-i = pj + t \wedge 0 \leq t < j \) & Existential generalization \\
+\(i = -pj - t\) & Existential generalization \\
+\(i = -pj - j + j - t\) & Algebra \\
+\(i = -(p+1)j + j - t\) & Algebra \\
+\(0 \leq t < j\) & Simplification \\
+\(-j < -t \leq 0\) & Property of inequalities \\
+\(0 < j - t \leq j\) & Property of inequalities \\
+If \(j - t < j\) \\
+Let \(q = -(p+1)\)
+Let \(r = j - t\) \\
+\(0 < r < j\) & Property of inequalities \\
+\(0 \leq r < j\) & Property of inequalities \\
+Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Existential generalization \\
+Otherwise \(j - t \geq j\) \\
+\(j - t \leq j \wedge j -t \geq j\) & Conjunction \\
+\(j - t = j\) & Property of inequalities \\
+\(t = 0\) & Identity property \\
+\(i = pj\)
+Let \(r = 0\) \\
+Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Existential generalization \\
+\(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Constructive dilemma \\
+Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Constructive dilemma \\
+\(\forall i \in \mathbb N (\forall j \in \mathbb N (\exists ! r \in \mathbb N (i \equiv r \pmod j \wedge 0 \leq r < j)))\) & Universal generalization \\ & (used twice)
+\end{proof}
+
+\item
+\begin{enumerate}
+\item \(\{0, 1, 2, 3\}\)
+\item \(\{-4, -3, -2, -1\}\)
+\item \(\{0, 5, 10, 15\}\)
+\end{enumerate}
+
+Let \(A \in \crs(n)\) stand for \(A\) is a possible Complete Residue System (CRS) for mod \(n\).
+
+Let \(A \in \ccrs(n)\) stand for \(A\) is the Canonical Complete Residue System (CCRS) for mod \(n\).
+
+\item \textbf{Theorem:} \(B \in \crs (n) \rightarrow \lvert B \rvert = n\)
+
+\begin{proof}
+Let \(A \in \ccrs(n)\) \\
+Let \(B \in \crs(n)\) & For conditional\\
+Let \(f : A \to B\) where \(a \mapsto b\) if \(a \equiv b \pmod n\) \\
+\(\forall a \in A (\exists! b \in B (x \equiv b \pmod n))\) & Definition of CRS \\
+\(\forall a \in \cod (f) (\exists ! b \in \dom (f) (f(a) = b))\) & Substitution \\
+Thus \(f\) is a bijective map \\
+\(\lvert A \rvert = n\) & By inspection \\
+Thus \(\lvert A \rvert = \lvert B \rvert = n\) & Bijection \\
+\(B \in \crs (n) \rightarrow \lvert B \rvert = n\) & Conditional proof
+\end{proof}
+
+\item \textbf{Theorem:} \(\neg \exists a \in S (\exists b \in S (a \equiv b \pmod n \wedge a \neq b)) \rightarrow S \in \crs(n)\)
+
+Let \(\rem(x \pmod n)\) (read ``remainder of x modulo n'')denote the number in the Complete Canonical Residue System congruent to \(x\) mod \(n\).
+
+\textbf{Lemma: } \(a = b \rightarrow a \equiv b \pmod n\)
+\begin{proof}
+\(a - b = 0\) & Algebra \\
+\(0n = 0\) & Zero-property of multiplication \\
+\(n \mid (a - b)\) & Definition of divides \\
+\(a \equiv b \pmod n\) & Definition of modulo
+\end{proof}
+
+
+\begin{proof}
+%\(\forall i \in \mathbb S (\exists ! r \in \mathbb N (i \equiv r \pmod n \wedge 0 \leq r < n))\) & Theorem 3.14 \\
+Assume \(\neg \exists a \in S (\exists b \in S (a \equiv b \pmod n \wedge a \neq b))\) & (for conditional) \\
+Assume \(\exists a \in S (\exists b \in S (\rem(a \pmod n) = \rem(b \pmod n)))\) & (for contradiction) \\
+\(a \equiv \rem(a \pmod n)\) & Definition of remainder \\
+\(b \equiv \rem(b \pmod n)\) & Definition of remainder \\
+\(a \equiv \rem(a \pmod n) \equiv b\) & Lemma and transitivity \\
+\(\exists a \in S (\exists b \in S (a \equiv b \pmod n \wedge a \neq b))\) & Existential generalization \\
+\(\neg \exists a \in S (\exists b \in S (\rem(a \pmod n) = \rem(b \pmod n)))\) & Contradiction \\
+\(\)
+\end{proof}
+
+\item 
+\begin{enumerate}
+\item \(x \equiv 1 \pmod 3\)
+\item \(x \equiv 4 \pmod 5\)
+\item No solution.
+\item \(x \equiv 14 + 71n \pmod{213}\) for \(n \in \{0, 1, 2\}\)
+\end{enumerate}
+
+\item \textbf{Theorem:} \(\exists x \in \mathbb Z (ax \equiv b \pmod n) \leftrightarrow \exists x, y \in \mathbb Z (ax - ny = b)\)
+%TODO: deal with existence
+
+\begin{proof}
+\(\exists x \in \mathbb Z (ax \equiv b \pmod n) \leftrightarrow \exists x \in \mathbb Z (b \equiv ax \pmod n)\) & Theorem 1.10 \\
+\(\exists x \in \mathbb Z (b \equiv ax \pmod n) \leftrightarrow \exists x \in \mathbb Z (n\mid(b - ax))\) & Definition of modulo \\
+\(\exists x \in \mathbb Z (n\mid(b - ax)) \leftrightarrow \exists x, y \in \mathbb Z (ny = b - ax)\) & Definition of divides \\
+\(\exists x, y \in \mathbb Z (ny = b - ax) \leftrightarrow \exists x, y \in \mathbb Z (ax + ny = b)\) & Algebra \\
+\(\exists x \in \mathbb Z (ax \equiv b \pmod n) \leftrightarrow \exists x, y \in \mathbb Z (ax - ny = b)\) & Transitivity
+\end{proof}
+
+\item \textbf{Theorem:} \(\exists x \in \mathbb Z (ax \equiv b \pmod n) \leftrightarrow \gcd(a, n)\mid b \)
+
+\begin{proof}
+\(\exists x \in \mathbb Z (ax \equiv b \pmod n) \leftrightarrow \exists x, y \in \mathbb Z (ax - ny = b)\) & Theorem 3.19 \\
+\(\exists x, y \in \mathbb Z (ax - ny = b) \leftrightarrow \gcd(a, n) \mid b\) & 1.48 \\
+\(\exists x \in \mathbb Z (ax \equiv b \pmod n) \leftrightarrow \gcd(a, n)\mid b \) & Transitivity
+\end{proof}
+
+\item It has a solution.
+
+\item
+\begin{tabular}[t]{l}
+\(213 - 8 \cdot 24 = 21\) \\
+\(24 - 1 \cdot 21 = 3\) \\
+\(24 - 1 \cdot (213 - 8 \cdot 24) = 3\) \\
+\(9 \cdot 24 - 213 = 3\) \\
+\(41 \cdot (9 \cdot 24 - 213) = 41 \cdot 3 = 123\) \\
+\(369 \cdot 24 - 41 \cdot 213 = 123\) \\
+\((369 + n \cdot 71) \cdot 24 - (41 + n \cdot 8) \cdot 213 = 123\) \\
+\(213 \mid ((369 + n \cdot 71) \cdot 24 - 213)\) \\
+\(x = 369 + n \cdot 71\)
+\end{tabular}
+
+\item \textbf{Algorithm: } Find all solutions of \(ax = b \pmod n\) for \(0 \leq x < n\)
+
+\textbf{Steps: } \\
+\begin{enumerate}
+\item WLOG \(a < n\), otherwise reduce \(a\).
+\item Let \(r_1 := q_0 n - a\) with \(0 \leq r_1 < n\) by the Division algorithm.
+\item Let \(r_2 := q_1 a - r_1\) with \(0 \leq r_1 < a\) by the Division algorithm.
+\item Starting with \(i = 2\), repeating until \(r_{i+2} = 0\)
+\begin{enumerate}
+\item Let \(r_{i+1} := r_{i-1} - q_i r_i\) with \(0 \leq r_{i+1} < r_i\) by the Division algorithm.
+\item Let \(i := i + 1\)
+\end{enumerate}
+\item \(r_{i+1} = \gcd(n, a)\) by the argument in 2.35
+\item Observe that \(\gcd(n, a)= r_{i+1} = r_{i-1} - q_i r_i\) (from assignment of \(r_{i+1}\))
+\item Starting with \(j = i - 1\), until \(j = 1\)
+\begin{enumerate}
+\item Replace \(r_{j + 1}\) with \(r{j-1} - q_j r_j\) (from the assignment of \(r_{i+1}\))
+\item Let \(j := j - 1\)
+\item Observe that \(r_{j}\) is a linear combination of \(r_{j-1}\) and \(r_j\)
+\end{enumerate}
+\item Subsitute \(r_1\) with \(q_0 n - b\) and \(r_2\) with \(q_1 a - r_1\)
+\item Since \(\gcd(n, a) = r_{i+1}\), and \(r_{i+1}\) is written as a linear combination of \(r_i\) and \(r_{i-1}\), and \(r_1\) and \(r_2\) are written as a linear combinatino of \(a\) and \(b\), \(gcd(n, a)\) is written as a linear combination of \(a\) and \(b\) after substitution. Let that combination be \(ax + ny = b\)
+\item Therefore \(\frac{\gcd(n, a)}{b} ax + \frac{\gcd(n, a)}{b} ny = \frac{\gcd(n, a)}{b} b = b\) by algebra with additional solutions are found at \((\frac{\gcd(n, a)}{b} x + m\frac{n}{\gcd(n, a)})a + (\frac{\gcd(n, a)}{b} y - m\frac{a}{\gcd{n, a}})n = b\) by Theorem 1.51.
+\item Therefore solution is found at \(x = \frac{\gcd(n, a)}{b} a + m\frac{n}{\gcd(n, a)}\)
+\tiny {$~\blacksquare$}
+\end{enumerate}
+
+\begin{proof}
+\(0 \leq x_0 < \frac{n}{\gcd(a, n)}\) \\
+\(0 + (\gcd(a, n) - 1) \frac{n}{\gcd(a, n)}
+\leq x_0 + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
+< \frac{n}{\gcd(a, n)} + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
+\) & Addition property of inequalities \\
+\(0 + (\gcd(a, n) - 1) \frac{n}{\gcd(a, n)}
+\leq x_0 + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
+< \frac{n}{\gcd(a, n)} + \gcd(a, n)\frac{n}{\gcd(a, n)} - \frac{n}{\gcd(a, n)}
+\) & Distributive property \\
+\((\gcd(a, n) - 1) \frac{n}{\gcd(a, n)}
+\leq x_0 + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
+< \gcd(a, n)\frac{n}{\gcd(a, n)}
+\) & Identity \\
+For all  \(0 \leq m \leq \gcd(a, n) - 1\), there are solutions at \(x_0 + m \frac{n}{\gcd(a, n)}\) in the CCRS \\
+There are \(\gcd(a, n)\) solutions
+\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
