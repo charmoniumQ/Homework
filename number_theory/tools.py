@@ -166,11 +166,11 @@ def linear_congruence_system(eqns, printing=False):
     for a, b, n in eqns:
         for j in count():
             if mod(a * (x0 + j*xi), b, n):
-                if printing: print('x = {' + str(list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))[1:-1] + ', ...}')
+                if printing: print('\(x = \{\)' + ''.join(map(lambda xn: '\({xn}\), '.format(**locals()), list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))) + '\(, \dots\}\) \\\\')
                 x0 = x0 + j * xi
                 xi = lcm(xi, n)
-                if printing: print('x satisfies {a} * x = {b} mod {n} and all previous equations'.format(**locals()))
-                if printing: print('when x = {x0} + j * {xi}'.format(**locals()))
+                if printing: print('\\\\ \(x\) satisfies \({a} x \equiv {b} \pmod {{{n}}}\) and all previous equations'.format(**locals()))
+                if printing: print('when \(x = {x0} + j \cdot {xi}\) \\\\'.format(**locals()))
                 break
         else:
             print('death')
@@ -232,8 +232,9 @@ def main():
     print('')
 
     print('Systems of linear congruence solutions:')
-    linear_congruence_system([(1, 3, 17), (1, 10, 16), (1, 0, 15)])
-    linear_congruence_system([(1, 1, 2), (1, 2, 3), (1, 3, 4), (1, 4, 5), (1, 5, 6)])
+    linear_congruence_system([(1, 3, 17), (1, 10, 16), (1, 0, 15)], True)
+    print('')
+    linear_congruence_system([(1, 1, 2), (1, 2, 3), (1, 3, 4), (1, 4, 5), (1, 5, 6)], True)
     # I am not going to test this. I know it works.
     # (famous last words)
     print('')
