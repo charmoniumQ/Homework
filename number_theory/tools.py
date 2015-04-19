@@ -15,28 +15,30 @@ def sgn(x):
     if x < 0:
         return -1
 
+def cmod(a, n):
+    '''Returns c such that $a \equiv c \pmod{n}$ and $0 \leq c < n$
+    this c is the remainder in the division algorithm
+    c is also in the canonical complete residue system
+    WLOG n > 0'''
+    n = abs(n)
+    return ((a % n) + n) % n
+
 def first(n, iterator):
     return (next(iterator) for _ in range(n))
 
 def divides(d, a):
     '''Returns true if $d | a$'''
-    return a % d == 0
+    return cmod(a, d) == 0
 
 def mod(a, b, n):
-    '''Returns true if $a \equiv b \pmod n$'''
+    '''Returns true if $a \equiv b \pmod{n}$'''
     return divides(n, a - b)
-
-def cmod(a, n):
-    '''Returns c such that $a \equiv c \pmod n$ and $0 \leq c < n$'''
-    n = abs(n)
-    return ((a % n) + n) % n
 
 def gcd(a1, b1, printing=False):
     '''Returns the greatest common multiple'''
     # WLOG a > b > 0
     a = max(abs(a1), abs(b1))
     b = min(abs(a1), abs(b1))
-    q = a / b
     r = cmod(a, b)
     if r == 0:
         if printing: print('$\gcd({a}, {b}) = {b}$ since ${b}|{a}$'.format(**locals()))
@@ -77,8 +79,7 @@ def primes():
             yield i
 
 def prime_factorization(n):
-    '''Returns the prime factorization of any integer n'''
-    # for natural numbers
+    '''Returns the prime factorization of any natural n'''
     if n < 0:
         return [-1] + prime_factorization(-n)
     if n == 1:
@@ -149,32 +150,36 @@ def hilbert_prime_factorization(n, prefix=None):
 
 def linear_diophantine(a, b, c):
     '''Returns (x0, y0), (xi, yi) where $ax + by = c$
-when $x = x_0 + n x_$i and $y = y_0 + n y_i$'''
+    when $x = x_0 + n x_$i and $y = y_0 + n y_i$'''
     g = gcd(a, b)
-    if not divides(g, c):
-        return None
     if c == g:
         for x in count():
-            # Try x = {0, 1, 2, 3, 4, ...}
+                # Loop over this with x = {0, 1, 2, 3 ...}
             if mod(a * x, g, b):
-                # the above line means $a \cdot x \equiv g \pmod b$
+                # the above line means $a \cdot x \equiv g \pmod{b}$
                 y = (g - a*x) / b
-                assert a*x + b*y == g
-                return (x, y), (b / g, -a / g)
-    else:
+                # at this point $ax + by = g$
+                # therefore return from loop
+                return (x, y), (int(b / g), int(-a / g))
+    elif divides(g, c):
         # solve a simplier diophantine equation first
         (u_0, v_0), (u_i, v_i) = linear_diophantine(a, b, g)
-        assert u_0 * a + v_0 * b == g
-        (x_0, y_0) = (u_0 * c / g, v_0 * c / g)
+        # at this point $u_0 a + v_0 b = g$
+        # multiplying both sides by $\frac{c}{g}$ gives
+        # $u_0 \frac{c}{g} a + v_0 \frac{c}{g} b = g \frac{c}{g} = c$
+        (x_0, y_0) = (int(u_0 * c / g), int(v_0 * c / g))
         (x_i, y_i) = (u_i, v_i)
         return(x_0, y_0), (x_i, y_i)
+    else:
+        return None
 
 def linear_congruence(a, b, n):
-    '''Returns x_0, n where $ax \equiv b \pmod n$ when $x \equiv x_0 \pmod n$'''
+    '''Returns x_0, n where $ax \equiv b \pmod{n}$ when $x \equiv x_0 \pmod{n}$'''
+    # Returns x_0, n where $ax \equiv b \pmod{n}$ when $x \equiv x_0 \pmod{n}$
     # this function relies on the linear_diophantine function,
     # because why reinvent the wheel?
     (x_0, y_0), (x_i, y_i) = linear_diophantine(a, -n, b)
-    return x_0, x_i
+    return cmod(x_0, x_i), abs(x_i)
 
 def linear_congruence_system(eqns, printing=False):
     # if x = x0 + j * xi, then x = all whole numbers
