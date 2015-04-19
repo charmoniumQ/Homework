@@ -1,23 +1,35 @@
-from __future__ import print_function
+from __future__ import print_function, division
 from math import *
 from itertools import *
 from operator import *
 from functools import reduce
-from collections import Counter
 from tools_extra import memoize_generator, memoize_iterator
 
 NaN = None
 
-def first(n):
-    return lambda iterator: (next(iterator) for _ in range(n))
+def sgn(x):
+    if x > 0:
+        return 1
+    if x == 0:
+        return 0
+    if x < 0:
+        return -1
+
+def first(n, iterator):
+    return (next(iterator) for _ in range(n))
 
 def divides(d, a):
-    '''Returns true if d | a'''
+    '''Returns true if $d | a$'''
     return a % d == 0
 
 def mod(a, b, n):
-    '''Returns true if a = b mod n'''
+    '''Returns true if $a \equiv b \pmod n$'''
     return divides(n, a - b)
+
+def cmod(a, n):
+    '''Returns c such that $a \equiv c \pmod n$ and $0 \leq c < n$'''
+    n = abs(n)
+    return ((a % n) + n) % n
 
 def gcd(a1, b1, printing=False):
     '''Returns the greatest common multiple'''
@@ -25,12 +37,12 @@ def gcd(a1, b1, printing=False):
     a = max(abs(a1), abs(b1))
     b = min(abs(a1), abs(b1))
     q = a / b
-    r = a % b
+    r = cmod(a, b)
     if r == 0:
-        if printing: print('gcd({a}, {b}) = {b} since {b}|{a}'.format(**locals()))
+        if printing: print('$\gcd({a}, {b}) = {b}$ since ${b}|{a}$'.format(**locals()))
         return b
     else:
-        if printing: print('gcd({a}, {b}) = gcd({b}, {r}) since {a} = {b} * {q} + {r}'.format(**locals()))
+        if printing: print('$\gcd({a}, {b}) = gcd({b}, {r})$ since ${a} = {b} * {q} + {r}$'.format(**locals()))
         return gcd(b, r, printing)
 
 def lcm(a, b):
@@ -38,19 +50,16 @@ def lcm(a, b):
     return abs(a * b) / gcd(a, b)
 
 def coprime(a, b):
-    '''Returns if a and b are coprime'''
+    '''Returns True if a and b are coprime'''
     return gcd(a, b) == 1
 
 def division(m, n):
-    '''Returns the q and r from the dividion algorithm for'''
-    q = m / n
-    r = m - n*q
-    #assert 0 <= r < n
-    return q, r
-
-def cmod(a, n):
-    '''Returns a = c mod n where 0 <= c < n'''
-    return division(a, n)[1]
+    '''Returns the q and r where $n = mq + r$ and $0 \leq r < n$'''
+    r = cmod(m, n)
+    q = (m - r) / n
+    assert 0 <= r < abs(n), r
+    assert q == int(q), q
+    return int(q), r
 
 @memoize_generator
 def primes():
@@ -61,7 +70,7 @@ def primes():
     while True:
         i = i + 1
         for prime in all_primes:
-            if i % prime == 0:
+            if divides(prime, i):
                 break
         else:
             all_primes.append(i)
@@ -76,7 +85,7 @@ def prime_factorization(n):
         return []
     else:
         for prime in takewhile(lambda prime: prime <= abs(n), primes()):
-            if n % prime == 0:
+            if divides(prime, n):
                 return [prime] + prime_factorization(n / prime)
             
 def is_prime(n):
@@ -92,7 +101,7 @@ def is_composite(n):
     return n != 1 and not is_prime(n)
 
 def primorial(n):
-    return reduce(mul, first(n + 1)(primes()), 1)
+    return reduce(mul, first(n + 1, primes()), 1)
 
 def hilbert_set():
     h = 1
@@ -108,7 +117,7 @@ def hilbert_primes():
     while True:
         h = h + 4
         for hilbert_prime in hilbert_primes:
-            if h % hilbert_prime == 0:
+            if divides(hilbert_prime, h):
                 break
         else:
             hilbert_primes.append(h)
@@ -132,32 +141,40 @@ def hilbert_prime_factorization(n, prefix=None):
         possibilities = set()
         hilbert_primes_truncated = takewhile(lambda x: x <= sqrt(n), hilbert_primes())
         for hilbert_prime in hilbert_primes_truncated:
-            if n % hilbert_prime == 0:
+            if divides(hilbert_prime, n):
                 quotient = int(n / hilbert_prime)
                 factorizations = hilbert_prime_factorization(quotient, prefix + [hilbert_prime])
                 possibilities = possibilities.union(factorizations)
         return possibilities
 
 def linear_diophantine(a, b, c):
-    '''Return (x0, y0), (xi, yi) where (x0 + n * xi) * a + (y0 + n * yi) * b = c for integer n'''
+    '''Returns (x0, y0), (xi, yi) where $ax + by = c$
+when $x = x_0 + n x_$i and $y = y_0 + n y_i$'''
     g = gcd(a, b)
     if not divides(g, c):
         return None
-    for x in count():
-        if a * x % b == g:
-            break
-    y = (g - a*x) / b
-    return (x * c / g, y * c / g), (b / g, -a / g)
+    if c == g:
+        for x in count():
+            # Try x = {0, 1, 2, 3, 4, ...}
+            if mod(a * x, g, b):
+                # the above line means $a \cdot x \equiv g \pmod b$
+                y = (g - a*x) / b
+                assert a*x + b*y == g
+                return (x, y), (b / g, -a / g)
+    else:
+        # solve a simplier diophantine equation first
+        (u_0, v_0), (u_i, v_i) = linear_diophantine(a, b, g)
+        assert u_0 * a + v_0 * b == g
+        (x_0, y_0) = (u_0 * c / g, v_0 * c / g)
+        (x_i, y_i) = (u_i, v_i)
+        return(x_0, y_0), (x_i, y_i)
 
 def linear_congruence(a, b, n):
-    '''Return x0, xi where a * (x0 + n * xi) = b mod n for integer n'''
-    # ax = b mod n
-    # b = ax mod n
-    # n|(b - ax)
-    # yn = b - ax
-    # ax + yn = b
-    (x0, y0), (xi, yi) = linear_diophantine(a, n, b)
-    return x0, xi
+    '''Returns x_0, n where $ax \equiv b \pmod n$ when $x \equiv x_0 \pmod n$'''
+    # this function relies on the linear_diophantine function,
+    # because why reinvent the wheel?
+    (x_0, y_0), (x_i, y_i) = linear_diophantine(a, -n, b)
+    return x_0, x_i
 
 def linear_congruence_system(eqns, printing=False):
     # if x = x0 + j * xi, then x = all whole numbers
@@ -169,11 +186,11 @@ def linear_congruence_system(eqns, printing=False):
                 if printing: print('\(x = \{\)' + ''.join(map(lambda xn: '\({xn}\), '.format(**locals()), list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))) + '\(, \dots\}\) \\\\')
                 x0 = x0 + j * xi
                 xi = lcm(xi, n)
-                if printing: print('\\\\ \(x\) satisfies \({a} x \equiv {b} \pmod {{{n}}}\) and all previous equations'.format(**locals()))
-                if printing: print('when \(x = {x0} + j \cdot {xi}\) \\\\'.format(**locals()))
+                if printing: print('\\\\ \(x\) satisfies \({a} x \equiv {b} \pmod {{{n}}}\) and all previous equations when \(x = {x0} + j \cdot {xi}\) \\\\'.format(**locals()))
                 break
         else:
             print('death')
+    if printing: print('\(x = \{\)' + ''.join(map(lambda xn: '\({xn}\), '.format(**locals()), list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))) + '\(\dots\}\) \\\\')
     return x0, xi
 
 def main():
@@ -184,7 +201,7 @@ def main():
         f = factorial(i) + 1
         if is_composite(f):
             prime_fac = ' * '.join(map(str, prime_factorization(f)))
-            print('n! + 1 is composite:')
+            print('$n! + 1$ is composite:')
             print('{i}! + 1 = {f} = {prime_fac}'.format(**locals()))
             break
     print('')
@@ -194,7 +211,7 @@ def main():
     for i in count(1):
         p = primorial(i) + 1
         if is_composite(p):
-            factorization_minus_one = ' * '.join(map(str, first(i)(primes())))
+            factorization_minus_one = ' * '.join(map(str, first(i, primes())))
             factorization = ' * '.join(map(str, prime_factorization(p)))
             print ('nth primorial plus one is composite:')
             print('{p} = {factorization_minus_one} + 1\n{p} = {factorization}'.format(**locals()))
@@ -203,7 +220,7 @@ def main():
 
     # Question: what are the first ten hilbert primes?
     print('Hilbert primes:')
-    print(list(first(10)(hilbert_primes())))
+    print(list(first(10, hilbert_primes())))
     print('')
 
     # Question: what are the five ten hilbert numbers with multiple prime factorizations
@@ -225,16 +242,16 @@ def main():
     a, b, c = 7, 8, 100
     (x0, y0), (xi, yi) = linear_diophantine(a, b, c)
     x1, y1 = x0 + xi, y0 + yi
-    print('{a}*{x0} + {b}*{y0} = {c}'.format(**locals()))
+    print('${a} \cdot {x0} + {b} \cdot {y0} = {c}$'.format(**locals()))
     print(a*x0 + b*y0 == c)
-    print('{a}*{x1} + {b}*{y1} = {c}'.format(**locals()))
+    print('${a} \cdot {x1} + {b} \cdot {y1} = {c}$'.format(**locals()))
     print(a*x1 + b*y1 == c)
     print('')
 
     print('Systems of linear congruence solutions:')
     linear_congruence_system([(1, 3, 17), (1, 10, 16), (1, 0, 15)], True)
     print('')
-    linear_congruence_system([(1, 1, 2), (1, 2, 3), (1, 3, 4), (1, 4, 5), (1, 5, 6)], True)
+    linear_congruence_system([(1, 1, 2), (1, 2, 3), (1, 3, 4), (1, 4, 5), (1, 5, 6), (1, 0, 7)], True)
     # I am not going to test this. I know it works.
     # (famous last words)
     print('')

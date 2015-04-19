@@ -1,11 +1,15 @@
+
+
 \setcounter{enumii}{10}
-\item \textbf{Theorem:} Let \(f\) be an \(n\)-degree monic polynomial such that \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0 \). \(\exists k \in \mathbb N (\forall x > k (f(x) > 0))\).
+\item \textbf{Theorem:} Let \(f\) be an \(n\)-degree polynomial such that \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0 \) and \(a_n > 0\). \(\exists k \in \mathbb N (\forall x > k (f(x) > 0))\).
 
 \textbf{Proof:} \(x > \lvert a_{n-1} \rvert\) is sufficient for \(x^n > a_{n-1} x^{n-1}\). That is because multiplying both sides of the condition by \(x^{n-1}\) (valid operation since \(x^{n-1}>0\), since \(x>0\)) gives \(x x^{n-1} > a_{n-1} x^{n-1}\), equivalently \(x^n  > a_{n-1} x^{n-1}\). That simply arises from the initial condition. After this point, the \(n\)th term dominates the \((n-1)\)th term.
 
 If the first term dominates the zeroth term at some point \(k_1\), and the second term dominates the first term at some point \(k_2\), then at some point greater than \(k_1\) and greater than \(k_2\), the third term dominates the second term and the second term dominates the first term (\(\lvert a_2 x^2 \rvert > \lvert a_1 x \rvert > \lvert a_0 \rvert\)). Therefore the third term dominates the first term (\(\lvert a_2 x^2 > a_0\)). 
 
-Continuing in this way, there is some point \(k_n\) the \(n\)th term dominates the \((n-1)\)th term. The \((n-1)\)th term dominates the \((n-2)\)th term after \(k_{n-1}\). Therefore for \(x > k\) where \(k = \max(k_n, k_{n-1}, \dots, k_1)\), the \(n\)th term dominates. Since the polynomial is monic, \(a_n > 0\). Therefore \(\lvert a_n x^n \rvert > \lvert a_{n-1} x^{n-1} \rvert > \dots > \rvert a_0 \lvert\). Therefore \(n \lvert a_n x^n \rvert > \lvert a_{n-1} x^{n-1} \rvert + \dots + \rvert a_0 \lvert\). 
+Continuing in this way, there is some point \(k_n\) the \(n\)th term dominates the \((n-1)\)th term. The \((n-1)\)th term dominates the \((n-2)\)th term after \(k_{n-1}\). Therefore for \(x > k\) where \(k = \max(k_n, k_{n-1}, \dots, k_1)\), the \(n\)th term dominates. \(a_n > 0\) by the premise. Therefore \(\lvert a_n x^n \rvert > \lvert a_{n-1} x^{n-1} \rvert > \dots > \rvert a_0 \lvert\). Therefore \(n \lvert a_n x^n \rvert > \lvert a_{n-1} x^{n-1} \rvert + \dots + \rvert a_0 \lvert\). Since \(n\) is a positive constant multiplier, we can absorb it into \(a_n\). If it dominates the first term, and the first term is positive, then whether or not the later terms are positive or negative the polynomial will be positive. Therefore, after the point \(k_n\) the first term dominates every other term by more than a factor of \(n\). \(\exists k \in \mathbb N (\forall x > k (f(x) > 0))\) \(\small \blacksquare\)
+
+%\item \textbf{Theorem:} \(\)
 
 \setcounter{enumii}{13}
 \item \textbf{Theorem:} \(\forall i \in \mathbb Z (\forall j \in \mathbb N (\exists ! r \in \mathbb N (i \equiv r \pmod j \wedge 0 \leq r < j)))\)
@@ -134,32 +138,59 @@ Assume \(\exists a \in S (\exists b \in S (\rem(a \pmod n) = \rem(b \pmod n)))\)
 \(x = 369 + n \cdot 71\)
 \end{tabular}
 
-\item \textbf{Algorithm: } Find all solutions of \(ax = b \pmod n\) for \(0 \leq x < n\)
+\item \textbf{Algorithm:} Find all solutions of \(ax = b \pmod n\) for \(0 \leq x < n\)
 
-\textbf{Steps: } \\
-\begin{enumerate}
-\item WLOG \(a < n\), otherwise reduce \(a\).
-\item Let \(r_1 := q_0 n - a\) with \(0 \leq r_1 < n\) by the Division algorithm.
-\item Let \(r_2 := q_1 a - r_1\) with \(0 \leq r_1 < a\) by the Division algorithm.
-\item Starting with \(i = 2\), repeating until \(r_{i+2} = 0\)
-\begin{enumerate}
-\item Let \(r_{i+1} := r_{i-1} - q_i r_i\) with \(0 \leq r_{i+1} < r_i\) by the Division algorithm.
-\item Let \(i := i + 1\)
-\end{enumerate}
-\item \(r_{i+1} = \gcd(n, a)\) by the argument in 2.35
-\item Observe that \(\gcd(n, a)= r_{i+1} = r_{i-1} - q_i r_i\) (from assignment of \(r_{i+1}\))
-\item Starting with \(j = i - 1\), until \(j = 1\)
-\begin{enumerate}
-\item Replace \(r_{j + 1}\) with \(r{j-1} - q_j r_j\) (from the assignment of \(r_{i+1}\))
-\item Let \(j := j - 1\)
-\item Observe that \(r_{j}\) is a linear combination of \(r_{j-1}\) and \(r_j\)
-\end{enumerate}
-\item Subsitute \(r_1\) with \(q_0 n - b\) and \(r_2\) with \(q_1 a - r_1\)
-\item Since \(\gcd(n, a) = r_{i+1}\), and \(r_{i+1}\) is written as a linear combination of \(r_i\) and \(r_{i-1}\), and \(r_1\) and \(r_2\) are written as a linear combinatino of \(a\) and \(b\), \(gcd(n, a)\) is written as a linear combination of \(a\) and \(b\) after substitution. Let that combination be \(ax + ny = b\)
-\item Therefore \(\frac{\gcd(n, a)}{b} ax + \frac{\gcd(n, a)}{b} ny = \frac{\gcd(n, a)}{b} b = b\) by algebra with additional solutions are found at \((\frac{\gcd(n, a)}{b} x + m\frac{n}{\gcd(n, a)})a + (\frac{\gcd(n, a)}{b} y - m\frac{a}{\gcd{n, a}})n = b\) by Theorem 1.51.
-\item Therefore solution is found at \(x = \frac{\gcd(n, a)}{b} a + m\frac{n}{\gcd(n, a)}\)
-\tiny {$~\blacksquare$}
-\end{enumerate}
+% Awful: manni, autumn, rrt, native, borland, tango, friendly, monokai, bw, trac, defualt, fruity
+% Poor: igor
+% Mediocre: xcode, vs, perldoc, colorful=pastie
+\usemintedstyle{colorful}
+
+To understand this code
+\begin{itemize}
+\item Single equals-sign means assignment of the right-hand value to the left-hand variable. \mintinline{python}{x = 2} says ``Make x equal to 2''
+\item Double equals-sign tests for equivalence. \mintinline{python}{x == 2} asks the question ``Is x equal to 2?''
+\item Ordered-pairs can appear in assignment operations and in equivalence tests.
+\item Lines that begin with a \# are code comments. They are ignored by the computer. They show up in gray.
+\item A function is defined by a line beginning with ``def'', the name of the function, and a temporary name given to the function arguments. The function ends with a line that says `return' and then a value. \mintinline{python}{def f(x):} and then a line that says \mintinline{python}{return 2 * x}. If later you see \mintinline{python}{f(10)}, it evaluates to 20.
+\item Lines begining with assert mean that the line \textit{should} be true, solely for the benefit of the reader. They are (mostly) ignored by the computer. \mintinline{python}{assert x == 2} tells the reader x should be 2 at this point.
+\end{itemize}
+
+
+\begin{minted}[mathescape]{python}
+def linear_diophantine(a, b, c):
+    # Returns (x0, y0), (xi, yi) where $ax + by = c$
+    # when $x = x_0 + n x_i$ and $y = y_0 + n y_i$
+    g = gcd(a, b)
+    if c == g:
+        for x in count():
+            # Try x = {0, 1, 2, 3, 4, ...}
+            if mod(a * x, g, b):
+                # the above line means $a \cdot x \equiv g \pmod{b}$
+                y = (g - a*x) / b
+                assert a*x + b*y == g
+                return (x, y), (b / g, -a / g)
+    else:
+        # solve a simplier diophantine equation first
+        (u_0, v_0), (u_i, v_i) = linear_diophantine(a, b, g)
+        assert u_0 * a + v_0 * b == g
+        (x_0, y_0) = (u_0 * c / g, v_0 * c / g)
+        (x_i, y_i) = (u_i, v_i)
+        return(x_0, y_0), (x_i, y_i)
+
+def linear_congruence(a, b, n):
+    # Returns x_0, n where $ax \equiv b \pmod{n}$ when $x \equiv x_0 \pmod{n}$
+    # this function relies on the linear_diophantine function,
+    # because why reinvent the wheel?
+    (x_0, y_0), (x_i, y_i) = linear_diophantine(a, -n, b)
+    return x_0, x_i
+\end{minted}
+
+This code relies on auxiliary functions. They are listed below.
+
+
+\begin{minted}{python}
+
+\end{minted}
 
 \textbf{Theorem:} There are \(\frac{n}{\gcd(a, n)}\) solutions to the linear congruence.
 
@@ -183,7 +214,7 @@ There are \(\gcd(a, n)\) solutions
 
 \item 3.20, 3.23a, and 3.23b taken together prove this theorem. The big idea is that a linear congruence is a special kind of linear diophantine equation.
 
-\item Solve for \(x\) in
+\item \textbf{Exercise:} Solve for \(x\) in
 
 \(
 \begin{array}[t]{l}
@@ -193,19 +224,19 @@ x \equiv 0 \pmod {15} \\
 \end{array}
 \)
 
-\begin{tabular}[t]{p{7in}}
-\(x = \{\)\(0\), \(1\), \(2\), \(3\), \(4\), \(5\), \(6\), \(7\), \(8\), \(9\), \(10\), \(11\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 3 \pmod {17}\) and all previous equations
-when \(x = 3 + j \cdot 17\) \\
-\(x = \{\)\(3\), \(20\), \(37\), \(54\), \(71\), \(88\), \(105\), \(122\), \(139\), \(156\), \(173\), \(190\), \(207\), \(224\), \(241\), \(258\), \(275\), \(292\), \(309\), \(326\), \(343\), \(360\), \(377\), \(394\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 10 \pmod {16}\) and all previous equations
+\begin{longtable}[t]{p{7in}}
+\(x\) satisfies \(x \equiv 3 \pmod {17}\) when \(x = 3 + j \cdot 17\)\\
+\(x = \{\)\(3\), \(20\), \(37\), \(54\), \(71\), \(88\), \(105\), \(\color{green}122\), \(139\), \(156\), \(173\), \(190\), \(207\), \(224\), \(241\), \(258\), \(275\), \(292\), \(309\), \(326\), \(343\), \(360\), \(377\), \(\color{green} 394\), \(\dots\}\) \\
+\\ \(x\) satisfies \(x \equiv 10 \pmod {16}\) and all previous equations
 when \(x = 122 + j \cdot 272\) \\
-\(x = \{\)\(122\), \(394\), \(666\), \(938\), \(1210\), \(1482\), \(1754\), \(2026\), \(2298\), \(2570\), \(2842\), \(3114\), \(3386\), \(3658\), \(3930\), \(4202\), \(4474\), \(4746\), \(5018\), \(5290\), \(5562\), \(5834\), \(6106\), \(6378\), \(6650\), \(6922\), \(7194\), \(7466\), \(7738\), \(8010\), \(8282\), \(8554\), \(8826\), \(9098\), \(9370\), \(9642\), \(9914\), \(10186\), \(10458\), \(10730\), \(11002\), \(11274\), \(11546\), \(11818\), \(12090\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 0 \pmod {15}\) and all previous equations
-when \(x = 3930 + j \cdot 4080\) \\
-\end{tabular}
+\(x = \{\)\(\color{green}122\), \(\color{green}394\), \(666\), \(938\), \(1210\), \(1482\), \(1754\), \(2026\), \(2298\), \(2570\), \(2842\), \(3114\), \(3386\), \(3658\), \(\color{red}3930\), \(4202\), \(4474\), \(4746\), \(5018\), \(5290\), \(5562\), \(5834\), \(6106\), \(6378\), \(6650\), \(6922\), \(7194\), \(7466\), \(7738\), \(\color{red}8010\), \(8282\), \(8554\), \(8826\), \(9098\), \(9370\), \(9642\), \(9914\), \(10186\), \(10458\), \(10730\), \(11002\), \(11274\), \(11546\), \(11818\), \(\color{green}12090\), \(\dots\}\) \\
+\\ \(x\) satisfies \(x \equiv 0 \pmod {15}\) and all previous equations when \(x = 3930 + j \cdot 4080\) \\
+\(x = \{\)\(\color{red}3930\), \(\color{red}8010\), \(\color{red}12090\), \(\dots\}\) \\
+\end{longtable}
 
-\item Solve for \(x\) in
+Notice that the next solution-set is all of the previous solutions that satisfy the next equation. The solution-set at each step is a subset of the solution-set above it. I have marked which numbers are `carried over' from the previous solution-set to the next solution-set with color,  underlines, and overlines.
+
+\item \textbf{Exercise:} Solve for \(x\) in
 
 \(
 \begin{array}[t]{l}
@@ -218,23 +249,27 @@ x \equiv 0 \pmod 7 \\
 \end{array}
 \)
 
-\begin{tabular}[t]{p{7in}}
-\(x = \{\)\(0\), \(1\), \(2\), \(3\), \(4\), \(5\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 1 \pmod {2}\) and all previous equations
+\begin{longtable}[t]{p{7in}}
+\\ \(x\) satisfies \(x \equiv 1 \pmod {2}\)
 when \(x = 1 + j \cdot 2\) \\
-\(x = \{\)\(1\), \(3\), \(5\), \(7\), \(9\), \(11\), \(13\), \(15\), \(17\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 2 \pmod {3}\) and all previous equations
+\(x = \{\)\(1\), \(3\), \(\color{green}5\), \(7\), \(9\), \(\color{green}11\), \(13\), \(15\), \(\color{green}17\), \(19\), \(21\), \(\color{green}23\)\(\dots\}\) \\
+\\ \(x\) satisfies \(x \equiv 2 \pmod {3}\) and all previous equations
 when \(x = 5 + j \cdot 6\) \\
-\(x = \{\)\(5\), \(11\), \(17\), \(23\), \(29\), \(35\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 3 \pmod {4}\) and all previous equations
+\(x = \{\)\(\color{green}5\), \(\underline{\color{green}11}\), \(\color{green}17\), \(\underline{\color{green}23}\), \(29\), \(35\), \(41\), \(\underline{47}\)\(\dots\}\) \\
+\\ \(x\) satisfies \(x \equiv 3 \pmod {4}\) and all previous equations
 when \(x = 11 + j \cdot 12\) \\
-\(x = \{\)\(11\), \(23\), \(35\), \(47\), \(59\), \(71\), \(83\), \(95\), \(107\), \(119\), \(131\), \(143\), \(155\), \(167\), \(179\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 4 \pmod {5}\) and all previous equations
+\(x = \{\)\(\underline{11}\), \(\underline{23}\), \(\underline{35}\), \(\underline{47}\), \(\color{red}59\), \(71\), \(83\), \(95\), \(107\), \(\color{red}119\), \(131\), \(143\), \(155\), \(167\), \(\color{red}179\), \(\dots\}\) \\
+\\ \(x\) satisfies \(x \equiv 4 \pmod {5}\) and all previous equations
 when \(x = 59 + j \cdot 60\) \\
-\(x = \{\)\(59\), \(119\), \(179\), \(, \dots\}\) \\
-\\ \(x\) satisfies \(1 x \equiv 5 \pmod {6}\) and all previous equations
+\(x = \{\)\(\color{red}59\), \(\color{red}119\), \(\color{red}179\), \(\dots\}\) \\
+\\ \(x\) satisfies \(x \equiv 5 \pmod {6}\) and all previous equations
 when \(x = 59 + j \cdot 60\) \\
-\end{tabular}
+\(x = \{\)\(\color{red}59\), \(\color{red}\overline{119}\), \(\color{red}179\), \(\dots\}\) \\
+This equation was redundant, since \(x \equiv 1 \pmod 2\) and \(x \equiv 2 \pmod 3\). This says that \(x\) is an odd number one less than a multiple of three. 5 is the only odd number one less than a multiple of three in the complete canonical residue system of 6, therefore this equation is equivalent to the two previous ones. \\
+\\ \(x\) satisfies \(x \equiv 0 \pmod {7}\) and all previous equations
+when \(x = 119 + j \cdot 420\) \\
+\(x = \{\)\(\overline{119}\), \(539\), \(959\), \(1379\), \(1799\), \(2219\), \(\dots\}\) \\
+\end{longtable}
 
 \item \textbf{Theorem:} Let \(a, b, m, n \in \mathbb Z\) where \(m > 0\) and \(n > 0\). The system \(x \equiv a \pmod n\) and \(x \equiv b \pmod m\) has solutions for \(x\) if and only if \(\gcd(n, m) \mid (a - b)\)
 
@@ -242,7 +277,7 @@ when \(x = 59 + j \cdot 60\) \\
 
 \item \textbf{Theorem:} Let \(a, b, m, n \in \mathbb Z\) where \(m > 0\), \(n > 0\), and \(\gcd(m, n) = 1\)
 
-\textbf{Proof:} Repeat the previous proof up to \(cm - dn = a - b\).  \(c\) has solutions every \(\frac{n}{\gcd(m, n)} = n\) and \(d\) has solutions every \(\frac{m}{\gcd(m, n)} = m\). \(a + cm = x\) and \(b + dn = x\). \(x = a + m(c_0 + in) = a + m c_0 + inm\) and \(x = b + n(d_0 + im) = b + nd_0 + inm\). Solving for \(x\) in terms of \(c\) and solving for \(x\) in terms of \(d\) both indicate solutions every \(nm\). Therefore they are equivalent to the same thing mod \(mn\)
+\textbf{Proof:} Repeat the previous proof up to \(cm - dn = a - b\).  \(c\) has solutions every \(\frac{n}{\gcd(m, n)} = n\) and \(d\) has solutions every \(\frac{m}{\gcd(m, n)} = m\). \(a + cm = x\) and \(b + dn = x\). \(x = a + m(c_0 + in) = a + m c_0 + inm\) and \(x = b + n(d_0 + im) = b + nd_0 + inm\). Solving for \(x\) in terms of \(c\) and solving for \(x\) in terms of \(d\) both indicate solutions every \(nm\). Therefore they are equivalent to the same thing \(\pmod{mn}\).
 
 
 \setcounter{enumi}{4}
@@ -261,6 +296,8 @@ when \(x = 59 + j \cdot 60\) \\
 
 \end{array}
 \)
+
+\item \textbf{Theorem:} \(\)
 
 %%% Local Variables:
 %%% mode: latex
