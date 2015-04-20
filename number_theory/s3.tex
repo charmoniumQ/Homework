@@ -5,8 +5,9 @@
 \(2^{20} \equiv 81^2 \pmod {41}\) & \((2^5)^4 \equiv (-9)^4 \equiv ((-9)^2)^2 \pmod {41}\) \\
 \(2^{20} \equiv (-1)^2 \pmod {41}\) & \((2^5)^4 \equiv (81)^2 \equiv (2 \cdot 41 - 1)^2 \pmod {41}\) \\
 \(2^{20} - 1 \equiv 0\) & \(2^{20} \equiv (-1)^2 \equiv 1\) and theorem 1.13 \\
-\(41 \mid (2^{20} - 1 - 0)\) iff \(41 \mid(2^{20})\) {\tiny \(\blacksquare\)} \\
 \end{tabular}
+
+\(41 \mid (2^{20} - 1 - 0)\) iff \(41 \mid(2^{20})\) {\tiny \(\blacksquare\)} \\
 
 \item \(37^{453} \equiv 1^{453} \equiv 1 \pmod{12}\)
 
@@ -53,12 +54,38 @@ $ 1^{6} \equiv 1 \pmod{39} $ \\
 
 This uses at most \(2 \log_2 j\) multiplications where n is upper-bounded like so \(n < 2^j\).
 
-\setcounter{enumii}{10}
+\item \textbf{Exercise:} When \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0\), does \(f(98) \equiv f(-100) \pmod {99}\)?
+
+Since \(98 - (-100) = 198\) and \(2 \cdot 99 = 198\), then \(98 \equiv -100\). \(98^i \equiv (-100)^i\) by theorem 1.18, and \(a_i 98^i \equiv a_i (-100)^i\) by theorem 1.14, and finally \(a_i 98^i + c \equiv a_i (-100)^i + c\) by thorem 1.12. For the first term \(c\) can be \(a_0\) and \(i\) can be 1. For the \(i\)th term (assuming the polynomial is equal up to the \((i-1)\)th term), \(c\) can be the previous part of the polynomial (truncated right before \(i\)). Therefore by induction \(f(98) = f(-100)\).
+
+\item \textbf{Theorem:} \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0\). If \(a \equiv b \pmod m\), then \(f(a) \equiv f(b) \pmod m\)
+
+\textbf{Proof:} For all integer \(i\), \(a^i \equiv b^i\) by theorem 1.18, \(a_i a^i \equiv a_i b^i\) by theorem 1.14, and \(a_i a^i + c \equiv a_i b^i + c\) for all integer \(c\) by theorem 1.12. Starting with \(a_1 a^i + a_0 \equiv a_i b^i + a_0\), we can build up the rest of the polynomial congruences through induction. Assuming the two polynomials are congruent up to \(i-1\), then let \(a_{i-1} a^{i-1} + \dots + a_0\) be \(c\) in \(a_i a^i + c \equiv a_i b^i + c\). This just stacked one more term on. Therefore by induction \(a_n a^n + a_{n-1} a^{n-1} \dots + a_0 \equiv a_n b^n + a_{n-1} b^{n-1} \dots a_0\).{\tiny $\blacksquare$}
+
+In fact, for any operator \(\bumpeq\) (read ``bumpy equals''), 
+
+\begin{tabular}{ll}
+\(a \bumpeq b \wedge b \bumpeq c \rightarrow a \bumpeq c\) & Transitivity \\
+\(a \bumpeq b \wedge c \bumpeq d \rightarrow a + c \bumpeq b + d\) & Equality over equal additions \\
+\end{tabular}
+
+is enough to garuntee that for any polynomial \(a \bumpeq b \rightarrow f(a) \bumpeq f(b)\). Since multiplication is repeated addition \(a \bumpeq b \rightarrow \underbrace{a + \dots + a}_{n\ \text{times}} \bumpeq \underbrace{b + \dots + b}_{n\ \text{times}}\), therefore \(na \bumpeq nb\). Since exponentation is repeated multiplication, by similar logic, \(a^i \bumpeq b^i\). Then using equality of equal additions to add the finishing tuch \(a^i + c \bumpeq b^i + d\) where \(c \bumpeq d\). The proof above holds for \(\bumpeq\)  this as well. Notice that I cannot say \(a^i + c \bumpeq b^i + c\), because I don't even have reflexivity.
+
+\item \textbf{Theorem:} Let \(n\) be a natural number. Let \(m\) be the sum of digits of \(n\). \(9 \mid n \leftrightarrow 9 \mid m\). Let the digits of \(n\) be \(n = a_k 10^k + a_{k-1} 10^{k-1} \dots a_0 10^0\).
+
+Let \(f_a(x) = a_k x^k + a_{k-1} x^{k-1} + \dots + a_0\). \(10 \equiv 1 \pmod 9\), therefore \(f(10) \equiv f(1) \pmod 9\), therefore \(a_k 10^k + a_{k-1} 10^{k-1} \dots a_0 10^0 \equiv a_k 1^k + a_{k-1} 1^{k-1} + \dots + a_0 1 \pmod 9\), therefore \(m \equiv n \pmod 9\). If \(m \equiv 0 \pmod 9\), then \(n \equiv 0 \pmod 9\) and vice versa. Therefore \(m \mid 9\) exactly when \(n \mid 9\) {\tiny \(\blacksquare\)}
+
+\item Let \(n\) be a natural number.  Let \(m\) be the sum of digits of \(n\). \(3 \mid n \leftrightarrow 3 \mid m\).
+
+By the same reasoning above, three works too. {\tiny \(\blacksquare\)} In fact any number \(n\) where \(1 \equiv 10 \pmod n\) works. We did some of this in lesson one, but it was markedly more painful. This method is easier to apply, but it is less flexible.
+
+For example, in \(n = a_k a_{k-1} \dots a_2 a_1 a_0\) is divisible by \(4\) if and only if  \(a_2\) is even and \(a_1 a_0\) is divisible by \(4\) or \(a_2\) is odd and \((a_1 a_0) - 2\) is divisible by \(4\). This cannot be proved the same way 3.9 and 3.10 were. It has to be proved the way 1.21, 1.22, and 1.23 were.
+
 \item \textbf{Theorem:} Let \(f\) be an \(n\)-degree polynomial such that \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0 \) and \(a_n > 0\). \(\exists k \in \mathbb N (\forall x > k (f(x) > 0))\).
 
 \textbf{Proof:} \(x > \lvert a_{n-1} \rvert\) is sufficient for \(x^n > a_{n-1} x^{n-1}\). That is because multiplying both sides of the condition by \(x^{n-1}\) (valid operation since \(x^{n-1}>0\), since \(x>0\)) gives \(x x^{n-1} > a_{n-1} x^{n-1}\), equivalently \(x^n  > a_{n-1} x^{n-1}\). That simply arises from the initial condition. After this point, the \(n\)th term dominates the \((n-1)\)th term.
 
-If the first term dominates the zeroth term at some point \(k_1\), and the second term dominates the first term at some point \(k_2\), then at some point greater than \(k_1\) and greater than \(k_2\), the third term dominates the second term and the second term dominates the first term (\(\lvert a_2 x^2 \rvert > \lvert a_1 x \rvert > \lvert a_0 \rvert\)). Therefore the third term dominates the first term (\(\lvert a_2 x^2 > a_0\)). 
+If the first term dominates the zeroth term at some point \(k_1\), and the second term dominates the first term at some point \(k_2\), then at some point greater than \(k_1\) and greater than \(k_2\), the third term dominates the second term and the second term dominates the first term (\(\lvert a_2 x^2 \rvert > \lvert a_1 x \rvert > \lvert a_0 \rvert\)). Therefore the third term dominates the first term (\(\lvert a_2 x^2 \rvert > a_0\)). 
 
 Continuing in this way, there is some point \(k_n\) the \(n\)th term dominates the \((n-1)\)th term. The \((n-1)\)th term dominates the \((n-2)\)th term after \(k_{n-1}\). Therefore for \(x > k\) where \(k = \max(k_n, k_{n-1}, \dots, k_1)\), the \(n\)th term dominates. \(a_n > 0\) by the premise. Therefore \(\lvert a_n x^n \rvert > \lvert a_{n-1} x^{n-1} \rvert > \dots > \rvert a_0 \lvert\). Therefore \(n \lvert a_n x^n \rvert > \lvert a_{n-1} x^{n-1} \rvert + \dots + \rvert a_0 \lvert\). Since \(n\) is a positive constant multiplier, we can absorb it into \(a_n\). If it dominates the first term, and the first term is positive, then whether or not the later terms are positive or negative the polynomial will be positive. Therefore, after the point \(k_n\) the first term dominates every other term by more than a factor of \(n\). \(\exists k \in \mathbb N (\forall x > k (f(x) > 0))\) {\tiny \(\blacksquare\)}
 
@@ -66,21 +93,23 @@ Continuing in this way, there is some point \(k_n\) the \(n\)th term dominates t
 
 \textbf{Proof:} Construct the polynomial \(g(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0 + y\). By the previous theorem \(\exists k \in \mathbb N (x > k \rightarrow g(x) > 0)\) which is tantamount to saying \(\exists k \in \mathbb N (x > k \rightarrow f(x) > y)\), since \(f(x) + y = g(x)\). {\tiny \(\blacksquare\)}
 
-\setcounter{enumii}{13}
+\item \textbf{Theorem:} Any integer-coefficient polynomial produces composite numbers for an infinite number of inputs.
+
+Let \(f\) be an \(n\)-degree polynomial such that \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0 \) and \(a_n > 0\).
+
+\textbf{Proof:} Pick a composite number \(x_1\). Find the number \(k\) where \(\forall x \in \mathbb N (x > k \rightarrow f(x) > f(c))\) whose existence is garunteed by Theorem 3.12. Find a number \(x_2\) where \(x_2 > k\) and \(x_1 \equiv x_2 \pmod \), \(f(d) \equiv f(c) \pmod n\) by theorem 3.8, \(f(d) > f(c)\) by theorem 3.12, therefore \(f(d) \equiv f(c) \pmod n\).
+
 \item \textbf{Theorem:} \(\forall i \in \mathbb Z (\forall j \in \mathbb N (\exists ! r \in \mathbb N (i \equiv r \pmod j \wedge 0 \leq r < j)))\)
 
 \begin{proof}
-Let \(i \in \mathbb N\) & (for universal generalization) \\
-Let \(j \in \mathbb N\) & (for universal generalization) \\
+Let \(i \in \mathbb N\) & \\
+Let \(j \in \mathbb N\) & \\
 If \(i > 0\) \\
 Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Division algorithm \\
 Otherwise \(i < 0\) \\
 \(\exists ! p, r \in \mathbb N (-i = pj + t \wedge 0 \leq t < j) \) & Division algorithm \\
-\(-i = pj + t \wedge 0 \leq t < j \) & Existential generalization \\
-\(i = -pj - t\) & Existential generalization \\
 \(i = -pj - j + j - t\) & Algebra \\
 \(i = -(p+1)j + j - t\) & Algebra \\
-\(0 \leq t < j\) & Simplification \\
 \(-j < -t \leq 0\) & Property of inequalities \\
 \(0 < j - t \leq j\) & Property of inequalities \\
 If \(j - t < j\) \\
@@ -88,17 +117,14 @@ Let \(q = -(p+1)\)
 Let \(r = j - t\) \\
 \(0 < r < j\) & Property of inequalities \\
 \(0 \leq r < j\) & Property of inequalities \\
-Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Existential generalization \\
+Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & \\
 Otherwise \(j - t \geq j\) \\
-\(j - t \leq j \wedge j -t \geq j\) & Conjunction \\
 \(j - t = j\) & Property of inequalities \\
 \(t = 0\) & Identity property \\
 \(i = pj\)
 Let \(r = 0\) \\
-Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Existential generalization \\
-\(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Constructive dilemma \\
-Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) & Constructive dilemma \\
-\(\forall i \in \mathbb N (\forall j \in \mathbb N (\exists ! r \in \mathbb N (i \equiv r \pmod j \wedge 0 \leq r < j)))\) & Universal generalization \\ & (used twice)
+Conclude: \(\exists ! q, r \in \mathbb N (i = qj + r \wedge 0 \leq r < j) \) &  \\
+\(\forall i \in \mathbb N (\forall j \in \mathbb N (\exists ! r \in \mathbb N (i \equiv r \pmod j \wedge 0 \leq r < j)))\) & Either way
 \end{proof}
 
 \item
@@ -310,15 +336,15 @@ def gcd(a1, b1):
 \(0 + (\gcd(a, n) - 1) \frac{n}{\gcd(a, n)}
 \leq x_0 + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
 < \frac{n}{\gcd(a, n)} + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
-\) & Addition property of inequalities \\
+\) &  \\
 \(0 + (\gcd(a, n) - 1) \frac{n}{\gcd(a, n)}
 \leq x_0 + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
 < \frac{n}{\gcd(a, n)} + \gcd(a, n)\frac{n}{\gcd(a, n)} - \frac{n}{\gcd(a, n)}
-\) & Distributive property \\
+\) &  \\
 \((\gcd(a, n) - 1) \frac{n}{\gcd(a, n)}
 \leq x_0 + (\gcd(a, n) - 1)\frac{n}{\gcd(a, n)}
 < \gcd(a, n)\frac{n}{\gcd(a, n)}
-\) & Identity \\
+\) &  \\
 For all  \(0 \leq m \leq \gcd(a, n) - 1\), there are solutions at \(x_0 + m \frac{n}{\gcd(a, n)}\) in the CCRS \\
 There are \(\gcd(a, n)\) solutions
 \end{proof}
@@ -340,7 +366,7 @@ x \equiv 0 \pmod {15} \\
 \(x = \{\)\(3\), \(20\), \(37\), \(54\), \(71\), \(88\), \(105\), \(\color{green}122\), \(139\), \(156\), \(173\), \(190\), \(207\), \(224\), \(241\), \(258\), \(275\), \(292\), \(309\), \(326\), \(343\), \(360\), \(377\), \(\color{green} 394\), \(\dots\}\) \\
 \\ \(x\) satisfies \(x \equiv 10 \pmod {16}\) and all previous equations
 when \(x = 122 + j \cdot 272\) \\
-\(x = \{\)\(\color{green}122\), \(\color{green}394\), \(666\), \(938\), \(1210\), \(1482\), \(1754\), \(2026\), \(2298\), \(2570\), \(2842\), \(3114\), \(3386\), \(3658\), \(\color{red}3930\), \(4202\), \(4474\), \(4746\), \(5018\), \(5290\), \(5562\), \(5834\), \(6106\), \(6378\), \(6650\), \(6922\), \(7194\), \(7466\), \(7738\), \(\color{red}8010\), \(8282\), \(8554\), \(8826\), \(9098\), \(9370\), \(9642\), \(9914\), \(10186\), \(10458\), \(10730\), \(11002\), \(11274\), \(11546\), \(11818\), \(\color{green}12090\), \(\dots\}\) \\
+\(x = \{\)\(\color{green}122\), \(\color{green}394\), \(666\), \(938\), \(1210\), \(1482\), \(1754\), \(2026\), \(2298\), \(2570\), \(2842\), \(3114\), \(3386\), \(3658\), \(\color{red}3930\), \(4202\), \(4474\), \(4746\), \(5018\), \(5290\), \(5562\), \(5834\), \(6106\), \(6378\), \(6650\), \(6922\), \(7194\), \(7466\), \(7738\), \(\color{red}8010\), \(8282\), \(8554\), \(8826\), \(9098\), \(9370\), \(9642\), \(9914\), \(10186\), \(10458\), \(10730\), \(11002\), \(11274\), \(11546\), \(11818\), \(\color{red}12090\), \(\dots\}\) \\
 \\ \(x\) satisfies \(x \equiv 0 \pmod {15}\) and all previous equations when \(x = 3930 + j \cdot 4080\) \\
 \(x = \{\)\(\color{red}3930\), \(\color{red}8010\), \(\color{red}12090\), \(\dots\}\) \\
 \end{longtable}
@@ -390,25 +416,41 @@ when \(x = 119 + j \cdot 420\) \\
 
 \textbf{Proof:} Repeat the previous proof up to \(cm - dn = a - b\).  \(c\) has solutions every \(\frac{n}{\gcd(m, n)} = n\) and \(d\) has solutions every \(\frac{m}{\gcd(m, n)} = m\). \(a + cm = x\) and \(b + dn = x\). \(x = a + m(c_0 + in) = a + m c_0 + inm\) and \(x = b + n(d_0 + im) = b + nd_0 + inm\). Solving for \(x\) in terms of \(c\) and solving for \(x\) in terms of \(d\) both indicate solutions every \(nm\). Therefore they are equivalent to the same thing \(\pmod{mn}\).
 
+\item \textbf{Theorem:} Given \(L\) linear congruences with coprime modulos, there exists a unique solution in the canonical residue system of the product of the modulos.
 
-\setcounter{enumi}{4}
-\setcounter{enumii}{0}
+\(i \neq j \rightarrow \gcd(n_i, n_j) = 1\)
 
-\item 
-\(
-\begin{array}[t]{ll}
-2^0 \pmod 7 & 1 \\
-2^1 \pmod 7 & 2 \\
-2^2 \pmod 7 & 4 \\
-2^3 \pmod 7 & 1 \\
-2^4 \pmod 7 & 2 \\
-2^5 \pmod 7 & 4 \\
-2^6 \pmod 7 & 1 \\
-
+\[
+\begin{array}{l}
+x \equiv a_1 \pmod{n_1} \\
+x \equiv a_2 \pmod{n_2} \\
+\vdots \\
+x \equiv a_L \pmod{n_L} \\
 \end{array}
-\)
+\]
 
-\item \textbf{Theorem:} \(\)
+
+\textbf{Proof:} For \(L = 2\), there is a unique solution mod \(n_1 n_2\) by theorem 3.28. Assume that for \(L-1\) linear congruences, there is a unique solution mod \(n_1 n_2 \dots n_{L-1}\), called \(k_{L-1}\). Then to satisfy all of the previous \(L-1\) equations \(x \equiv k_{L-1} \pmod {n_1 n_2 \dots n_{L-1}}\). Add on to this that \(x \equiv a_L \pmod {n_L}\). These two equations have a unique solution mod \(n_1 n_2 \dots n_{L-1} n_L\) by theorem 3.28. By induction, the \(L\) equations have solutions every \(n_1 n_2 \dots n_{L-1} n_L\). {\tiny \(\blacksquare\)}
+
+
+% \setcounter{enumi}{4}
+% \setcounter{enumii}{0}
+
+% \item 
+% \(
+% \begin{array}[t]{ll}
+% 2^0 \pmod 7 & 1 \\
+% 2^1 \pmod 7 & 2 \\
+% 2^2 \pmod 7 & 4 \\
+% 2^3 \pmod 7 & 1 \\
+% 2^4 \pmod 7 & 2 \\
+% 2^5 \pmod 7 & 4 \\
+% 2^6 \pmod 7 & 1 \\
+
+% \end{array}
+% \)
+
+% \item \textbf{Theorem:} \(\)
 
 %%% Local Variables:
 %%% mode: latex
