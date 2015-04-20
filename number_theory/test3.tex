@@ -1,0 +1,119 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage{ifpdf,mla}
+%\usepackage{showframe}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage[pdftex]{graphicx}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{cancel}
+\usepackage{minted}
+\usepackage{python}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[HR]{\thepage\ of \pageref{LastPage}}
+
+\newcommand{\fs}{\textrm{\ for some\ }}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\pf}{pf}
+\newenvironment{proof}{
+\textbf{Proof:} \\
+\mbox{}\vspace*{-1.68\baselineskip}
+\setlength\LTleft{\leftmargin+20pt}
+\setlength\LTright\fill
+\begin{longtable}{@{} ll}
+}{
+\tiny {$~\blacksquare$}
+\end{longtable}
+}
+
+\begin{document}
+
+% Definition of Hilbert number
+% 5.a: explain process
+
+\doublespacing
+\begin{center}
+{\Large Test 2} \\[14pt]
+{\large Sam Grayson} \\[0pt]
+{\today} \\
+\end{center}
+
+\singlespacing
+\setlength{\parindent}{0pt}
+
+\begin{enumerate}[leftmargin=0mm]
+\item
+\begin{tabular}[t]{l l}
+$0 \equiv 3 \cdot 0 \pmod{17}$ \\
+$1 \equiv 3 \cdot 6 \pmod{17}$ \\
+$2 \equiv 3 \cdot 12 \pmod{17}$ \\
+$3 \equiv 3 \cdot 18 \pmod{17}$ \\
+$4 \equiv 3 \cdot 24 \pmod{17}$ \\
+$5 \equiv 3 \cdot 30 \pmod{17}$ \\
+$6 \equiv 3 \cdot 36 \pmod{17}$ \\
+$7 \equiv 3 \cdot 42 \pmod{17}$ \\
+$8 \equiv 3 \cdot 48 \pmod{17}$ \\
+$9 \equiv 3 \cdot 54 \pmod{17}$ \\
+$10 \equiv 3 \cdot 60 \pmod{17}$ \\
+$11 \equiv 3 \cdot 66 \pmod{17}$ \\
+$12 \equiv 3 \cdot 72 \pmod{17}$ \\
+$13 \equiv 3 \cdot 78 \pmod{17}$ \\
+$14 \equiv 3 \cdot 84 \pmod{17}$ \\
+$15 \equiv 3 \cdot 90 \pmod{17}$ \\
+$16 \equiv 3 \cdot 96 \pmod{17}$ \\
+\end{tabular}
+
+\(\{0, 18, 36, 54, 72, 90, 108, 126, 144, 162, 180, 198, 216, 234, 252, 270, 288\}\) forms a complete residue system mod \(17\). I generated the table above using the following Python code. For an explanation of Python code in general and the source for \mintinline[linenos,mathescape,baselinestretch=0.9,fontsize=\small]{python}{linear_diophantine()}, please read 3.23 in my notebook.
+
+\begin{minted}[linenos,mathescape,baselinestretch=0.9,fontsize=\small]{python}
+from tools import linear_diophantine
+CRS = []
+for n in range(17):
+    (x_0, y_0), (r_x, r_y) = linear_diophantine(3, -17, n)
+    # now we have $3 x_0 - 17 y_0 = n$
+    # output $n \equiv 3 \cdot x_0 \pmod{17}$
+    print (r'${n} \equiv 3 \cdot {x_0} \pmod{{17}}$ \\'.format(**locals()))
+    CRS.append(3 * x_0)
+
+# output the whole CRS, seperated by commas
+print (', '.join(map(str, CRS)))
+\end{minted}
+
+\item Find \(2^{100} \pmod 9\)
+
+All congruence statements are taken mod \(9\).
+
+\begin{tabular}[t]{l l}
+\(2^{100}\) & \(\equiv \quad ?\)\\
+& \(\equiv 2^{3 \cdot 33 + 1}\) \\
+& \(\equiv (2^3)^{33} \cdot 2^1\) \\
+& \(\equiv 8^{33} \cdot 2 \) \\
+& \(\equiv (-1)^{33} \cdot 2\) \\
+& \(\equiv -1 \cdot 2\) \\
+& \(\equiv 7\) \\
+\end{tabular}
+
+\item \textbf{Theorem:} For any CRS mod \(m\), multiplying by a natural coefficient coprime to \(m\) produces a new CRS.
+
+Let \(\{r_1, r_2, \dots, r_m\}\) form a CRS mod \(m\). Let \(a \in\ mathbb N\) where \(\gcd(a, m) = 1\).
+
+\textbf{Proof:} Theorem 3.17 states that \(m\) unique (unique mod \(m\)) elements describe a CRS. Begin with \(\{r_1, r_2, \dots, r_m\}\) which is a CRS, so the elements are unique by definition. \(r_i \not\equiv r_j \rightarrow a r_i \not\equiv a r_j\) by the inverse of theorem 
+
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
