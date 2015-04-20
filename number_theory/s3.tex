@@ -1,4 +1,57 @@
+\item 
+\begin{tabular}[t]{ll}
+\(2^5 \equiv -9 \pmod {41}\) & \(2^5 = 32 = 41 - 9\) \\
+\((2^5)^4 \equiv (-9)^4 \pmod {41}\) & By theorem 1.18 \\
+\(2^{20} \equiv 81^2 \pmod {41}\) & \((2^5)^4 \equiv (-9)^4 \equiv ((-9)^2)^2 \pmod {41}\) \\
+\(2^{20} \equiv (-1)^2 \pmod {41}\) & \((2^5)^4 \equiv (81)^2 \equiv (2 \cdot 41 - 1)^2 \pmod {41}\) \\
+\(2^{20} - 1 \equiv 0\) & \(2^{20} \equiv (-1)^2 \equiv 1\) and theorem 1.13 \\
+\(41 \mid (2^{20} - 1 - 0)\) iff \(41 \mid(2^{20})\) {\tiny \(\blacksquare\)} \\
+\end{tabular}
 
+\item \(37^{453} \equiv 1^{453} \equiv 1 \pmod{12}\)
+
+\item \(2^{50} \equiv (2^3)^{16} \cdot 2^2 \equiv 1^{16} \cdot 4 \equiv 4 \pmod{7}\)
+
+\item 
+\begin{tabular}[t]{l}
+$ 9^{453} \equiv (9^2)^{(453-1)/2} \cdot 9 \equiv 9^{226} \cdot 9 \pmod{12} $ \\
+$ 9^{226} \equiv (9^2)^{226/2} \equiv 9^{113} \pmod{12} $ \\
+$ 9^{113} \equiv (9^2)^{(113-1)/2} \cdot 9 \equiv 9^{56} \cdot 9 \pmod{12} $ \\
+$ 9^{56} \equiv (9^2)^{56/2} \equiv 9^{28} \pmod{12} $ \\
+$ 9^{28} \equiv (9^2)^{28/2} \equiv 9^{14} \pmod{12} $ \\
+$ 9^{14} \equiv (9^2)^{14/2} \equiv 9^{7} \pmod{12} $ \\
+$ 9^{7} \equiv (9^2)^{(7-1)/2} \cdot 9 \equiv 9^{3} \cdot 9 \pmod{12} $ \\
+$ 9^{3} \equiv (9^2)^{(3-1)/2} \cdot 9 \equiv 9^{1} \cdot 9 \pmod{12} $ \\
+$ 9 \cdot 9 \equiv 9 \pmod {12} $ \\
+\end{tabular}
+
+\item 
+\begin{tabular}[t]{l}
+$ 17^{48} \equiv (17^2)^{48/2} \equiv 16^{24} \pmod{39} $ \\
+$ 16^{24} \equiv (16^2)^{24/2} \equiv 22^{12} \pmod{39} $ \\
+$ 22^{12} \equiv (22^2)^{12/2} \equiv 16^{6} \pmod{39} $ \\
+$ 16^{6} \equiv (16^2)^{6/2} \equiv 22^{3} \pmod{39} $ \\
+$ 22^{3} \equiv (22^2)^{(3-1)/2} \cdot 22 \equiv 16^{1} \cdot 22 \pmod{39} $ \\
+$ 16 \cdot 22 \equiv 1 \pmod {39} $ \\
+\end{tabular}
+
+\begin{tabular}[t]{l}
+$ 5^{24} \equiv (5^2)^{24/2} \equiv 25^{12} \pmod{39} $ \\
+$ 25^{12} \equiv (25^2)^{12/2} \equiv 1^{6} \pmod{39} $ \\
+$ 1^{6} \equiv 1 \pmod{39} $ \\
+\end{tabular}
+
+\item \textbf{Algorithm:}
+
+\begin{enumerate}
+\item Reduce \(a\) to its remainder mod \(r\). Let \(a = nq + t\) and \(0 < t \leq n\) from the Division Algorithm. \(nq = (a - t)\), therefore \(n \mid (a-t)\) by definition of divides, therefore \(a \equiv t \pmod{n}\) by definition of divides, therefore \(a^r \equiv t^r \pmod{n}\) by theorem 1.18.
+\item If \(r = 1\), return \(a\)
+\item Calculate \(a^2\)
+\item If \(r\) is even, return the solution to \((a^2)^{r/2} \equiv k \pmod{n}\) (calculation can be done recursively with this same algorithm).
+\item If \(r\) is odd, return \(ak\) where \(k\) is the solution to \((a^2)^{(r-1)/2} \equiv k \pmod{n}\).
+\end{enumerate}
+
+This uses at most \(2 \log_2 j\) multiplications where n is upper-bounded like so \(n < 2^j\).
 
 \setcounter{enumii}{10}
 \item \textbf{Theorem:} Let \(f\) be an \(n\)-degree polynomial such that \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0 \) and \(a_n > 0\). \(\exists k \in \mathbb N (\forall x > k (f(x) > 0))\).
@@ -11,7 +64,7 @@ Continuing in this way, there is some point \(k_n\) the \(n\)th term dominates t
 
 \item \textbf{Theorem:} Let \(f(x) = a_n x^n a_{n-1} x^{n-1} + \dots + a_0\). \(\forall y \in \mathbb N (\exists k \in \mathbb N (x > k \rightarrow f(x) > y))\)
 
-\textbf{Proof:} S
+\textbf{Proof:} Construct the polynomial \(g(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0 + y\). By the previous theorem \(\exists k \in \mathbb N (x > k \rightarrow g(x) > 0)\) which is tantamount to saying \(\exists k \in \mathbb N (x > k \rightarrow f(x) > y)\), since \(f(x) + y = g(x)\). {\tiny \(\blacksquare\)}
 
 \setcounter{enumii}{13}
 \item \textbf{Theorem:} \(\forall i \in \mathbb Z (\forall j \in \mathbb N (\exists ! r \in \mathbb N (i \equiv r \pmod j \wedge 0 \leq r < j)))\)

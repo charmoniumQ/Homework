@@ -82,8 +82,10 @@ def prime_factorization(n):
     '''Returns the prime factorization of any natural n'''
     if n < 0:
         return [-1] + prime_factorization(-n)
-    if n == 1:
+    elif n == 1:
         return []
+    elif n == 0:
+        return [0]
     else:
         for prime in takewhile(lambda prime: prime <= abs(n), primes()):
             if divides(prime, n):
@@ -171,7 +173,7 @@ def linear_diophantine(a, b, c):
         (x_i, y_i) = (u_i, v_i)
         return(x_0, y_0), (x_i, y_i)
     else:
-        return None
+        raise ValueError('no solutions')
 
 def linear_congruence(a, b, n):
     '''Returns x_0, n where $ax \equiv b \pmod{n}$ when $x \equiv x_0 \pmod{n}$'''
@@ -194,9 +196,36 @@ def linear_congruence_system(eqns, printing=False):
                 if printing: print('\\\\ \(x\) satisfies \({a} x \equiv {b} \pmod {{{n}}}\) and all previous equations when \(x = {x0} + j \cdot {xi}\) \\\\'.format(**locals()))
                 break
         else:
-            print('death')
+            raise ValueError('no solutions')
     if printing: print('\(x = \{\)' + ''.join(map(lambda xn: '\({xn}\), '.format(**locals()), list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))) + '\(\dots\}\) \\\\')
     return x0, xi
+
+def mod_exp(a1, r, n, printing=True):
+    '''Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$'''
+    # WLOG a < n
+    print(r'$ {a1}^{{{r}}} \equiv '.format(**locals()), end='')
+    a = cmod(a1, n) # reduce a if possible
+    a2 = cmod(a * a, n)
+    if not a1 == a:
+        print(r'{a}^{{{r}}} \equiv ', end='')
+    r2 = int(floor(r / 2))
+    if r == 1:
+        # Base case
+        print(r'{a} \pmod {{{n}}} $ \\'.format(**locals()))
+        return a
+    if divides(2, r):
+        # $(a^2)^{r/2}$
+        print(r'({a}^2)^{{{r}/2}} \equiv {a2}^{{{r2}}} \pmod{{{n}}} $ \\'.format(**locals()))
+        k = mod_exp(a2, r2, n, printing)
+        k = cmod(k, n)
+        return k
+    else:
+        # $(a^2)^{(r-1)/2} \cdot a$
+        print(r'({a}^2)^{{({r}-1)/2}} \cdot {a} \equiv {a2}^{{{r2}}} \cdot {a} \pmod{{{n}}} $ \\'.format(**locals()))
+        k = mod_exp(a2, r2, n, printing)
+        ka = cmod(k * a, n)
+        print(r'$ {k} \cdot {a} \equiv {ka} \pmod {{{n}}} $ \\'.format(**locals()))
+        return k
 
 def main():
     # Question: is n! + 1 prime for all n?
@@ -240,6 +269,18 @@ def main():
         if len(numbers) > 10:
             break
     print('')
+
+    # Task: 3.4 to 3.6
+    print('Modular exponentiation')
+    print(r'\begin{tabular}[t]{l}')
+    mod_exp(9, 453, 12, True)
+    print(r'\end{tabular}', end='\n\n')
+    print(r'\begin{tabular}[t]{l}')
+    mod_exp(17, 48, 39, True)
+    print(r'\end{tabular}', end='\n\n')
+    print(r'\begin{tabular}[t]{l}')
+    mod_exp(5, 24, 39, True)
+    print(r'\end{tabular}')
 
     # Task: write a program that solves linear diophantine equations
     # this makes the exercises much easier
