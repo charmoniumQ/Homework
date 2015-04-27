@@ -203,29 +203,37 @@ def linear_congruence_system(eqns, printing=False):
 def mod_exp(a1, r, n, printing=True):
     '''Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$'''
     # WLOG a < n
-    print(r'$ {a1}^{{{r}}} \equiv '.format(**locals()), end='')
+    if printing: print(r'$ {a1}^{{{r}}} \equiv '.format(**locals()), end='')
     a = cmod(a1, n) # reduce a if possible
     a2 = cmod(a * a, n)
     if not a1 == a:
-        print(r'{a}^{{{r}}} \equiv ', end='')
+        if printing: print(r'{a}^{{{r}}} \equiv ', end='')
     r2 = int(floor(r / 2))
     if r == 1:
         # Base case
-        print(r'{a} \pmod {{{n}}} $ \\'.format(**locals()))
+        if printing: print(r'{a} \pmod {{{n}}} $ \\'.format(**locals()))
         return a
     if divides(2, r):
         # $(a^2)^{r/2}$
-        print(r'({a}^2)^{{{r}/2}} \equiv {a2}^{{{r2}}} \pmod{{{n}}} $ \\'.format(**locals()))
+        if printing: print(r'({a}^2)^{{{r}/2}} \equiv {a2}^{{{r2}}} \pmod{{{n}}} $ \\'.format(**locals()))
         k = mod_exp(a2, r2, n, printing)
         k = cmod(k, n)
         return k
     else:
         # $(a^2)^{(r-1)/2} \cdot a$
-        print(r'({a}^2)^{{({r}-1)/2}} \cdot {a} \equiv {a2}^{{{r2}}} \cdot {a} \pmod{{{n}}} $ \\'.format(**locals()))
+        if printing: print(r'({a}^2)^{{({r}-1)/2}} \cdot {a} \equiv {a2}^{{{r2}}} \cdot {a} \pmod{{{n}}} $ \\'.format(**locals()))
         k = mod_exp(a2, r2, n, printing)
         ka = cmod(k * a, n)
-        print(r'$ {k} \cdot {a} \equiv {ka} \pmod {{{n}}} $ \\'.format(**locals()))
+        if printing: print(r'$ {k} \cdot {a} \equiv {ka} \pmod {{{n}}} $ \\'.format(**locals()))
         return k
+
+def order(a, n):
+    '''Calculate k where $a^k \equiv 1 \pmod n$'''
+    if gcd(a, n) != 1:
+        return None
+    for k in count(1):
+        if mod_exp(a, k, n, printing=False) == 1:
+            return k
 
 def main():
     # Question: is n! + 1 prime for all n?

@@ -21,6 +21,9 @@
 \fancyfoot{}
 \fancyhead[HR]{\thepage\ of \pageref{LastPage}}
 
+\relpenalty=9999
+\binoppenalty=9999
+
 \newcommand{\fs}{\textrm{\ for some\ }}
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\pf}{pf}
@@ -34,11 +37,9 @@
 \tiny {$~\blacksquare$}
 \end{longtable}
 }
+\newcommand{\qedhere}{{\tiny \(\blacksquare\)}}
 
 \begin{document}
-
-% Definition of Hilbert number
-% 5.a: explain process
 
 \doublespacing
 \begin{center}
@@ -51,7 +52,8 @@
 \setlength{\parindent}{0pt}
 
 \begin{enumerate}[leftmargin=0mm]
-\item
+\item Write a complete residue system mod 17 only using multiples of 3.
+
 \begin{tabular}[t]{l l}
 $0 \equiv 3 \cdot 0 \pmod{17}$ \\
 $1 \equiv 3 \cdot 6 \pmod{17}$ \\
@@ -88,7 +90,7 @@ for n in range(17):
 print (', '.join(map(str, CRS)))
 \end{minted}
 
-\item Find \(2^{100} \pmod 9\)
+\item Find \(2^{100} \pmod 9\).
 
 All congruence statements are taken mod \(9\).
 
@@ -106,8 +108,95 @@ All congruence statements are taken mod \(9\).
 
 Let \(\{r_1, r_2, \dots, r_m\}\) form a CRS mod \(m\). Let \(a \in\ mathbb N\) where \(\gcd(a, m) = 1\).
 
-\textbf{Proof:} Theorem 3.17 states that \(m\) unique (unique mod \(m\)) elements describe a CRS. Begin with \(\{r_1, r_2, \dots, r_m\}\) which is a CRS, so the elements are unique by definition. \(r_i \not\equiv r_j \rightarrow a r_i \not\equiv a r_j\) by the inverse of theorem 
+\textbf{Proof:} Theorem 3.17 states that \(m\) unique (unique mod \(m\)) elements describe a CRS. Begin with \(\{r_1, r_2, \dots, r_m\}\) which is a CRS, so the elements are unique by definition. \(r_i \not\equiv r_j \rightarrow a r_i \not\equiv a r_j\) by the inverse of theorem 1.14 (The inverse is necessarily true since theorem 1.14 is an `if-and-only-if'). Thus \(\{a r_1, a r_2, \dots, a r_m\}\) are all unique. To reiterate: If they were not (\(a r_i \equiv a r_j\)) we could use theorem 1.14 to draw a contradiction (\(r_i \equiv r_j\)) which is not true by the definition of the CRS. Therefore \(\{a r_1, a r_2, \dots, a r_m\}\) constitue \(m\) unique elements. By theorem 3.17 they must also constitute a CRS mod \(m\).
 
+\item Find the number \(x\) where \(x \equiv 1 \pmod 4\) and \(x \equiv 2 \pmod 3\).
+
+\begin{tabular}{ll}
+\(x \equiv 1 \pmod 4\) & \(\{\dots, 1, \textcolor{green}{5}, 9, 13, \textcolor{green}{17}, 21, 25, \textcolor{green}{29}, \dots\}\) \\
+\(x \equiv 2 \pmod 3\) & \(\{\dots, 2, \textcolor{green}{5}, 8, 11, 14, \textcolor{green}{17}, 20, 23, 26, \textcolor{green}{29}, \dots\}\) \\
+\(
+\left.\!\!\!
+\begin{array}{l}
+x \equiv 1 \pmod 4 \\ 
+x \equiv 2 \pmod 3 \\
+\end{array}
+\right \}
+\)
+& \(\{\dots, \textcolor{green}{5, 17, 29}, \dots\}\) \\
+\end{tabular}
+
+The first solutions set is \(\{1, 5, 9, \dots\}\). By exhaustion, 5 is the first number in the solution set of the first congruence that also satisfies the second congruence. The LCM of the two modulos is 12. Therefore \(x \equiv 5 \pmod{12}\).
+
+\item \textbf{Theorem}: Let the digits of \(n\) be \(n = a_k a_{k-1} \dots a_0\). Let \(m = a_0 - a_1 + a_2 \dots \pm a_{k-1} \mp a_k\). 11 divides \(n\) exactly when 11 divides \(m\).
+
+All congruences are taken mod 11.
+
+\textbf{Proof}: Let \(f_n(x) = a_k x^k + a_{k-1} x^{k-1} + \dots + a_0\). We know that \(-1 \equiv 10\), which implies \(f(-1) \equiv f(10)\) by theorem 3.8. However, \(f(-1) = a_k \pm a_{k-1} \mp \dots + a_0 = m\). Similarly \(f(10) = a_k 10^k + a_{k-1} 10^{k-1} + \dots + a_0 = n\). Therefore by substitution \(m \equiv n\). If \(11 \mid n\), then \(n \equiv 0 \pmod{11}\), then \(m \equiv 0\) by 1.11 (transitivity), which gives \(11 \mid m\). And vice versa, If \(11 \mid m\), then \(m \equiv 0\), then \(n \equiv 0\), then \(11 \mid n\). Therefore \(11 \mid m \leftrightarrow 11 \mid n\). \qedhere
+
+\item Create a test to see if \(4|n\). Let the digits of \(n = n_m \dots n_1 n_0\).
+
+%\(4|n\) is equivalent to \(4|((n_m \dots n_3 n_2) \cdot 100 + n_1 n_0)\), is equivalent to \(4|((n_m \dots n_3 n_2) \cdot 25 \cdot 4 + n_1 n_0)\), is equivalent to \(4|(n_1 n_0)\).
+
+\textbf{Algorithm}: If \(n_1\) is even, \(4|n\) exactly when \(4|n_0\).  If \(n_1\) is odd, \(4|n\) exactly when \(4|(n_0 + 2)\).
+
+\textbf{Lemma}: \(n|(na + b) \leftrightarrow n|b\). Justification: \(n|na\) by defintion of divides. \(n|na\) and \(n|(na + b)\) imply \(n|(na + b - na)\) by Theorem 1.2. \(n|b\) and \(n|na\) imply \(n|(na + b)\) by Theorem 1.1.
+
+\textbf{Lemma}: If \(a_0\) is even or odd, then \(a_m \dots a_2 a_1 a_0\) is likewise. Justification: By the previous lemma \(2|((a_m \dots a_2 a_1) \cdot 10 + a_0)\) is equivalent to \(2|a_0\) since \(2|((a_m \dots a_2 a_1) \cdot 10)\). Therefore if \(2 \nmid a_0\), then \(2 \nmid (a_m \dots a_2 a_1 a_0)\) and vice versa if \(a_0\) is even.
+
+\textbf{Proof (odd)}: If \(n_1\) is even, then \(n_m \dots n_2 n_1\). Then \(4|(n_m \dots n_2 n_1 n_0)\) is equivalent to \(4|(2k \cdot 10 + n_0)\), is equivalent to \(4|(4k \cdot 5 + n_0)\), is equivalent to \(4|n_0\) (reduced the problem to less than \(8\)).
+
+\textbf{Proof (even)}: If \(n_1\) is odd, then \(n_m \dots n_2 n_1\) is odd. Then \(4|(n_m \dots n_2 n_1 n_0)\) is equivalent to \(4|(2k + 1) \cdot 10 + n_0\), is equivalent to \(4|(20k + 10 + n_0)\), is equivalent to \(4|(10 + n_0)\), is equivalent to \(4|(8 + 2 + n_0)\), is equivalent to \(4|(2 + n_0)\) (reduced the problem to less than \(11\). \qedhere
+
+\item The egg problem.
+
+\begin{tabular}[t]{l l}
+\(x \equiv 1 \pmod {2}\) \\
+\quad\quad\quad \(x = \{\)\(1\), \(3\), \(\color{green}5\), \(7\), \(9\), \(\color{green}11\), \(13\), \(15\), \(\color{green}17\), \(19\), \(21\), \(\color{green}23\)\(\dots\}\) \\
+\(x \equiv 2 \pmod {3}\) and all previous equations \\
+\quad\quad\quad \(x = \{\)\(\color{green}5\), \(\underline{\color{green}11}\), \(\color{green}17\), \(\underline{\color{green}23}\), \(29\), \(35\), \(41\), \(\underline{47}\)\(\dots\}\) \\
+\(x \equiv 3 \pmod {4}\) and all previous equations \\
+\quad\quad\quad \(x = \{\)\(\underline{11}\), \(\underline{23}\), \(\underline{35}\), \(\underline{47}\), \(\color{red}59\), \(71\), \(83\), \(95\), \(107\), \(\color{red}119\), \(131\), \(143\), \(155\), \(167\), \(\color{red}179\), \(\dots\}\) \\
+\(x \equiv 4 \pmod {5}\) and all previous equations \\
+\quad\quad\quad \(x = \{\)\(\color{red}59\), \(\color{red}119\), \(\color{red}179\), \(\dots\}\) \\
+\(x \equiv 5 \pmod {6}\) and all previous equations \\
+\quad\quad\quad \(x = \{\)\(\color{red}59\), \(\color{red}\overline{119}\), \(\color{red}179\), \(\dots\}\) \\
+%This equation was redundant, since \(x \equiv 1 \pmod 2\) and \(x \equiv 2 \pmod 3\). This says that \(x\) is an odd number one less than a multiple of three. 5 is the only odd number one less than a multiple of three in the complete canonical residue system of 6, therefore this equation is equivalent to the two previous ones. \\
+\(x \equiv 0 \pmod {7}\) and all previous equations \\
+\quad\quad\quad \(x = \{\)\(\overline{119}\), \(539\), \(959\), \(1379\), \(1799\), \(2219\), \(\dots\}\) \\
+\end{tabular}
+
+Therefore, there are at least 119 eggs in the basket.
+
+\item \textbf{Theorem}: \(\{2, 4, 6, \dots, 2m\}\) is a CRS mod \(m\) if \(m\) is odd.
+
+\textbf{Proof:} Show that any element of the CCRS is congruent to exactly one thing in \(S\) where \(S = \{2, 4, \dots, 2m\}\). For all \(x\) in the CCRS (\(0 \leq x < m\)),
+
+\begin{itemize}
+\item if \(x\) is even and non-zero, it is in the set  \(S\). \(x \equiv x \wedge x \in s\). Moreover it is in the set uniquely, the next possible reperesentation is \(x + m\), which is not in the set \(S\) because an even plus an odd is an odd and the set contains only evens.
+\item If \(x\) is zero, \(x \equiv 2m \pmod m\) since \(m | (2m - 0)\). \(0 \equiv 2m \wedge 2m \in S\). (This is why I believe the question should ask about the set \(\{0, 2, 4, \dots 2m - 2\}\), playful nudge). Moreover it is in the set uniquely because no other element is perfectly divisibly by \(m\) other than \(2m\).
+\item If \(x\) is odd, \(x = 2 \cdot \frac{x-1}{2} + 1\) and since \(m\) is odd, \(m = 2 \cdot \frac{m-1}{2} + 1\). Then \(x \equiv x + m\) since \(m | (x + m - x)\) and \(x + m\) is even, since an odd plus an odd is an even. \(x < m - 2\) since \(x\) is a smaller odd number than \(m\), therefore \(x + m < 2m - 2 < 2m\). \(x \equiv x + m \wedge x + m \in S\). Moreover it is in the set uniquely since the only other representation of \(x\) between \(0\) and \(2m\) is \(x\), and \(x\) is odd therefore it is not in the set \(S\).
+\end{itemize}
+
+Since every element in the CCRS is congruent to exactly one number in \(S\), and every integer is congruent to exactly one number in the CCRS, every integer is congruent to exactly one number in \(S\). Therefore \(S\) is a CRS. \qedhere
+
+All odd numbers can be written \(2k + 1 \fs k \in \mathbb Z\). All even numbers can be written \(2k \fs k \in \mathbb Z\). An even number plus an even number is even since \(2 k_1 + 2 k_2 = 2(k_1 + k_2)\). An even number pulss an odd number is odd since \(2k_1 + 2k_2 + 1 = 2(k_1 + k_2) + 1\). An odd number plus an odd number is even since \(2k_1 + 1 + 2k_2 + 1 = 2(k_1 + k_2 + 1)\). In general, the sum of two addends is even exactly when both addends are even or both addends are odd. \(2|(a + b) \leftrightarrow (2|a \leftrightarrow 2|b)\).
+
+\item \textbf{Theorem:} All reduced residue systems modulo \(m\) have the same number of elements.
+
+Let \(R = \{r_1, r_2, \dots, r_i\}\) be a Reduced Residue System (RRS) modulo \(m\) with \(i\) elements, and similarly \(S = \{s_1, s_2, \dots, s_j\}\) with \(j\) elements. All congruence statements are taken mod \(m\).
+
+\textbf{Proof}: Assume for contradiction that \(i \neq j\) (without loss of generality \(i < j\)). By the first tenet of the definition of RRS, \(\gcd(s_p, m) = 1\) for all \(p\). By the third tenet of the definition, there exists a \(q\) where \(s_p \equiv r_q\). Since there are more \(s\)s than \(r\)s, some of the \(s\)s have to be congruent to the same \(r\) (in other words the relation can not be injective). \(s_p \equiv r_q \equiv s_t\) for some \(t\). By transitivity \(s_p \equiv s_t\). This contradicts tenet 2 of the definition.
+
+Therefore \(i = j\). \qedhere
+
+\item \textbf{Theorem}: \(ax \equiv ay \pmod n \leftrightarrow a \equiv y \pmod {\frac{n}{\gcd(a, n)}}\)
+
+\textbf{Proof of \(\rightarrow\) conditional}: Let \(ax \equiv ay \pmod n\). This is equivalent to \(n|(ax - ay)\), which is equivalent to \(n|a(x-y)\), which is equivalent to \(\frac{n}{\gcd(a, n)} \gcd(a, n) \vert \frac{a}{\gcd(a, n)}(x-y)\). Since \(\gcd(a, n)\) shows up in the divisor and the dividend, they cancel out. \(\frac{n}{\gcd(a, n)} \vert \frac{a}{\gcd(a, n)} (x - y)\). By Test 1 Theorem 4, \(\frac{n}{\gcd(a, n)}\) and \(\frac{a}{\gcd(a, n)}\) are coprime, which fulfills the condition for Theorem 1.41, which claims that \(\frac{n}{\gcd(a, n)} \vert (x - y)\), which is equivalent to \(x \equiv y \pmod{\frac{n}{\gcd(a, n)}}\).
+
+\(ab|ac\) exactly when \(b|c\). If \(b|c\) then \(c = ib\), then \(ac = iab\), then\(ab|ac\). If \(ab|ac\) then \(iab = ac\), then \(ib = c\), then \(b|c\).
+
+\textbf{Proof of \(\leftarrow\) conditional}:
 
 \end{enumerate}
 
