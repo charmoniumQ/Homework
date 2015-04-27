@@ -1,0 +1,54 @@
+\item \textbf{Exercise:} Write out the powers of 2 mod 7
+
+\(
+\begin{array}[t]{ll}
+2^0 \pmod 7 \equiv & 1 \\
+2^1 \pmod 7 \equiv & 2 \\
+2^2 \pmod 7 \equiv & 4 \\
+2^3 \pmod 7 \equiv & 1 \\
+2^4 \pmod 7 \equiv & 2 \\
+2^5 \pmod 7 \equiv & 4 \\
+2^6 \pmod 7 \equiv & 1 \\
+\end{array}
+\)
+
+\item \textbf{Theorem:} Coprime numbers raised to any power are still coprime.
+
+Let \(a, n \in \mathbb Z\) where \(\gcd(a, n) = 1\). This proof applies for all \(j \in \mathbb N\). Show \(\gcd(a^j, n) = 1\)
+
+%TODO: Fix this typsetting
+\textbf{Proof:} I will begin by using the tools developd in chapter 2, \(\pf(a) \cap \pf(n)  = \{\}\). \(\min (x \# \pf(a), x \# \pf(b)) = 0\). Since \(\min(a, b) = a \vee \min(a, b) = b\), \(0 = \pf(a) \vee 0 = \pf(b)\). If \(0 = \pf(a)\), then \(x \# \pf(a) = 0\), furthermore no matter how many a's \(x \# \pf(a^j) = 0\) (since \(x \# \pf(a) = 0 = j (x \# \pf(a)) = x \# \pf(a^j)\)). Thus \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Otherwise \(0 = \pf(b)\), then no matter what \(x \# \pf(a^j)\) is, \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Thus \(\gcd(a^j, n) = 1\). This conditional proof shows \(\gcd(a, n) = 1 \rightarrow \gcd(a^j, n) = 1\). \qedhere
+
+This proof can also be written using 1.43.
+
+\item \textbf{Theorem:} If \(b\) is congruent to a coprime of \(n\) mod \(n\), then \(b\) is a coprime of \(n\).
+
+Let \(b \equiv a \pmod n\) and \(\gcd(a, n) = 1\). Show \(\gcd(a, b) = 1\)
+
+\textbf{Proof:} Assume for contradiction \(b = n c \fs c\). Then \(b \equiv a \pmod n\) means \(n | (nc - a)\). This is problematic because then \(nj = nc - a\), and then \(n(c-j) = a\). Therefore \(b \neq nc\). Therefore by definition of greatest common divisor \(\gcd(b, n) = 1\). In conclusion \((\gcd(a, n) = 1 \wedge b \equiv a \pmod n) \rightarrow \gcd(a, b) = 1\). \qedhere
+
+\item \textbf{Theorem:} All numbers have at least two different exponents that give the same result.
+
+Let \(a, n \in \mathbb N\). Assume \(\neg \exists a^i \not\equiv a^j \pmod n\) for contradiction.
+
+\textbf{Proof:} For \(i \in \{1, 2, \dots, n\}\), \(\neg \exists a^i \not\equiv a^j \pmod n\). These \(n\) noncongruent integers form a CRS by Theorem 3.17. \(a^{n+1}\) must be congruent to something in the CRS by the definition of CRS. Therefore \(\exists j (a^{n+1} \equiv a^j \pmod n)\). This can not be the case since it denies the contradictive assumption. Therefore \(\exists i, j \in \mathbb N (i \neq j \wedge a^i \equiv a^j \pmod n)\). \qedhere
+
+\item \textbf{Theorem:} The converse of Theorem 1.14 is true if \(\gcd(c, n) = 1\).
+
+Let \(a, b, c, n \in \mathbb N\). Let \(ac \equiv bc \pmod n\). Show \(a \equiv b \pmod n\)
+
+\textbf{Proof:} The first congruence translates to \(n | (ac-bc)\) or \(n | c(a-b)\). By Theorem 1.41, \(n | (a-b)\) (since \(\gcd(a, n) = 1\), no factor of \(c\) can be divided by \(n\)). Therefore \(a \equiv b \pmod n\). In conclusion \(ac \equiv bc \wedge \gcd(c, n) = 1 \rightarrow a \equiv b\). \qedhere
+
+\item \textbf{Theorem:} If a number is coprime to the modulo, it has at least one power congruent to one.
+
+Let \(\gcd(a, n) = 1\). Show \(\exists k \in \mathbb N (a^k \equiv 1 \pmod n\)
+
+\textbf{Proof:} \(a^i \equiv a^j \pmod n\) WLOG \(i \geq j\) by Theorem
+ 4.4. \(\frac{a^i}{a^j} \equiv \frac{a^j}{a^j} \pmod n\) by Theorem 4.5, or equivalently \(a^{i-j} \equiv a^{i-i} \equiv 1 \pmod n\). Therefore when \(k = i - j\), \(a^k \equiv 1 \pmod n\). In conclusion \(\gcd(a, n) = 1 \rightarrow \exists k \in \mathbb N (a^k \equiv 1 \pmod n)\). \qedhere
+
+\item 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
