@@ -7,7 +7,7 @@
 \(2^{20} - 1 \equiv 0\) & \(2^{20} \equiv (-1)^2 \equiv 1\) and theorem 1.13 \\
 \end{tabular}
 
-\(41 \mid (2^{20} - 1 - 0)\) iff \(41 \mid(2^{20})\) {\tiny \(\blacksquare\)} \\
+\(41 \mid (2^{20} - 1 - 0)\) iff \(41 \mid(2^{20})\) \\
 
 \item \(37^{453} \equiv 1^{453} \equiv 1 \pmod{12}\)
 
@@ -174,7 +174,7 @@ Assume \(\exists a \in S (\exists b \in S (\rem(a \pmod n) = \rem(b \pmod n)))\)
 \(a \equiv \rem(a \pmod n) \equiv b\) & Lemma and transitivity \\
 \(\exists a \in S (\exists b \in S (a \equiv b \pmod n \wedge a \neq b))\) & Existential generalization \\
 \(\neg \exists a \in S (\exists b \in S (\rem(a \pmod n) = \rem(b \pmod n)))\) & Contradiction \\
-\(\)
+\(\neg \exists a \in S (\exists b \in S (a \equiv b \pmod n \wedge a \neq b)) \rightarrow S \in \crs(n)\) & Conditional
 \end{proof}
 
 \item 
@@ -410,11 +410,11 @@ when \(x = 119 + j \cdot 420\) \\
 
 \item \textbf{Theorem:} Let \(a, b, m, n \in \mathbb Z\) where \(m > 0\) and \(n > 0\). The system \(x \equiv a \pmod n\) and \(x \equiv b \pmod m\) has solutions for \(x\) if and only if \(\gcd(n, m) \mid (a - b)\)
 
-\textbf{Proof:} \(x \equiv a \pmod m\), or equivalently \(m \mid (x-a)\), or equivalently, \(cm = x - a\), and by the same logic \(dn = x - b\). Adding the system of equations together, \(cm - dn = x - a - (x - b)\), or equivalently \(cm - dn = a - b\). By Theorem 1.48, this has solutions if and only if \(\gcd(m, n) \mid (a - b)\).
+\textbf{Proof:} \(x \equiv a \pmod m\), or equivalently \(m \mid (x-a)\), or equivalently, \(cm = x - a\), and by the same logic \(dn = x - b\). Adding the system of equations together, \(cm - dn = x - a - (x - b)\), or equivalently \(cm - dn = a - b\). By Theorem 1.48, this has solutions if and only if \(\gcd(m, n) \mid (a - b)\). {\tiny \(\blacksquare\)}
 
 \item \textbf{Theorem:} Let \(a, b, m, n \in \mathbb Z\) where \(m > 0\), \(n > 0\), and \(\gcd(m, n) = 1\)
 
-\textbf{Proof:} Repeat the previous proof up to \(cm - dn = a - b\).  \(c\) has solutions every \(\frac{n}{\gcd(m, n)} = n\) and \(d\) has solutions every \(\frac{m}{\gcd(m, n)} = m\). \(a + cm = x\) and \(b + dn = x\). \(x = a + m(c_0 + in) = a + m c_0 + inm\) and \(x = b + n(d_0 + im) = b + nd_0 + inm\). Solving for \(x\) in terms of \(c\) and solving for \(x\) in terms of \(d\) both indicate solutions every \(nm\). Therefore they are equivalent to the same thing \(\pmod{mn}\).
+\textbf{Proof:} Repeat the previous proof up to \(cm - dn = a - b\).  \(c\) has solutions every \(\frac{n}{\gcd(m, n)} = n\) and \(d\) has solutions every \(\frac{m}{\gcd(m, n)} = m\). \(a + cm = x\) and \(b + dn = x\). \(x = a + m(c_0 + in) = a + m c_0 + inm\) and \(x = b + n(d_0 + im) = b + nd_0 + inm\). Solving for \(x\) in terms of \(c\) and solving for \(x\) in terms of \(d\) both indicate solutions every \(nm\). Therefore they are equivalent to the same thing (mod \({mn}\)). {\tiny \(\blacksquare\)}
 
 \item \textbf{Theorem:} Given \(L\) linear congruences with coprime modulos, there exists a unique solution in the canonical residue system of the product of the modulos.
 

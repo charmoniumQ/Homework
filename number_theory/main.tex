@@ -22,6 +22,7 @@
 \fancyfoot{}
 \fancyhead[HR]{\thepage\ of \pageref{LastPage}}
 
+\newcommand{\qedhere}{{\tiny \(\blacksquare\)}}
 \newcommand{\fs}{\textrm{\ for some\ }}
 \DeclareMathOperator{\lcm}{lcm}
 \DeclareMathOperator{\pf}{pf}
@@ -56,7 +57,7 @@
 \renewcommand{\theenumi}{\arabic{enumi}}
 \renewcommand{\labelenumi}{}
 \renewcommand{\theenumii}{\arabic{enumii}}
-\renewcommand{\labelenumii}{\theenumi.\theenumii}
+\renewcommand{\labelenumii}{\textbf{\theenumi.\theenumii}}
 \renewcommand{\theenumiii}{\arabic{enumiii}}
 \renewcommand{\labelenumiii}{\theenumiii.}
 \begin{enumerate}[leftmargin=0mm]
@@ -64,9 +65,10 @@
 \item 
 \begin{enumerate}[leftmargin=0mm]
 \setlength{\parskip}{10pt}
-\setcounter{enumi}{2}
+\setcounter{enumi}{4}
 \setcounter{enumii}{0}
-\input{s3.tex}
+
+\input{s4.tex}
 
 \end{enumerate}
 \end{enumerate}
