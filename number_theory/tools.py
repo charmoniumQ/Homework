@@ -200,7 +200,7 @@ def linear_congruence_system(eqns, printing=False):
     if printing: print('\(x = \{\)' + ''.join(map(lambda xn: '\({xn}\), '.format(**locals()), list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))) + '\(\dots\}\) \\\\')
     return x0, xi
 
-def mod_exp(a1, r, n, printing=True):
+def mod_exp_(a1, r, n, printing=True):
     '''Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$'''
     # WLOG a < n
     if printing: print(r'$ {a1}^{{{r}}} \equiv '.format(**locals()), end='')
@@ -216,99 +216,127 @@ def mod_exp(a1, r, n, printing=True):
     if divides(2, r):
         # $(a^2)^{r/2}$
         if printing: print(r'({a}^2)^{{{r}/2}} \equiv {a2}^{{{r2}}} \pmod{{{n}}} $ \\'.format(**locals()))
-        k = mod_exp(a2, r2, n, printing)
+        k = mod_exp_(a2, r2, n, printing)
         k = cmod(k, n)
         return k
     else:
         # $(a^2)^{(r-1)/2} \cdot a$
         if printing: print(r'({a}^2)^{{({r}-1)/2}} \cdot {a} \equiv {a2}^{{{r2}}} \cdot {a} \pmod{{{n}}} $ \\'.format(**locals()))
-        k = mod_exp(a2, r2, n, printing)
+        k = mod_exp_(a2, r2, n, printing)
         ka = cmod(k * a, n)
         if printing: print(r'$ {k} \cdot {a} \equiv {ka} \pmod {{{n}}} $ \\'.format(**locals()))
-        return k
+        return ka
+
+def mod_exp(a1, r, n, printing=False):
+    k = mod_exp_(a1, r, n, printing)
+    return k
 
 def order(a, n):
-    '''Calculate k where $a^k \equiv 1 \pmod n$'''
-    if gcd(a, n) != 1:
+    '''Calculate k where $a^k \equiv 1 \pmod n$ with $k > 0$'''
+    if gcd(a, n) != 1 or n == 1 or a == 0  or n == 0:
         return None
-    for k in count(1):
+    for k in first(100, count(1)):
         if mod_exp(a, k, n, printing=False) == 1:
             return k
 
+def order_table_plain(n_max=30, a_max=40):
+    row_begin = ''
+    row_end = ''
+    col_begin = '  '
+    col_end = ''
+    col_head_sep = '|'
+    row_head_sep = '-'
+    col_row_head_sep = '+'
+    print(row_begin + ' ' * (len(col_begin) + 2 + len(col_row_head_sep)), end='')
+    for n in range(2, n_max):
+        print(col_begin + '{n: <2d}'.format(**locals()) + col_end, end='')
+    print(row_end)
+    print(row_begin + ' ' * (len(col_begin) + 2) + col_row_head_sep + row_head_sep * (n_max * 4 - 8) + row_end)
+    for a in range(1, a_max):
+        print(row_begin + col_begin + '{a: <2d}'.format(**locals()) + col_head_sep + col_end, end='')
+        for n in range(2, 30):
+            k = order(a, n)
+            if k:
+                print(col_begin + '{k: <2d}'.format(**locals()) + col_end, end='')
+            else:
+                print(col_begin + '  ' + col_end, end='')
+        print(row_end)
+
 def main():
-    # Question: is n! + 1 prime for all n?
-    # we know that there exists a prime between n and n! + 1
-    # but is it n! + 1?
-    for i in count(1):
-        f = factorial(i) + 1
-        if is_composite(f):
-            prime_fac = ' * '.join(map(str, prime_factorization(f)))
-            print('$n! + 1$ is composite:')
-            print('{i}! + 1 = {f} = {prime_fac}'.format(**locals()))
-            break
-    print('')
+    order_table_plain()
+    # # Question: is n! + 1 prime for all n?
+    # # we know that there exists a prime between n and n! + 1
+    # # but is it n! + 1?
+    # for i in count(1):
+    #     f = factorial(i) + 1
+    #     if is_composite(f):
+    #         prime_fac = ' * '.join(map(str, prime_factorization(f)))
+    #         print('$n! + 1$ is composite:')
+    #         print('{i}! + 1 = {f} = {prime_fac}'.format(**locals()))
+    #         break
+    # print('')
 
-    # Question: is the 1 plus the primorial of n prime for all n?
-    # This is like a possible 'fix' for the negative answer of the previous question
-    for i in count(1):
-        p = primorial(i) + 1
-        if is_composite(p):
-            factorization_minus_one = ' * '.join(map(str, first(i, primes())))
-            factorization = ' * '.join(map(str, prime_factorization(p)))
-            print ('nth primorial plus one is composite:')
-            print('{p} = {factorization_minus_one} + 1\n{p} = {factorization}'.format(**locals()))
-            break
-    print('')
+    # # Question: is the 1 plus the primorial of n prime for all n?
+    # # This is like a possible 'fix' for the negative answer of the previous question
+    # for i in count(1):
+    #     p = primorial(i) + 1
+    #     if is_composite(p):
+    #         factorization_minus_one = ' * '.join(map(str, first(i, primes())))
+    #         factorization = ' * '.join(map(str, prime_factorization(p)))
+    #         print ('nth primorial plus one is composite:')
+    #         print('{p} = {factorization_minus_one} + 1\n{p} = {factorization}'.format(**locals()))
+    #         break
+    # print('')
 
-    # Question: what are the first ten hilbert primes?
-    print('Hilbert primes:')
-    print(list(first(10, hilbert_primes())))
-    print('')
+    # # Question: what are the first ten hilbert primes?
+    # print('Hilbert primes:')
+    # print(list(first(10, hilbert_primes())))
+    # print('')
 
-    # Question: what are the five ten hilbert numbers with multiple prime factorizations
-    # or equivalently: Could Harrelson have used a smaller number than 693?
-    print('Numbers with multiple hilbert factorizations:')
-    numbers = []
-    for h in hilbert_set():
-        hpf = hilbert_prime_factorization(h)
-        if len(hpf) > 1:
-            numbers.append(h)
-            print(h, hpf)
-        if len(numbers) > 10:
-            break
-    print('')
+    # # Question: what are the five ten hilbert numbers with multiple prime factorizations
+    # # or equivalently: Could Harrelson have used a smaller number than 693?
+    # print('Numbers with multiple hilbert factorizations:')
+    # numbers = []
+    # for h in hilbert_set():
+    #     hpf = hilbert_prime_factorization(h)
+    #     if len(hpf) > 1:
+    #         numbers.append(h)
+    #         print(h, hpf)
+    #     if len(numbers) > 10:
+    #         break
+    # print('')
 
-    # Task: 3.4 to 3.6
-    print('Modular exponentiation')
-    print(r'\begin{tabular}[t]{l}')
-    mod_exp(9, 453, 12, True)
-    print(r'\end{tabular}', end='\n\n')
-    print(r'\begin{tabular}[t]{l}')
-    mod_exp(17, 48, 39, True)
-    print(r'\end{tabular}', end='\n\n')
-    print(r'\begin{tabular}[t]{l}')
-    mod_exp(5, 24, 39, True)
-    print(r'\end{tabular}')
+    # # Task: 3.4 to 3.6
+    # print('Modular exponentiation')
+    # print(r'\begin{tabular}[t]{l}')
+    # mod_exp(9, 453, 12, True)
+    # print(r'\end{tabular}', end='\n\n')
+    # print(r'\begin{tabular}[t]{l}')
+    # mod_exp(17, 48, 39, True)
+    # print(r'\end{tabular}', end='\n\n')
+    # print(r'\begin{tabular}[t]{l}')
+    # mod_exp(5, 24, 39, True)
+    # print(r'\end{tabular}')
 
-    # Task: write a program that solves linear diophantine equations
-    # this makes the exercises much easier
-    print('Linear diophantine solutions:')
-    a, b, c = 7, 8, 100
-    (x0, y0), (xi, yi) = linear_diophantine(a, b, c)
-    x1, y1 = x0 + xi, y0 + yi
-    print('${a} \cdot {x0} + {b} \cdot {y0} = {c}$'.format(**locals()))
-    print(a*x0 + b*y0 == c)
-    print('${a} \cdot {x1} + {b} \cdot {y1} = {c}$'.format(**locals()))
-    print(a*x1 + b*y1 == c)
-    print('')
+    # # Task: write a program that solves linear diophantine equations
+    # # this makes the exercises much easier
+    # print('Linear diophantine solutions:')
+    # a, b, c = 7, 8, 100
+    # (x0, y0), (xi, yi) = linear_diophantine(a, b, c)
+    # x1, y1 = x0 + xi, y0 + yi
+    # print('${a} \cdot {x0} + {b} \cdot {y0} = {c}$'.format(**locals()))
+    # print(a*x0 + b*y0 == c)
+    # print('${a} \cdot {x1} + {b} \cdot {y1} = {c}$'.format(**locals()))
+    # print(a*x1 + b*y1 == c)
+    # print('')
 
-    print('Systems of linear congruence solutions:')
-    linear_congruence_system([(1, 3, 17), (1, 10, 16), (1, 0, 15)], True)
-    print('')
-    linear_congruence_system([(1, 1, 2), (1, 2, 3), (1, 3, 4), (1, 4, 5), (1, 5, 6), (1, 0, 7)], True)
-    # I am not going to test this. I know it works.
-    # (famous last words)
-    print('')
+    # print('Systems of linear congruence solutions:')
+    # linear_congruence_system([(1, 3, 17), (1, 10, 16), (1, 0, 15)], True)
+    # print('')
+    # linear_congruence_system([(1, 1, 2), (1, 2, 3), (1, 3, 4), (1, 4, 5), (1, 5, 6), (1, 0, 7)], True)
+    # # I am not going to test this. I know it works.
+    # # (famous last words)
+    # print('')
 
 if __name__ == '__main__':
     pass

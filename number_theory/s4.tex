@@ -17,7 +17,7 @@
 Let \(a, n \in \mathbb Z\) where \(\gcd(a, n) = 1\). This proof applies for all \(j \in \mathbb N\). Show \(\gcd(a^j, n) = 1\)
 
 %TODO: Fix this typsetting
-\textbf{Proof:} I will begin by using the tools developd in chapter 2, \(\pf(a) \cap \pf(n)  = \{\}\). \(\min (x \# \pf(a), x \# \pf(b)) = 0\). Since \(\min(a, b) = a \vee \min(a, b) = b\), \(0 = \pf(a) \vee 0 = \pf(b)\). If \(0 = \pf(a)\), then \(x \# \pf(a) = 0\), furthermore no matter how many a's \(x \# \pf(a^j) = 0\) (since \(x \# \pf(a) = 0 = j (x \# \pf(a)) = x \# \pf(a^j)\)). Thus \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Otherwise \(0 = \pf(b)\), then no matter what \(x \# \pf(a^j)\) is, \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Thus \(\gcd(a^j, n) = 1\). This conditional proof shows \(\gcd(a, n) = 1 \rightarrow \gcd(a^j, n) = 1\). \qedhere
+\textbf{Proof:} I will begin by using the tools developed in Chapter 2, \(\pf(a) \cap \pf(n)  = \{\}\). \(\min (x \# \pf(a), x \# \pf(b)) = 0\). Since \(\min(a, b) = a \vee \min(a, b) = b\), \(0 = \pf(a) \vee 0 = \pf(b)\). If \(0 = \pf(a)\), then \(x \# \pf(a) = 0\), furthermore no matter how many a's \(x \# \pf(a^j) = 0\) (since \(x \# \pf(a) = 0 = j (x \# \pf(a)) = x \# \pf(a^j)\)). Thus \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Otherwise \(0 = \pf(b)\), then no matter what \(x \# \pf(a^j)\) is, \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Thus \(\gcd(a^j, n) = 1\). This conditional proof shows \(\gcd(a, n) = 1 \rightarrow \gcd(a^j, n) = 1\). \qedhere
 
 This proof can also be written using 1.43.
 
@@ -43,10 +43,50 @@ Let \(a, b, c, n \in \mathbb N\). Let \(ac \equiv bc \pmod n\). Show \(a \equiv 
 
 Let \(\gcd(a, n) = 1\). Show \(\exists k \in \mathbb N (a^k \equiv 1 \pmod n\)
 
-\textbf{Proof:} \(a^i \equiv a^j \pmod n\) WLOG \(i \geq j\) by Theorem
- 4.4. \(\frac{a^i}{a^j} \equiv \frac{a^j}{a^j} \pmod n\) by Theorem 4.5, or equivalently \(a^{i-j} \equiv a^{i-i} \equiv 1 \pmod n\). Therefore when \(k = i - j\), \(a^k \equiv 1 \pmod n\). In conclusion \(\gcd(a, n) = 1 \rightarrow \exists k \in \mathbb N (a^k \equiv 1 \pmod n)\). \qedhere
+\textbf{Proof:} \(a^i \equiv a^j \pmod n\) WLOG \(i \geq j\) by Theorem 4.4. \(\frac{a^i}{a^j} \equiv \frac{a^j}{a^j} \pmod n\) by Theorem 4.5, or equivalently \(a^{i-j} \equiv a^{i-i} \equiv 1 \pmod n\). Therefore when \(k = i - j\), \(a^k \equiv 1 \pmod n\). In conclusion \(\gcd(a, n) = 1 \rightarrow \exists k \in \mathbb N (a^k \equiv 1 \pmod n)\). \qedhere
 
-\item 
+\setcounter{enumii}{12}
+\item \textbf{Theorem:} Let \(S = \{a, 2a, 3a, \dots, pa\}\) where \(\gcd(a, p) = 1\). \(S\) is a complete residue system modulo \(p\).
+
+\textbf{Proof:} Let \(R = \{1, 2, 3, \dots, p\}\). \(R\) is the canonical complete residue system modulo \(p\). Therefore all elements of \(R\) are pairwise incongruent \(\forall i, j (i \neq j \rightarrow i \not\equiv j \pmod p)\). The contrapositive of theorem 4.5 states that \(i \not\equiv j \pmod n\) implies \(ai \not\equiv aj \pmod n\). Therefore the elements of \(R\) are also pairwise incongruent. By Theorem 3.17, any set of \(p\) pairwise incongruent integers form a complete residue system modulo \(p\).
+
+\item \textbf{Theorem:} Let \(p \in \mathbb P\) and \(a \nmid p\). \(a \cdot 2a \cdot 3a \cdot \dots \cdot (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \pmod p\).
+
+Let \(R = \{a, 2a, 3a, \dots, (p-1)a, pa\}\) and \(S = \{1, 2, 3, \dots, p-1, p\}\).
+
+\textbf{Proof:} \(R\) consitutes a complete residue system by Theorem 3.14. \(S\) is the canonical complete residue system. Therefore every element of \(R\) is congruent to exactly one thing in \(S\) and everything in \(S\) is congruent to exactly one thing in \(R\). Therefore there is a one-to-one mapping of congruent elements from \(S\) to \(R\). \(p|pa \wedge p|p\), therefore \(pa \equiv 0 \equiv p \pmod p\). Therefore there is a one-to-one mappnig of congruent elements from \(R \setminus \{pa\}\) to \(S \setminus \{p\}\). For each element pair \(r_i\) and \(s_i\) in \(R \setminus \{pa\}\) and \(S \setminus \{p\}\), we can multiply the left-hand side of the equation \(1 \equiv 1 \pmod p\) by \(r_i\) and the right-hand side by \(s_i\). In the end, we will get all of the elements of \(R \setminus \{pa\}\) multiplied together are equivalent to all of the elements of \(S \setminus \{p\}\). \(a \cdot 2a \cdot 3a \cdot \dots \cdot (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \pmod p\). \qedhere
+
+\item \textbf{Theorem:} In a prime modulo, an integer not divisible by the modulo raised to the \((p-1)\)-th power is congruent to one.
+
+Let \(p \in \mathbb P\) and \(a \in \mathbb Z \wedge p \nmid a\). \(a^{p-1} \equiv 1 \pmod p\).
+
+\textbf{Proof:} \(a \cdot 2a \cdot 3a \cdot \dots \cdot (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \pmod n\) by Theorem 4.13. Then \(1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \cdot a^{p-1} \equiv 1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \pmod p\). Since \(p \in \mathbb P\), \(\forall i < p (\gcd(i, p) = 1)\), we can repeatedly apply Theorem 4.14. Therefore \(a^{p-1} \equiv 1 \pmod n\). \qedhere
+
+\item \textbf{Theorem:} In a prime modulo, an integer raised to the power of the modulo is congruent to itself.
+
+Let \(p \in \mathbb P\) and \(a \in \mathbb Z\). \(a^p \equiv a \pmod p\)
+
+\textbf{Proof:} Let \(p \in \mathbb P\) and \(a \in \mathbb Z\). \(a^{p-1} \equiv 1 \pmod p\) by Theorem 4.15. If \(p \nmid a\), then \(a^{p-1} \equiv 1 \pmod p\), therefore \(a^p \equiv a \pmod p\) by Theorem 1.14. On the other hand, if \(p | a\), then \(a \equiv 0 \equiv a^p \pmod p\). Therefore \(a^p \equiv a \pmod p\) in both cases.
+
+\item \textbf{Note:} 4.15 and 4.16 are equivalent.
+
+\textbf{Proof that 4.15 implies 4.16:} See proof of 4.16 (which relies on 4.15).
+
+\textbf{Proof that 4.16 implies 4.15:} Let \(p \in \mathbb P\) and \(a \in \mathbb Z \wedge p \nmid a\). \(a^p \equiv a \pmod p\) by Theorem 4.16. Since \(p \in \mathbb P\) and \(p \nmid a\), \(\gcd(a, p) = 1\). This lets us apply Theorem 4.5 to the equation \(a^{p-1} a \equiv 1 a \pmod p\), yielding \(a^{p-1} \equiv 1 \pmod p\).
+
+\item In a prime modulo, one less than the modulo divides the order of an integer coprime to that modulo.
+
+Let \(p \in \mathbb P\) and \(a \in \mathbb Z \wedge p \nmid a\). \(\ord_p(a) | (p-1)\)
+
+\textbf{Proof:} \(a^{p-1} \equiv 1 \pmod p\) by Theorem 4.15. \((p-1)|\ord_p(a)\) by Theorem 4.10.
+
+% I'm an idealist. I don't know where I'm going, but I'm on my way. Carl Sandburg
+% It takes considerable knowledge just to realize the extent of your own ignorance. Thomas Sowell
+% 'But I don't want to go among mad people,' Alice remarked. 'Oh, you can't help that,' said the Cat: 'we're all mad here. I'm mad. You're mad.'
+% Don't Panic. Douglas Adams
+% This planet has - or rather had - a problem, which was this: most of the people living on it were unhappy for pretty much of the time. Many solutions were suggested for this problem, but most of these were largely concerned with the movement of small green pieces of paper, which was odd because on the whole it wasn't the small green pieces of paper that were unhappy. Douglas Adams.
+% So long, and thanks for all the fish. Douglas Adams
+% man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons. Douglas Adams
 
 %%% Local Variables:
 %%% mode: latex
