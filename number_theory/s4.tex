@@ -80,6 +80,20 @@ Let \(p \in \mathbb P\) and \(a \in \mathbb Z \wedge p \nmid a\). \(\ord_p(a) | 
 
 \textbf{Proof:} \(a^{p-1} \equiv 1 \pmod p\) by Theorem 4.15. \((p-1)|\ord_p(a)\) by Theorem 4.10.
 
+\item \textbf{Exercise:} Use Fermat's Little Theorem to efficiently raise numbers to large powers in modulo arithmetic.
+
+\begin{enumerate}
+\item \(512^{372} = 512^{31 \cdot 12} = (512^{12})^{31} \equiv 1^{31} \pmod{13} = 1\)
+\item \(3444^{3233} = 3444^{202 \cdot 16 + 1} = (344^{16})^{212} \cdot 344^1 \equiv 1^{202} \cdot 344 \pmod{17} = 344\)
+\item \(123^{456} \equiv (2^3)^{456} \pmod{23} = 2^{3 \cdot 456} = 2^{62 \cdot 22 + 4} - (2^{22})^{62} \cdot 2^4 \equiv 1^62 \cdot 2^4 \pmod{23} = 16\)
+\end{enumerate}
+
+\item \textbf{Exercise:} Find the remainder upon division of \(314^{159}\) by \(31\)
+
+\(314^{159} \equiv (2^2)^{159} \pmod {31} = 2^{2 \cdot 159} = 2^{5 \cdot 62 + 3} = (2^5)^{62} \cdot 2^3 \equiv 1^62 \cdot 2^3 \pmod {31} = 8\)
+
+The remainder upon division is 8.
+
 % I'm an idealist. I don't know where I'm going, but I'm on my way. Carl Sandburg
 % It takes considerable knowledge just to realize the extent of your own ignorance. Thomas Sowell
 % 'But I don't want to go among mad people,' Alice remarked. 'Oh, you can't help that,' said the Cat: 'we're all mad here. I'm mad. You're mad.'
