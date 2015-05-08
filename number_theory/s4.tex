@@ -56,13 +56,13 @@ Let \(R = \{a, 2a, 3a, \dots, (p-1)a, pa\}\) and \(S = \{1, 2, 3, \dots, p-1, p\
 
 \textbf{Proof:} \(R\) consitutes a complete residue system by Theorem 3.14. \(S\) is the canonical complete residue system. Therefore every element of \(R\) is congruent to exactly one thing in \(S\) and everything in \(S\) is congruent to exactly one thing in \(R\). Therefore there is a one-to-one mapping of congruent elements from \(S\) to \(R\). \(p|pa \wedge p|p\), therefore \(pa \equiv 0 \equiv p \pmod p\). Therefore there is a one-to-one mappnig of congruent elements from \(R \setminus \{pa\}\) to \(S \setminus \{p\}\). For each element pair \(r_i\) and \(s_i\) in \(R \setminus \{pa\}\) and \(S \setminus \{p\}\), we can multiply the left-hand side of the equation \(1 \equiv 1 \pmod p\) by \(r_i\) and the right-hand side by \(s_i\). In the end, we will get all of the elements of \(R \setminus \{pa\}\) multiplied together are equivalent to all of the elements of \(S \setminus \{p\}\). \(a \cdot 2a \cdot 3a \cdot \dots \cdot (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \pmod p\). \qedhere
 
-\item \textbf{Theorem:} In a prime modulo, an integer not divisible by the modulo raised to the \((p-1)\)-th power is congruent to one.
+\item \textbf{Theorem:} (Fermat's Little Theorem) In a prime modulo, an integer not divisible by the modulo raised to the \((p-1)\)-th power is congruent to one.
 
 Let \(p \in \mathbb P\) and \(a \in \mathbb Z \wedge p \nmid a\). \(a^{p-1} \equiv 1 \pmod p\).
 
 \textbf{Proof:} \(a \cdot 2a \cdot 3a \cdot \dots \cdot (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \pmod n\) by Theorem 4.13. Then \(1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \cdot a^{p-1} \equiv 1 \cdot 2 \cdot 3 \cdot \dots \cdot (p-1) \pmod p\). Since \(p \in \mathbb P\), \(\forall i < p (\gcd(i, p) = 1)\), we can repeatedly apply Theorem 4.14. Therefore \(a^{p-1} \equiv 1 \pmod n\). \qedhere
 
-\item \textbf{Theorem:} In a prime modulo, an integer raised to the power of the modulo is congruent to itself.
+\item \textbf{Theorem:} (Fermat's Little Theorem) In a prime modulo, an integer raised to the power of the modulo is congruent to itself.
 
 Let \(p \in \mathbb P\) and \(a \in \mathbb Z\). \(a^p \equiv a \pmod p\)
 
@@ -85,14 +85,66 @@ Let \(p \in \mathbb P\) and \(a \in \mathbb Z \wedge p \nmid a\). \(\ord_p(a) | 
 \begin{enumerate}
 \item \(512^{372} = 512^{31 \cdot 12} = (512^{12})^{31} \equiv 1^{31} \pmod{13} = 1\)
 \item \(3444^{3233} = 3444^{202 \cdot 16 + 1} = (344^{16})^{212} \cdot 344^1 \equiv 1^{202} \cdot 344 \pmod{17} = 344\)
-\item \(123^{456} \equiv (2^3)^{456} \pmod{23} = 2^{3 \cdot 456} = 2^{62 \cdot 22 + 4} - (2^{22})^{62} \cdot 2^4 \equiv 1^62 \cdot 2^4 \pmod{23} = 16\)
+\item \(123^{456} \equiv (2^3)^{456} \pmod{23} = 2^{3 \cdot 456} = 2^{62 \cdot 22 + 4} = (2^{22})^{62} \cdot 2^4 \equiv 1^{62} \cdot 2^4 \pmod{23} = 16\)
 \end{enumerate}
 
 \item \textbf{Exercise:} Find the remainder upon division of \(314^{159}\) by \(31\)
 
 \(314^{159} \equiv (2^2)^{159} \pmod {31} = 2^{2 \cdot 159} = 2^{5 \cdot 62 + 3} = (2^5)^{62} \cdot 2^3 \equiv 1^62 \cdot 2^3 \pmod {31} = 8\)
 
-The remainder upon division is 8.
+The remainder upon division is 8.\(2^{144} = (2^{12})^{12} \equiv 1^{12} \pmod 13 = 1\).
+
+\item \textbf{Theorem:} \(x \equiv a \pmod n\), \(x \equiv a \pmod m\), and \(\gcd(n, m) = 1\) imply \(x \equiv a \pmod {mn}\).
+
+\textbf{Proof:} \(n|(x-a)\) and \(m|(x-a)\). \(mn|(x-a)\) by Theorem 2.25. \qedhere
+
+\item \textbf{Exercise:} The remainder of \(4^{72}\) divided by \(91\) is 8.
+
+\(2^{144} = (2^{12})^{12} \equiv 1^{12} \pmod {13} = 1\). Therefore \(x \equiv 1 \pmod {13}\)
+
+\(2^{144} = (2^{2})^{72} \equiv 1^{72} \pmod 3 = 1\). Therefore \(x \equiv 1 \pmod 3\).
+
+Therefore \(4^{72} = 2^{144} \equiv 1 \pmod {91}\) by Theorem 4.21.
+
+\setcounter{enumii}{27}
+
+\item \textbf{Theorem:} \(\gcd(a, b) = 1 \wedge \gcd(a, c) = 1 \rightarrow \gcd(a, bc) = 1\)
+
+\textbf{Proof:}
+
+\begin{tabular}[t]{ll}
+\multicolumn{2}{l}{Let \(\pf(a) = A\), \(\pf(b) = B\), \(\pf(c) = C\)} \\
+\(A \cap B = \{\}\) \\ j 
+\(A \cap C = \{\}\) & Coprime-disjoint theorem \\
+\(\gcd(a, bc) = A \cap (\pf(bc))\) & GCD-intersection theorem \\
+\(\quad = A \cap (B + C)\) & pf of product \\
+\(\quad = A \cap B + A \cap C\) & Empty-intersection theorem \\
+\(\quad = \{\} + \{\}\) & Substitution \\
+\(\quad = \{\}\) & Identity \\
+\(\gcd(a, bc) = 1\) & Coprime-disjoint theorem \qedhere
+\end{tabular}
+
+\item \textbf{Theorem:} Let \(b \equiv a \pmod n\) and \(\gcd(a, n) = 1\). Show \(\gcd(a, b) = 1\)
+
+\textbf{Proof:} Assume for contradiction \(b = n c \fs c\). Then \(b \equiv a \pmod n\) means \(n | (nc - a)\). This is problematic because then \(nj = nc - a\), and then \(n(c-j) = a\). Therefore \(b \neq nc\). Therefore by definition of greatest common divisor \(\gcd(b, n) = 1\). In conclusion \((\gcd(a, n) = 1 \wedge b \equiv a \pmod n) \rightarrow \gcd(a, b) = 1\). \qedhere
+
+\item \textbf{Theorem:} Let \(a, b, c, n \in \mathbb N\). Let \(ac \equiv bc \pmod n\). Show \(a \equiv b \pmod n\)
+
+\textbf{Proof:} The first congruence translates to \(n | (ac-bc)\) or \(n | c(a-b)\). By Theorem 1.41, \(n | (a-b)\) (since \(\gcd(a, n) = 1\), no factor of \(c\) can be divided by \(n\)). Therefore \(a \equiv b \pmod n\). \qedhere
+
+\item \textbf{Theorem:} Let \(x_1, x_2, \dots, x_{\phi(n)}\) be the natural numbers relatively prime to \(n\) and less than \(n\). Let \(\gcd(a, n) = 1\) (but not necessarily \(a \leq n\), so not necessarily \(\exists i (a = x_i)\)). \(i \neq j \rightarrow ax_i \not\equiv ax_j\)
+
+All congruences are taken modulo \(n\).
+
+\textbf{Proof:} \(ax_i \equiv ax_j\) implies \(x_i \equiv x_j\) by Theorem 4.30, or equivalently \(n|(x_i - x_j\). Since \(0 \leq x_j < n\) and without loss of generality \(x_j \leq x_i < n\), \(0 \leq x_i - x_j < n\), but \(n|(x_i - x_j)\), therefore \(x_i - x_j = 0\). Therefore \(x_i = x_j\). This contradicts. Therefore \(ax_i \not\equiv ax_j\). \qedhere
+
+\item \textbf{Theorem:} (Euler's Theorem) \(a^{\phi(n)} \equiv 1 \pmod n\)
+
+By Theorem 4.31, the members of the set \(\{ax_1, ax_2, \dots, x_{\phi(n)}\}\) are pairwise incongruent.
+
+\item \textbf{Theorem:} (Fermat's Little Theorem) \(a^{(p-1)} \equiv 1 \pmod n\).
+
+\textbf{Proof:} If \(n \in \mathbb P\), then all natural numbers less than \(n\) are coprime to \(n\). Therefore \(\phi(n)\) counts all numbers from 1 to \(n-1\). Therefore \(\phi(n) = n - 1\). Therefore \(a^{(p-1)} \equiv 1 \pmod n\). \qedhere
 
 % I'm an idealist. I don't know where I'm going, but I'm on my way. Carl Sandburg
 % It takes considerable knowledge just to realize the extent of your own ignorance. Thomas Sowell
