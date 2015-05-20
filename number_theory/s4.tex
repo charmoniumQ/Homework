@@ -17,11 +17,11 @@
 Let \(a, n \in \mathbb Z\) where \(\gcd(a, n) = 1\). This proof applies for all \(j \in \mathbb N\). Show \(\gcd(a^j, n) = 1\)
 
 %TODO: Fix this typsetting
-\textbf{Proof:} I will begin by using the tools developed in Chapter 2, \(\pf(a) \cap \pf(n)  = \{\}\). \(\min (x \# \pf(a), x \# \pf(b)) = 0\). Since \(\min(a, b) = a \vee \min(a, b) = b\), \(0 = \pf(a) \vee 0 = \pf(b)\). If \(0 = \pf(a)\), then \(x \# \pf(a) = 0\), furthermore no matter how many a's \(x \# \pf(a^j) = 0\) (since \(x \# \pf(a) = 0 = j (x \# \pf(a)) = x \# \pf(a^j)\)). Thus \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Otherwise \(0 = \pf(b)\), then no matter what \(x \# \pf(a^j)\) is, \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Thus \(\gcd(a^j, n) = 1\). This conditional proof shows \(\gcd(a, n) = 1 \rightarrow \gcd(a^j, n) = 1\). \qedhere
+\textbf{Proof:} I will begin by using the tools developed in Chapter 2, \(\pf(a) \cap \pf(n)  = \{\}\). \(\min (x \# \pf(a), x \# \pf(b))\) \( = 0\). Since \(\min(a, b) = a \vee \min(a, b) = b\), \(0 = \pf(a) \vee 0 = \pf(b)\). If \(0 = \pf(a)\), then \(x \# \pf(a) = 0\), furthermore no matter how many a's, \(x \# \pf(a^j) = 0\) (since \(x \# \pf(a) = 0 = j (x \# \pf(a)) = x \# \pf(a^j)\)). Thus \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Otherwise \(0 = \pf(b)\), then no matter what \(x \# \pf(a^j)\) is, \(\min(x \# \pf(a^j), x \# \pf(b)) = 0\). Thus \(\gcd(a^j, n) = 1\). This conditional proof shows \(\gcd(a, n) = 1 \rightarrow \gcd(a^j, n) = 1\). \qedhere
 
 This proof can also be written using 1.43.
 
-\item \textbf{Theorem:} If \(b\) is congruent to a coprime of \(n\) mod \(n\), then \(b\) is a coprime of \(n\).
+\item \textbf{Theorem:} If \(b\) is congruent to a coprime of the modulo, then \(b\) is a coprime to the modulo.
 
 Let \(b \equiv a \pmod n\) and \(\gcd(a, n) = 1\). Show \(\gcd(a, b) = 1\)
 
@@ -41,11 +41,128 @@ Let \(a, b, c, n \in \mathbb N\). Let \(ac \equiv bc \pmod n\). Show \(a \equiv 
 
 \item \textbf{Theorem:} If a number is coprime to the modulo, it has at least one power congruent to one.
 
-Let \(\gcd(a, n) = 1\). Show \(\exists k \in \mathbb N (a^k \equiv 1 \pmod n\)
+Let \(\gcd(a, n) = 1\). Show \(\exists k \in \mathbb N (a^k \equiv 1 \pmod n)\)
 
-\textbf{Proof:} \(a^i \equiv a^j \pmod n\) WLOG \(i \geq j\) by Theorem 4.4. \(\frac{a^i}{a^j} \equiv \frac{a^j}{a^j} \pmod n\) by Theorem 4.5, or equivalently \(a^{i-j} \equiv a^{i-i} \equiv 1 \pmod n\). Therefore when \(k = i - j\), \(a^k \equiv 1 \pmod n\). In conclusion \(\gcd(a, n) = 1 \rightarrow \exists k \in \mathbb N (a^k \equiv 1 \pmod n)\). \qedhere
+\textbf{Proof:} \(a^i \equiv a^j \pmod n\) Without loss of generality, \(i \geq j\). \(\frac{a^i}{a^j} \equiv \frac{a^j}{a^j} \pmod n\) by Theorem 4.5, or equivalently \(a^{i-j} \equiv a^{i-i} \equiv 1 \pmod n\). Therefore when \(k = i - j\), \(a^k \equiv 1 \pmod n\). In conclusion \(\gcd(a, n) = 1 \rightarrow \exists k \in \mathbb N (a^k \equiv 1 \pmod n)\). \qedhere
 
-\setcounter{enumii}{12}
+\item \textbf{Question:} Compute some orders of numbers. % TODO
+
+\item \textbf{Theorem:} All powers of a relatively prime \(a\) up to \(\ord_n(a)\) are pair-wise incongruent modulo \(n\).
+
+Translated: \(\gcd(a, n) = 1 \wedge i \leq \ord(a) \wedge j \leq \ord(a) \rightarrow a^i \not\equiv a^j\). All congruences and orders are taken to be mod n.
+
+\textbf{Proof:} Assume \(a^i \equiv a^j\). Without loss of generality, \(i > j\). Then \(a^{i-j} \cdot a^j \equiv a^j \cdot 1\) which can be simplified via 4.2 and 4.5 to \(a^{i-j} \equiv 1\). But since \(\ord(a)\) is the smallest integer with this property,  \(\ord(a) \leq i - j\). Therefore \(i > \ord(a)\). \qedhere
+
+\item \textbf{Theorem:} All powers of a relatively prime \(a\) past \(\ord_n(a)\) will never produce new numbers mod \(n\).
+
+Translated \(i > \ord(a) \rightarrow \exists r \leq \ord(a) (a^i \equiv a^r)\). All congruences and orders are taken mod \(n\).
+
+\textbf{Proof:} Divide \(i\) by \(\ord(a)\) such that \(i = p \cdot \ord(a) + r\) where \(0 \leq r < \ord(a)\). \(a^i = a^{p \cdot \ord(a) + r} = (a^{\ord(a)})^p \cdot a^r \equiv 1 a^r\), or \(a^i \equiv 1 \cdot a^r \equiv a^r\). Therefore \(i > \ord(a) \rightarrow \exists r \leq \ord(a) (a^i \equiv a^r)\). \qedhere
+
+\item \textbf{Theorem:} \(a^m \equiv 1 \leftrightarrow \ord(a)|m\). All congruences and orders are taken mod \(n\).
+
+\textbf{Proof: \(\rightarrow\)} Divide \(m\) by \(\ord(a)\) such that \(m = q \cdot \ord(a) + r\) where \(0 \leq r < \ord(a)\). \(a^m = a^{q \cdot \ord(a) + r} = (a^{\ord(a)})^q \cdot a^r \equiv 1 \cdot a^r\). \(\gcd(a^r, n) = 1\), so by Theorem 4.5 \(a^r \equiv 1\). But \(0 \leq r < \ord(a)\), so \(r = 0\). Therefore \(m|\ord(a)\).
+
+\textbf{Proof: \(\leftarrow\)} \(\ord(a)|m\) implies \(j \cdot \ord(a) = m\). \(a^m = a^{j \cdot \ord(a)} = (a^{\ord(a)})^j \equiv 1^j = 1\).
+
+In conclusion \(\ord(a)|m \leftrightarrow a^m \equiv 1\). \qedhere
+
+\item \textbf{Theorem:} The order of a coprime is less than the modulo.
+
+Translated: \(\gcd(a, n) = 1 \rightarrow \ord(a) < n\). All orders and congruences are taken mod \(n\).
+
+\textbf{Proof:} There can not be more than \(n\) unique numbers modulo \(n\) by Theorem 3.16. \(a^i\) for \(0 \leq i < \ord(a)\) produces unique numbers modulo \(n\). Therefore there \(\ord(a) < n\). \qedhere
+
+\item \textbf{Exercise:} Compute the following expression for several natural numbers \(a\) and prime numbers \(p\) \(a^{p-1} \pmod p\).
+
+I conjecture that \(\ord(a) < n\).
+
+\usemintedstyle{colorful}
+\begin{minted}[mathescape,linenos]{python}
+def mod_exp(a1, r, n):
+    # Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$
+    # This algorithm is found in 3.6
+    # WLOG a < n
+    a = cmod(a1, n) # reduce a mod n if possible
+    a_squared = cmod(a * a, n)
+    r_halved, remainder = division(r, 2)
+    if r == 1:
+        # Base case
+        return a
+    if divides(2, r):
+        # $(a^2)^{r/2}$
+        k = mod_exp(a_squared, r_halved, n)
+        k = cmod(k, n) # reduce k mod n
+        return k
+    else:
+        # $(a^2)^{(r-1)/2} \cdot a$
+        k = mod_exp(a_squared, r_halved, n)
+        ka = cmod(k * a, n)
+        return ka
+
+for p in first(10, primes()):
+    print(r'\(\pmod {{{p}}}\)'.format(**locals()))
+    print('')
+    print(r'\begin{tabular}[t]{l}')
+    for a in range(0, p):
+        # $ 0 \leq a < p$
+        e = p - 1
+        c = mod_exp(a, e, p, False)
+        print(r'${a}^{{{e}}} \equiv {c} \pmod {{{p}}}$ \\'.format(**locals()))
+    print(r'\end{tabular}')
+    print('')
+\end{minted}
+
+Output:
+
+\(\pmod {2}\)
+
+\begin{tabular}[t]{l}
+$0^{1} \equiv 0 \pmod {2}$ \\
+$1^{1} \equiv 1 \pmod {2}$ \\
+\end{tabular}
+
+\(\pmod {3}\)
+
+\begin{tabular}[t]{l}
+$0^{2} \equiv 0 \pmod {3}$ \\
+$1^{2} \equiv 1 \pmod {3}$ \\
+$2^{2} \equiv 1 \pmod {3}$ \\
+\end{tabular}
+
+\(\pmod {5}\)
+
+\begin{tabular}[t]{l}
+$0^{4} \equiv 0 \pmod {5}$ \\
+$1^{4} \equiv 1 \pmod {5}$ \\
+$2^{4} \equiv 1 \pmod {5}$ \\
+$3^{4} \equiv 1 \pmod {5}$ \\
+$4^{4} \equiv 1 \pmod {5}$ \\
+\end{tabular}
+
+\(\vdots\)
+
+Output has been omitted for brevity.
+
+\(\vdots\)
+
+\begin{tabular}[t]{l}
+$11^{22} \equiv 1 \pmod {23}$ \\
+$12^{22} \equiv 1 \pmod {23}$ \\
+$13^{22} \equiv 1 \pmod {23}$ \\
+$14^{22} \equiv 1 \pmod {23}$ \\
+$15^{22} \equiv 1 \pmod {23}$ \\
+$16^{22} \equiv 1 \pmod {23}$ \\
+$17^{22} \equiv 1 \pmod {23}$ \\
+$18^{22} \equiv 1 \pmod {23}$ \\
+$19^{22} \equiv 1 \pmod {23}$ \\
+$20^{22} \equiv 1 \pmod {23}$ \\
+$21^{22} \equiv 1 \pmod {23}$ \\
+$22^{22} \equiv 1 \pmod {23}$ \\
+\end{tabular}
+
+What I find interesting is that this program builds off of the one from 3.6. The tools I develop build off of each other. That is the whole idea behind reusable functions in a programming language.
+
 \item \textbf{Theorem:} Let \(S = \{a, 2a, 3a, \dots, pa\}\) where \(\gcd(a, p) = 1\). \(S\) is a complete residue system modulo \(p\).
 
 \textbf{Proof:} Let \(R = \{1, 2, 3, \dots, p\}\). \(R\) is the canonical complete residue system modulo \(p\). Therefore all elements of \(R\) are pairwise incongruent \(\forall i, j (i \neq j \rightarrow i \not\equiv j \pmod p)\). The contrapositive of theorem 4.5 states that \(i \not\equiv j \pmod n\) implies \(ai \not\equiv aj \pmod n\). Therefore the elements of \(R\) are also pairwise incongruent. By Theorem 3.17, any set of \(p\) pairwise incongruent integers form a complete residue system modulo \(p\).
@@ -106,6 +223,8 @@ The remainder upon division is 8.\(2^{144} = (2^{12})^{12} \equiv 1^{12} \pmod 1
 
 Therefore \(4^{72} = 2^{144} \equiv 1 \pmod {91}\) by Theorem 4.21.
 
+% My class skipped a bunch here
+
 \setcounter{enumii}{27}
 
 \item \textbf{Theorem:} \(\gcd(a, b) = 1 \wedge \gcd(a, c) = 1 \rightarrow \gcd(a, bc) = 1\)
@@ -126,7 +245,7 @@ Therefore \(4^{72} = 2^{144} \equiv 1 \pmod {91}\) by Theorem 4.21.
 
 \item \textbf{Theorem:} Let \(b \equiv a \pmod n\) and \(\gcd(a, n) = 1\). Show \(\gcd(a, b) = 1\)
 
-\textbf{Proof:} Assume for contradiction \(b = n c \fs c\). Then \(b \equiv a \pmod n\) means \(n | (nc - a)\). This is problematic because then \(nj = nc - a\), and then \(n(c-j) = a\). Therefore \(b \neq nc\). Therefore by definition of greatest common divisor \(\gcd(b, n) = 1\). In conclusion \((\gcd(a, n) = 1 \wedge b \equiv a \pmod n) \rightarrow \gcd(a, b) = 1\). \qedhere
+\textbf{Proof:} Assume for contradiction \(b = n c \fs c\). Then \(b \equiv a \pmod n\) means \(n | (nc - a)\). This is problematic because then \(nj = nc - a\), and then \(n(c-j) = a\), and then \(n|a\), and then \(\gcd(a, n) = n\). Therefore \(b \neq nc\). Therefore by definition of greatest common divisor \(\gcd(b, n) = 1\). In conclusion \((\gcd(a, n) = 1 \wedge b \equiv a \pmod n) \rightarrow \gcd(a, b) = 1\). \qedhere
 
 \item \textbf{Theorem:} Let \(a, b, c, n \in \mathbb N\). Let \(ac \equiv bc \pmod n\). Show \(a \equiv b \pmod n\)
 
@@ -145,6 +264,36 @@ By Theorem 4.31, the members of the set \(\{ax_1, ax_2, \dots, x_{\phi(n)}\}\) a
 \item \textbf{Theorem:} (Fermat's Little Theorem) \(a^{(p-1)} \equiv 1 \pmod n\).
 
 \textbf{Proof:} If \(n \in \mathbb P\), then all natural numbers less than \(n\) are coprime to \(n\). Therefore \(\phi(n)\) counts all numbers from 1 to \(n-1\). Therefore \(\phi(n) = n - 1\). Therefore \(a^{(p-1)} \equiv 1 \pmod n\). \qedhere
+
+\item \textbf{Exercise:}
+\begin{enumerate}
+\item \(4^{49} \equiv 12^{49} \equiv ? \pmod{15}\)
+\item \(139^{112} \equiv ? \pmod {27}\)
+\end{enumerate}
+
+\item \textbf{Exercise:} Find the ones digit of \(13^{474}\)
+
+\(13^{174} = (13^4)^{18} \cdot 13^2 \equiv 1^{18} \cdot 3^2 \pmod {10} = 9\)
+
+\item \textbf{Theorem:} Every number has a multiplicative inverse in a prime modulo.
+
+\textbf{Proof:} By Fermat's Little Theorem \(a^{p-1} \equiv 1\). Since \(p \geq 2\), \(a^{p-2} a = a^{p-1} \equiv 1\). Therefore reduce \(a^{p-2}\) into the CCRS where \(a^{p-2} \equiv b\). \(\forall 1 < a < p - 1 \exists 1 < b < p - 1 ab \equiv 1\). \qedhere
+
+\item \textbf{Theorem:} \(1\) and \(p-1\) are their own multiplicative inverses in a prime modulo \(p\).
+
+Translated: \(1 \cdot 1 \equiv 1\) and \((p-1) \cdot (p-1) \equiv 1\). All congruences are taken mod \(p\)
+
+\textbf{Proof:} \(1 \cdot 1 = 1 \equiv 1\). \((p-1)\cdot(p-1) = p^2 - 2p + 1 = (p-2) \cdot p + 1 \equiv 1\). \qedhere
+
+\item \textbf{Theorem:} No other number (besides \(1\) and \(p-1\)) is its own inverse in a prime modulo \(p\).
+
+Translated: \(0 \leq a < p \wedge a^2 \equiv 1 \rightarrow a \equiv 1 \vee a \equiv p-1\), where all congruences are taken in a prime modulo \(p\).
+
+\textbf{Proof:} Let \(a^2 \equiv 1\). By the definition of modulo, \(p|(a^2 - 1)\), or equivalently \(p|(a-1)(a+1)\). \(p \in \mathbb P\), therefore \(\gcd(p, a-1) = 1\) and \(\gcd(p, a+1) = 1\) (unless \(a+1\) was \(p\) or \(a-1\) was \(0\)). By Theorem 4.28, \(\gcd(p, (a-1)(a+1)) = 1\). Therefore \(p\nmid (a-1)(a+1\) unless \(a = p - 1\) or \(a = 1\). But we know that \(p|(a-1)(a+1)\) from the premise, so \(a = p-1\) or \(a = 0\). \qedhere
+
+%\setcounter{enumi}{6}
+%\setcounter{enumii}{3}
+%\item \textbf{Theorem:} 
 
 % I'm an idealist. I don't know where I'm going, but I'm on my way. Carl Sandburg
 % It takes considerable knowledge just to realize the extent of your own ignorance. Thomas Sowell
