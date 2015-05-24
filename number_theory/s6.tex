@@ -1,0 +1,183 @@
+Throughout my homework, I will use \(\sum^k a_i x^i\) to represent a polynomial of degree \(k\) with integer coefficients \(a_1, a_2, \dots, a_k\) where \(a_k \neq 0\)
+
+\item \textbf{Theorem:} Let \(f(x) = \sum^k a_i x^i\). \(f(r) = 0 \leftrightarrow f(x) = (x-r) \cdot g(x)\) for some \(g(x) = \sum^{k-1} b_i x^i\)
+
+\textbf{Proof:} % TODO
+
+\item \textbf{Theorem:} Let \(f(x) = \sum^k a_i x^i\). Let \(f(r) \equiv 0\fs r \in \mathbb Z\). Let \(g(x) = \sum^k b_i x^i\) where \(b_i = a_i\) for \(i > 0\) and \(b_0 \equiv a_0\). Then there exists an \(h(x) = \sum^{k-1} c_i x^i\) such that \((x-r) h(x) = g(x)\). (All congruences are taken mod \(n\).)
+
+\textbf{Proof:} \(f(r) \equiv 0\). Let \(b_0 := a_0 - f(r)\), since \(b_0 \equiv a_0 - 0\) still holds. Then \(g(r) = a_n r^n + \dots + a_1 r + b_0 = a_n r^n + \dots + a_1 r + a_0 - f(r) = f(r) - f(r) = 0\). Therefore we can apply 6.1 to \(g(x)\). There exists an \(h(x) = \sum^{k-1} c_i x^i\) where \((x - r) h(x) = g(x)\). \qedhere
+
+\textbf{Corollary:} Let \(f(x) = \sum^k a_i x^i\). If \(f(r) \equiv 0 \fs r \in \mathbb Z\), then there exists a \(g(x) = \sum^k a_i x^i\) where \((x - r) g(x) \equiv f(x) \fs q \in \mathbb Z\). (All congruences are taken mod \(n\).)
+
+\item \textbf{Theorem:} \(f(x) = \sum^n a_i x^i\), then \(f(x) \equiv 0\) has at most \(n\) unique solutions modulo \(p\). (All congruences are taken in a prime mod \(p\).)
+
+\textbf{Proof:} Assume there are no integer solutions to \(f(x)\). Then the theorem is proven since \(0 \leq n\).
+
+Otherwise, \(f(x)\) has at least one solution (call it \(r\)). Apply Corollary 6.2 to get \(f(x) \equiv (x - r) g(x)\) where \(g(x)\) is degree \(k-1\). Assume \(g(x)\) has no solution or its only solution is \(r\). Then \(x \neq r \rightarrow g(x) \neq 0\). But \(x \neq r \rightarrow (x - r) \neq 0\), therefore \(x \neq r \rightarrow f(x) \neq 0\). Therefore \(f(x)\) has one solution. The theorem is proven since \(1 \leq n\).
+
+Otherwise, \(g(x)\) has at least one solution (call it \(r\)). Apply Corollary 6.2 to get \(g(x) \equiv (x - r) h(x)\) where \(h(x)\) is degree \(k - 2\). \(\dots\)
+
+Repeat until reaching ``\(n(x)\) has at least one solution (call it \(r\))'' where \(n(x)\) is of degree \(1\). This takes \(n\) steps (each step reduces the degree by one starting at \(n\)), therefore there are at most \(n\) solutions to \(f(x)\).
+
+\item \textbf{Theorem:}  For \(a \in \mathbb Z\), \(\gcd(i, \ord(a)) = 1 \rightarrow \ord(a^i) = \ord(a)\). (All congruences and orders are taken in a prime mod \(p\))
+
+\textbf{Proof:} \(a^{\ord(a)} \equiv 1 \equiv 1^i \equiv (a^{\ord(a)})^i \equiv (a^i)^{\ord(a)}\). Therefore by Theorem 4.10 (only-if part), \(\ord(a)|\ord(a^i)\). \(\gcd(i, \ord(a))\). % TODO
+
+\item \textbf{Theorem:} There are at most \(\phi(d)\) solutions to \(x^d \equiv 1\). (All congruences and orders are taken in a prime mod \(p\)).
+
+\textbf{Proof:} % TODO
+
+\item \textbf{Theorem:} Let \(g \in \mathbb Z \ni \ord(g) = p - 1\). \(\{0, g, g^1, \dots, g^{p-1}\} \in \crs\). (All congruences, orders, and residue systems are taken in a prime modulo \(p\).)
+
+\textbf{Proof:} By Theorem 4.8, \(\{g^1, g^2, \dots, g^{p-1}\}\) are pairwise incongruent.. \(1 < g < p \wedge p \in \mathbb P\), therefore \(\gcd(g, p) = 1\). Then by Theorem 4.2, \(\gcd(p, g^i) = 1 \fs i \in \mathbb Z\).  Therefore \(g^i \not \equiv 0\). Therefore \(\{0, g^1, g^2, \dots, g^{p-1}\}\) are pairwise incongruent. By Theorem 3.16, \(\{0, g, g^1, \dots, g^{p-1}\} \in \crs\). \qedhere
+
+\item \textbf{Exercise:}  Find the primitive roots of the primes less than 20.
+
+\textbf{Code:}
+
+\usemintedstyle{colorful}
+\begin{minted}[mathescape,linenos]{python}
+def order(a, n):
+    # Calculate k where $a^k \equiv 1 \pmod{n}$
+    if gcd(a, n) != 1:
+        return None
+    for k in count(1): # count up from one
+        # if $a^k \equiv 1 \pmod{n}$
+        if mod_exp(a, k, n, printing=False) == 1:
+            # Using the modular exponentiation algorithm found in 3.6
+            # $k = ord_n(a)$
+            return k
+
+def mod_exp(a1, r, n):
+    # Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$
+    # This algorithm is found in 3.6
+    # WLOG a < n
+    a = cmod(a1, n) # reduce a mod n if possible
+    a_squared = cmod(a * a, n)
+    r_halved, remainder = division(r, 2)
+    if r == 1:
+        # Base case
+        return a
+    if divides(2, r):
+        # $(a^2)^{r/2}$
+        k = mod_exp(a_squared, r_halved, n)
+        k = cmod(k, n) # reduce k mod n
+        return k
+    else:
+        # $(a^2)^{(r-1)/2} \cdot a$
+        k = mod_exp(a_squared, r_halved, n)
+        ka = cmod(k * a, n)
+        return ka
+
+print(r'\begin{tabular}[t]{ll}')
+print(r'\textbf{Mod} & \textbf{Primitive roots} \\')
+for p in first(8, primes()):
+    primitive_roots = []
+    for a in range(1, p):
+        if order(a, p) == p - 1:
+            #print(r'{a} is a primitive root of {p} \\'.format(**locals()))
+            primitive_roots.append(str(a))
+    primitive_roots = ', '.join(primitive_roots)
+    print(r'{a} & {primitive_roots} \\'.format(**locals()))
+print(r'\end{tabular}')
+\end{minted}
+
+\textbf{Output:}
+
+\begin{tabular}[t]{ll}
+\textbf{Mod} & \textbf{Primitive roots} \\
+1 & 1 \\
+2 & 2 \\
+4 & 2, 3 \\
+6 & 3, 5 \\
+10 & 2, 6, 7, 8 \\
+12 & 2, 6, 7, 11 \\
+16 & 3, 5, 6, 7, 10, 11, 12, 14 \\
+18 & 2, 3, 10, 13, 14, 15 \\
+\end{tabular}
+
+\item \textbf{Theorem:} Every prime has a primitive root.
+
+\textbf{Proof:} % TODO
+
+\item \textbf{Exercise:} 
+
+\textbf{Code:}
+
+\usemintedstyle{colorful}
+\begin{minted}[mathescape,linenos]{python}
+
+# using the `order' function provided earlier
+
+def powerset(iterable):
+   # powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
+
+def unique(iterable):
+    # Returns all unique elements from the iterable
+    seen = set()
+    for element in iterable:
+        if element not in seen:
+            seen.add(element)
+            yield element
+
+def positive_factors(n):
+    # Returns all positive numbers that divide n
+    factors = []
+    for primes_list in unique(powerset(prime_factorization(n))):
+        factors.append(product(primes_list))
+    return factors
+
+print(r'\begin{tabular}[t]{ll} \\')
+print(r'$d$ & \\'.format(**locals()))
+for d in positive_factors(13 - 1):
+    output = []
+    for i in range(1, 13):
+        if order(i, 13) == d:
+            output.append(r'\circled{{{i}}}'.format(**locals()))
+        else:
+            output.append('{i}'.format(**locals()))
+    output = ', '.join(output)
+    print(r'{d} & $ \{{{output}\}} $ \\'.format(**locals()))
+print(r'\end{tabular}')
+\end{minted}
+
+\textbf{Output:}
+
+\begin{tabular}[t]{ll} \\
+$d$ & \\
+1 & $ \{\circled{1}, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12\} $ \\
+2 & $ \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, \circled{12}\} $ \\
+3 & $ \{1, 2, \circled{3}, 4, 5, 6, 7, 8, \circled{9}, 10, 11, 12\} $ \\
+4 & $ \{1, 2, 3, 4, \circled{5}, 6, 7, \circled{8}, 9, 10, 11, 12\} $ \\
+6 & $ \{1, 2, 3, \circled{4}, 5, 6, 7, 8, 9, \circled{10}, 11, 12\} $ \\
+12 & $ \{1, \circled{2}, 3, 4, 5, \circled{6}, \circled{7}, 8, 9, 10, \circled{11}, 12\} $ \\
+\end{tabular}
+
+\item \textbf{Exercise:}
+
+\usemintedstyle{colorful}
+\begin{minted}[mathescape,linenos]{python}
+for n in [6, 10, 24, 36, 27]:
+	# in python, the map function is like the image operator
+	# map(f, set_a) asks for the image of f under the domain set_a
+    s = sum(map(phi, positive_factors(n)))
+	print(s)
+	# here, I am maping phi over all positive factors of n and taking the sum
+\end{minted}
+
+\textbf{Output:}
+\begin{enumerate}
+\item $\sum\limits_{d|6} \phi(d) = \phi(1) + \phi(2) + \phi(3) + \phi(6)$ \\ $1 + 1 + 2 + 2 = 6$
+\item $\sum\limits_{d|10} \phi(d) = \phi(1) + \phi(2) + \phi(5) + \phi(10)$ \\ $1 + 1 + 4 + 4 = 10$
+\item $\sum\limits_{d|24} \phi(d) = \phi(1) + \phi(2) + \phi(3) + \phi(4) + \phi(6) + \phi(8) + \phi(12) + \phi(24)$ \\ $1 + 1 + 2 + 2 + 2 + 4 + 4 + 8 = 24$
+\item $\sum\limits_{d|36} \phi(d) = \phi(1) + \phi(2) + \phi(3) + \phi(4) + \phi(6) + \phi(9) + \phi(12) + \phi(18) + \phi(36)$ \\ $1 + 1 + 2 + 2 + 2 + 6 + 4 + 6 + 12 = 36$
+\item $\sum\limits_{d|27} \phi(d) = \phi(1) + \phi(3) + \phi(9) + \phi(27)$ \\ $1 + 2 + 6 + 18 = 27$
+\end{enumerate}
+
+\item \textbf{Lemma:} \(p \in \mathbb P \rightarrow \sum\limits_{d|p} \phi(d) = p\).
+
+\textbf{Proof:} The only divisors of a prime are \(1\) and \(p\) (see the definition of prime). \(\phi(1) = 1\) (see note on the definition of \(\phi\)) and \(\phi(p) = p-1\) as demonstrated earlier (Corollary 4.33). \(\sum\limits_{d|p} \phi(d) = \phi(1) + \phi(p) = 1 + p - 1 = p\). \qedhere
+
