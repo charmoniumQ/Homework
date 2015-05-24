@@ -1,13 +1,17 @@
+'''This module implements some helpful tools for my number theory class'''
+
 from __future__ import print_function, division
-from math import *
-from itertools import *
-from operator import *
+from math import sqrt, floor, factorial
+from itertools import chain, combinations, takewhile, dropwhile, count, ifilterfalse
+from operator import mul
 from functools import reduce
 from tools_extra import memoize_generator, memoize_iterator
 
-NaN = None
+def product(factors):
+    return reduce(mul, factors, 1)
 
 def sgn(x):
+    '''Returns the signum function of x'''
     if x > 0:
         return 1
     if x == 0:
@@ -16,7 +20,7 @@ def sgn(x):
         return -1
 
 def cmod(a, n):
-    '''Returns c such that $a \equiv c \pmod{n}$ and $0 \leq c < n$
+    r'''Returns c such that $a \equiv c \pmod{n}$ and $0 \leq c < n$
     this c is the remainder in the division algorithm
     c is also in the canonical complete residue system
     WLOG n > 0'''
@@ -24,14 +28,15 @@ def cmod(a, n):
     return ((a % n) + n) % n
 
 def first(n, iterator):
-    return (next(iterator) for _ in range(n))
+    for _ in range(n):
+        yield next(iterator)
 
 def divides(d, a):
     '''Returns true if $d | a$'''
     return cmod(a, d) == 0
 
 def mod(a, b, n):
-    '''Returns true if $a \equiv b \pmod{n}$'''
+    r'''Returns true if $a \equiv b \pmod{n}$'''
     return divides(n, a - b)
 
 def gcd(a1, b1, printing=False):
@@ -41,10 +46,10 @@ def gcd(a1, b1, printing=False):
     b = min(abs(a1), abs(b1))
     r = cmod(a, b)
     if r == 0:
-        if printing: print('$\gcd({a}, {b}) = {b}$ since ${b}|{a}$'.format(**locals()))
+        if printing: print(r'$\gcd({a}, {b}) = {b}$ since ${b}|{a}$'.format(**locals()))
         return b
     else:
-        if printing: print('$\gcd({a}, {b}) = gcd({b}, {r})$ since ${a} = {b} * {q} + {r}$'.format(**locals()))
+        if printing: print(r'$\gcd({a}, {b}) = gcd({b}, {r})$ since ${a} = {b} * {q} + {r}$'.format(**locals()))
         return gcd(b, r, printing)
 
 def lcm(a, b):
@@ -56,7 +61,7 @@ def coprime(a, b):
     return gcd(a, b) == 1
 
 def division(m, n):
-    '''Returns the q and r where $n = mq + r$ and $0 \leq r < n$'''
+    r'''Returns the q and r where $n = mq + r$ and $0 \leq r < n$'''
     r = cmod(m, n)
     q = (m - r) / n
     assert 0 <= r < abs(n), r
@@ -90,7 +95,7 @@ def prime_factorization(n):
         for prime in takewhile(lambda prime: prime <= abs(n), primes()):
             if divides(prime, n):
                 return [prime] + prime_factorization(n / prime)
-            
+
 def is_prime(n):
     '''Returns true if n is prime for any natural n'''
     larger_primes = dropwhile(lambda x: x < n, primes())
@@ -104,9 +109,11 @@ def is_composite(n):
     return n != 1 and not is_prime(n)
 
 def primorial(n):
-    return reduce(mul, first(n + 1, primes()), 1)
+    '''Returns the product of the first n primes'''
+    return product(first(n + 1, primes()))
 
 def hilbert_set():
+    '''Returns numbers congruent to 1 mod 4'''
     h = 1
     while True:
         yield h
@@ -114,19 +121,22 @@ def hilbert_set():
 
 @memoize_generator
 def hilbert_primes():
-    hilbert_primes = [5]
-    h = hilbert_primes[-1]
+    '''Returns a generator for hilbert primes'''
+    hilbert_primes_list = [5]
+    h = hilbert_primes_list[-1]
     yield h
     while True:
         h = h + 4
-        for hilbert_prime in hilbert_primes:
+        for hilbert_prime in hilbert_primes_list:
             if divides(hilbert_prime, h):
                 break
         else:
-            hilbert_primes.append(h)
+            hilbert_primes_list.append(h)
             yield h
 
 def is_hilbert_prime(h):
+    '''Returns true if h is a hilbert prime
+(cannot be written as the product of other hilbert primes)'''
     larger_hilbert_primes = dropwhile(lambda x: x < h, hilbert_primes())
     if next(larger_hilbert_primes) == h:
         return True
@@ -134,7 +144,9 @@ def is_hilbert_prime(h):
         return False
 
 def hilbert_prime_factorization(n, prefix=None):
-    '''Returns a set tuples, where each tuple is a possible hilbert factorizations for any natural number n'''
+    '''Returns the hilbert factorization of a number.
+This returns a set tuples, where each tuple is a possible hilbert
+factorizations defined for all natural numbers'''
     if prefix is None:
         prefix = []
     if is_hilbert_prime(n):
@@ -142,7 +154,8 @@ def hilbert_prime_factorization(n, prefix=None):
         return factorization
     else:
         possibilities = set()
-        hilbert_primes_truncated = takewhile(lambda x: x <= sqrt(n), hilbert_primes())
+        hilbert_primes_truncated = takewhile(lambda x: x <= sqrt(n),
+                                             hilbert_primes())
         for hilbert_prime in hilbert_primes_truncated:
             if divides(hilbert_prime, n):
                 quotient = int(n / hilbert_prime)
@@ -176,7 +189,7 @@ def linear_diophantine(a, b, c):
         raise ValueError('no solutions')
 
 def linear_congruence(a, b, n):
-    '''Returns x_0, n where $ax \equiv b \pmod{n}$ when $x \equiv x_0 \pmod{n}$'''
+    r'''Returns x_0, n where $ax \equiv b \pmod{n}$ when $x \equiv x_0 \pmod{n}$'''
     # Returns x_0, n where $ax \equiv b \pmod{n}$ when $x \equiv x_0 \pmod{n}$
     # this function relies on the linear_diophantine function,
     # because why reinvent the wheel?
@@ -190,18 +203,18 @@ def linear_congruence_system(eqns, printing=False):
     for a, b, n in eqns:
         for j in count():
             if mod(a * (x0 + j*xi), b, n):
-                if printing: print('\(x = \{\)' + ''.join(map(lambda xn: '\({xn}\), '.format(**locals()), list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))) + '\(, \dots\}\) \\\\')
                 x0 = x0 + j * xi
                 xi = lcm(xi, n)
-                if printing: print('\\\\ \(x\) satisfies \({a} x \equiv {b} \pmod {{{n}}}\) and all previous equations when \(x = {x0} + j \cdot {xi}\) \\\\'.format(**locals()))
+                if printing: print(r'\(x = \{\)' + ''.join([r'\({0}\)'.format(x0 + j * xi) for j in range(3*j+3)]) + r'\(, \dots\}\) \\')
+                if printing: print(r'\\ \(x\) satisfies \({a} x \equiv {b} \pmod {{{n}}}\) and all previous equations when \(x = {x0} + j \cdot {xi}\) \\'.format(**locals()))
                 break
         else:
             raise ValueError('no solutions')
-    if printing: print('\(x = \{\)' + ''.join(map(lambda xn: '\({xn}\), '.format(**locals()), list(map(lambda j: x0 + j * xi, xrange(0, 3 * j + 3))))) + '\(\dots\}\) \\\\')
     return x0, xi
 
-def mod_exp(a1, r, n, printing=True):
-    '''Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$ using algorithm 3.6'''
+def mod_exp(a1, r, n, printing=False):
+    r'''Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$
+(using algorithm 3.6)'''
     # WLOG a < n
     if printing: print(r'$ {a1}^{{{r}}} \equiv '.format(**locals()), end='')
     a = cmod(a1, n) # reduce a if possible
@@ -228,14 +241,44 @@ def mod_exp(a1, r, n, printing=True):
         return ka
 
 def order(a, n):
-    '''Calculate k where $a^k \equiv 1 \pmod n$'''
+    r'''Calculate k where $a^k \equiv 1 \pmod{n}$'''
     if gcd(a, n) != 1:
         return None
     for k in count(1): # count up from one
-        # if $a^k \pmod n \equiv 1$
+        # if $a^k \pmod{n} \equiv 1$
         if mod_exp(a, k, n, printing=False) == 1:
+            # Using the modular exponentiation algorithm found in 3.6
             # $k = ord_n(a)$
             return k
+
+def powerset(iterable):
+    '''powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
+
+from https://docs.python.org/2/library/itertools.html'''
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
+
+def unique(iterable):
+    '''Returns all unique elements from the iterable'''
+    seen = set()
+    for element in iterable:
+        if element not in seen:
+            seen.add(element)
+            yield element
+
+def positive_factors(n):
+    '''Returns all positive numbers that divide n'''
+    factors = []
+    for primes_list in unique(powerset(prime_factorization(n))):
+        factors.append(product(primes_list))
+    return factors
+
+def phi(n):
+    count = 0
+    for i in range(1, n+1):
+        if coprime(i, n):
+            count += 1
+    return count
 
 def main():
     # Question: is n! + 1 prime for all n?
@@ -267,7 +310,8 @@ def main():
     print(list(first(10, hilbert_primes())))
     print('')
 
-    # Question: what are the five ten hilbert numbers with multiple prime factorizations
+    # Question: what are the five ten hilbert numbers with multiple
+    # prime factorizations
     # or equivalently: Could Harrelson have used a smaller number than 693?
     print('Numbers with multiple hilbert factorizations:')
     numbers = []
@@ -298,12 +342,13 @@ def main():
     a, b, c = 7, 8, 100
     (x0, y0), (xi, yi) = linear_diophantine(a, b, c)
     x1, y1 = x0 + xi, y0 + yi
-    print('${a} \cdot {x0} + {b} \cdot {y0} = {c}$'.format(**locals()))
+    print(r'${a} \cdot {x0} + {b} \cdot {y0} = {c}$'.format(**locals()))
     print(a*x0 + b*y0 == c)
-    print('${a} \cdot {x1} + {b} \cdot {y1} = {c}$'.format(**locals()))
+    print(r'${a} \cdot {x1} + {b} \cdot {y1} = {c}$'.format(**locals()))
     print(a*x1 + b*y1 == c)
     print('')
 
+    # Exercises 3.25 and 3.26
     print('Systems of linear congruence solutions:')
     linear_congruence_system([(1, 3, 17), (1, 10, 16), (1, 0, 15)], True)
     print('')
@@ -312,6 +357,7 @@ def main():
     # (famous last words)
     print('')
 
+    # Exercise 4.12
     print('Fermat\'s little theorem examples')
     for p in first(10, primes()):
         print(r'\(\pmod {{{p}}}\)'.format(**locals()))
@@ -324,9 +370,50 @@ def main():
             print(r'${a}^{{{e}}} \equiv {c} \pmod {{{p}}}$ \\'.format(**locals()))
         print(r'\end{tabular}')
         print('')
+    print('')
 
+    # Exercise 6.7
+    print('Primitive roots')
+    print(r'\begin{tabular}[t]{ll}')
+    print(r'\textbf{Mod} & \textbf{Primitive roots} \\')
+    for p in first(8, primes()):
+        primitive_roots = []
+        for a in range(1, p):
+            if order(a, p) == p - 1:
+                #print(r'{a} is a primitive root of {p} \\'.format(**locals()))
+                primitive_roots.append(str(a))
+        primitive_roots = ', '.join(primitive_roots)
+        print(r'{a} & {primitive_roots} \\'.format(**locals()))
+    print(r'\end{tabular}')
+    print('')
+
+    print('Exercise 6.9')
+    print(r'\begin{tabular}[t]{ll} \\')
+    print(r'$d$ & \\'.format(**locals()))
+    for d in positive_factors(13 - 1):
+        output = []
+        for i in range(1, 13):
+            if order(i, 13) == d:
+                output.append(r'\circled{{{i}}}'.format(**locals()))
+            else:
+                output.append('{i}'.format(**locals()))
+        output = ', '.join(output)
+        print(r'{d} & $ \{{{output}\}} $ \\'.format(**locals()))
+    print(r'\end{tabular}')
+    print('')
+
+    print('Exercise 6.10')
+    for n in [6, 10, 24, 36, 27]:
+        phi_factors = []
+        addends = []
+        for d in positive_factors(n):
+            phi_factors.append('\phi({d})'.format(**locals()))
+            addends.append('{0}'.format(phi(d)))
+        phi_factors = ' + '.join(phi_factors)
+        addends = ' + '.join(addends)
+        s = sum(map(phi, positive_factors(n)))
+        print(r'\item $\sum\limits_{{d|{n}}} \phi(d) = {phi_factors}$ \\ ${addends} = {s}$'.format(**locals()))
     print('')
 
 if __name__ == '__main__':
-    pass
     main()
