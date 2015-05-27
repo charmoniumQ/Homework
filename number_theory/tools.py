@@ -41,10 +41,11 @@ def mod(a, b, n):
 
 def gcd(a1, b1, printing=False):
     '''Returns the greatest common multiple'''
-    # WLOG a > b > 0
+    # WLOG $a > b > 0$
     a = max(abs(a1), abs(b1))
     b = min(abs(a1), abs(b1))
-    r = cmod(a, b)
+    # find the remainder upon division
+    q, r = division(a, b)
     if r == 0:
         if printing: print(r'$\gcd({a}, {b}) = {b}$ since ${b}|{a}$'.format(**locals()))
         return b
@@ -275,7 +276,7 @@ def positive_factors(n):
 
 def phi(n):
     count = 0
-    for i in range(1, n+1):
+    for i in range(1, n+1): # $1 \leq i < n+1$
         if coprime(i, n):
             count += 1
     return count
@@ -416,4 +417,7 @@ def main():
     print('')
 
 if __name__ == '__main__':
-    main()
+    #main()
+    for x in range(10000):
+        if phi(x) == 24:
+            print(x)
