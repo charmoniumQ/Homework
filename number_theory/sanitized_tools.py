@@ -1,6 +1,8 @@
-# this is a funciton from the standard library
+# these is a funciton from the standard library
 # count() -> {0, 1, 2, 3, ...}
 from itertools import count
+# floor(1.2) -> 1
+from math import floor
 
 def cmod(a, n):
     # Returns c such that $a \equiv c \pmod{n}$ and $0 \leq c < n$ (WLOG $n > 0$)
@@ -15,6 +17,14 @@ def cmod(a, n):
         while a < 0:
             a = a + n
         return a
+
+def division(m, n):
+    # Returns the q and r where $n = mq + r$ and $0 \leq r < n$
+    r = cmod(m, n)
+    q = (m - r) / n
+    assert 0 <= r < abs(n), r
+    assert q == int(q), q
+    return int(q), r
 
 def divides(d, a):
     # Returns true if $d | a$
@@ -67,3 +77,24 @@ def linear_congruence(a, b, n):
     # because why reinvent the wheel?
     (x_0, y_0), (x_i, y_i) = linear_diophantine(a, -n, b)
     return x_0, x_i
+
+def mod_exp(a1, r, n):
+    # Returns the k in $a^r \equiv k \pmod{n}$ where $0 \leq k < r$
+    # This algorithm is found in 3.6
+    # WLOG a < n
+    a = cmod(a1, n) # reduce a mod n if possible
+    a_squared = cmod(a * a, n)
+    r_halved, remainder = division(r, 2)
+    if r == 1:
+        # Base case
+        return a
+    if divides(2, r):
+        # $(a^2)^{r/2}$
+        k = mod_exp(a_squared, r_halved, n)
+        k = cmod(k, n) # reduce k mod n
+        return k
+    else:
+        # $(a^2)^{(r-1)/2} \cdot a$
+        k = mod_exp(a_squared, r_halved, n)
+        ka = cmod(k * a, n)
+        return ka

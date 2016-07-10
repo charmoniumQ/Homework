@@ -15,7 +15,14 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{minted}
 \usepackage{python}
-\usepackage{url}
+\usepackage{url}	
+\usepackage{tikz}
+
+\newcommand*\circled[1]{
+\tikz[baseline=(char.base)]{
+\node[shape=circle,draw,inner sep=1pt] (char) {#1};
+}
+}
 
 \pagestyle{fancy}
 \fancyhead{}
@@ -31,6 +38,7 @@
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\cod}{cod}
 \DeclareMathOperator{\rem}{rem}
+\DeclareMathOperator{\ord}{ord}
 \newenvironment{proof}{
 \textbf{Proof: } \\
 \mbox{}\vspace*{-1.68\baselineskip}
@@ -65,10 +73,10 @@
 \item 
 \begin{enumerate}[leftmargin=0mm]
 \setlength{\parskip}{10pt}
-\setcounter{enumi}{4}
+\setcounter{enumi}{6}
 \setcounter{enumii}{0}
 
-\input{s4.tex}
+\input{s6.tex}
 
 \end{enumerate}
 \end{enumerate}
