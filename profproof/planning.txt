@@ -1,0 +1,22 @@
+Make a class that represents an expression
+	Expression can be a name
+	Or expression can a function operating on two other expressions
+	Let expressions test for equality
+	Let expressions be converted to LaTeX string
+	Let expresssions have a way to access the children expressions
+	Let expressions have a way to get the basic proposition names
+	Let expressions be able to be evaluated given state
+
+Encode a rule relating expressions
+
+Check to see if expression fits rule,
+	start at top of expression tree
+	see if operator is equal,
+	let the first time a name is used in a rule define the name
+	and each subsequent time references that name
+
+Store implied statements if not already there
+
+Iterate until found
+
+First I tested with a truth table to prove

@@ -1,0 +1,69 @@
+Proof Prof
+==========
+
+Problem
+-------
+Write a computer program that will produce proofs in Propositional Logic, similar to the way a human would in Natural Deduction.
+
+Simply generating truth tables will not suffice here. If I can solve the problem without truthtables, then there is a potential that the same solution could be applied to First-Order logic. As a consequence of G&ouml;del's Incompletness Theorem, no First-Order proof system can be complete and consistent. But I beleive it should be possible to create a system that proves a good number of statements (although not all) in First-Order logic.
+
+Purpose
+-------
+- I want to learn more about logic and provability. As a result, I have not done research on this topic prior to my first attempt. I will complete comprehensive research for the second attempt.
+- I want to hone my skills as a software developer.
+- I want to write beautiful, elegant, and artistic code.
+
+Internal Representation
+-----------------------
+First I created a way to encode arbitrarily complex terms based on the following Rules
+
+- A `Term` can be a `Variable`, a `Constant`, or a `FunctionTerm`.
+- A `Variable` represents a claim which could be true or false.
+- A `Constant` is either always true or false.
+- A `FunctionTerm` is a function applied to one or more `Term`s as arguments.
+
+Notice that it is recursive since a `FunctionTerm` can include another `Term` as an argument. Therefore an infinite number of valid FunctionTerms can be generated. This allows us to represent arbitrarily complex `Term`s.
+
+Recursive Algorithms
+--------------------
+Each Term can be recursively converted to a string in several different ways: prefix, infix, or postfix.
+
+Here is the algorithm for prefix notation: Consider the current term.
+- If it is a `Variable`, it's prefix notation representation is just the variable name.
+- If it is a `Constant`, it's prefix notation is a symbol that represents the truth-value of the `Constant`.
+- If it is a `FunctionTerm`, it's prefix notation is the name of the function put in brefore the prefix notation of each argument concatenated together.
+
+Notice that this is an elegant, recursive solution. It could be implemented in a more elegant way with Object-Oriented Polymorphism. Each class could override a function that produces the prefix reperesentation, eliminating the `if` statements in the algorithm described above. This also has the benefit that a new kind of `Term` could easily be added (like `QuantifiedTerm` perhaps). This new term would not modify any existing function that computes the prefix string (by adding another `if` case). Instead it would override the parent method.
+
+Similarly, equality can be defined recursively. For `Variable`s compare the two symbols. For `Constant`s compare the two values. For `FunctionTerms` compare the function, then compare each argument of the function.
+
+Similarly, `Term`s can be evaluated recursively.
+
+Rules of deduction
+------------------
+Each rule schema consists of a `Term` hypothesis, a `Term` conclusion, and a name. If a rule's hypothesis matches a true claim, then the conclusion can be inferred.
+
+The first time a variable appears in a schema, it can represent any valid `Term`. Each subsequent time it must match the same `Term` it matched the first time.
+
+Proof Algorithm
+---------------
+1. Create an empty set to hold all of the true claims.
+2. Copy each premise (or the `Constant` true if proving tautologies) into the set.
+3. See if the desired conclusion is in the set. If it is, halt.
+4. Iterate through every rule (If creating a logical equivalence proof, use if-and-only-if rules. If creating a logical entailment proof use if-and-only-if rules, and if-rules)
+   5. Iterate through every true claims.
+      6. Test to see if the claim matches the hypothesis for the rule. If it does, add the conclusion to the set of true claims.
+7. Go back to step 4, unless maximum repeat limit is reached.
+
+Problem: Rule with free variables in conclusion
+-----------------------------------------------
+
+For most rules, all in the conclusion first appear in the hypothesis. Then the variables in the conculsion represent whatever `Term` they represented in the hypothesis, lets them be fully determined. But if a variable occurs in the conclusion but not in the hypothesis, it could represent any valid `Term`. For example, the Rule of Addition:
+
+$$p \vdash p \vee q$$
+
+The computer could try substituting different variable names, but that would be not be sufficient. $$p$$ doesn't just represent any `Variable`; It represents every `Term` (an infinite amount). The only solution I see is to generate statements starting from the simplest statements
+
+Problem: Exponential runtime
+----------------------------
+Each step generates

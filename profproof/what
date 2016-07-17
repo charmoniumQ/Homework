@@ -1,0 +1,36 @@
+FT.eq if ['p', '((q or r) and (s iff not t))']
+FT.eq if ['p', '((q or r) and (s iff not t))']
+ V.eq p
+ V.eq p
+ V.eq True
+
+ FT.eq and ['(q or r)', '(s iff not t)']
+ FT.eq and ['(q or r)', '(s iff not t)']
+  FT.eq or ['q', 'r']
+  FT.eq or ['q', 'r']
+   V.eq q
+   V.eq q
+   V.eq True
+
+   V.eq r
+   V.eq r
+   V.eq True
+  FT.eq False True [True, True]
+
+  FT.eq iff ['s', 'not t']
+  FT.eq iff ['s', 'not t']
+   V.eq s
+   V.eq s
+   V.eq True
+
+   FT.eq not ['t']
+   FT.eq not ['t']
+    V.eq t
+    V.eq t
+    V.eq True
+   FT.eq False True [True]
+
+  FT.eq False True [True, False]
+ FT.eq False True [False, False]
+FT.eq False True [True, False]
+> False
