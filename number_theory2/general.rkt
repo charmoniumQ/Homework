@@ -1,36 +1,35 @@
-#lang scheme
-(require srfi/1)
-(require racket/function)
+(module general racket/base
+	(require srfi/1)
+	(require "racketspecific.rkt")
 
-(define (assert msg test)
-	(if (not test)
-		(begin
-			(display "assert failed: ")
-			(display msg)
-			(newline))
-		(void)))
-; The assert method does two things
-; (1) verifies correctness of my code
-; (2) documents my code with an example for future readers
+	; the test module will contain unittests. I need to begin that module with
+	; by requireing rackunit
+	; Note that module+ appends to the module named `test' in subsequent
+	;occurences
+	(module+ test (require rackunit))
 
-; since equal? will work on lists,
-; the following funciton will work on nested lists
-(define list== ((curry list=) equal?))
-(assert "List equals" (list==
-	(list '(1 2) '(2 3))
-	(list '(1 2) '(2 3))))
-(assert "List not equals" (not (list==
-	(list '(1 2) '(2 3))
-	(list '(1 2) '(3 3)))))
+	; since equal? will work on lists,
+	; the following funciton will work on nested lists
+	(define list== (curry list= equal?))
+	(module+ test
+		(check-true (list==
+			(list '(1 2) '(2 3))
+			(list '(1 2) '(2 3))))
+		(check-false(list==
+			(list '(1 2) '(2 3))
+			(list '(1 2) '(3 3)))))
 
-; Home on the range (inclusive)
-(define (rangei start stop) (range start (+ 1 stop)))
-(assert "Rangei" (list== '(1 2 3 4) (rangei 1 4)))
+	; Home on the range (inclusive)
+	(define (rangei start stop) (iota (+ 1 (- stop start)) start 1))
+	(module+ test
+		(check-true (list== '(1 2 3 4) (rangei 1 4))))
 
-(define (contains list1 elem) (any ((curry =) elem) list1))
-(assert "Contains" (contains '(1 2 3) 2))
+	(define (contains list1 elem) (any ((curry =) elem) list1))
+	;; (module+ test
+	;; 	(check-pred (contains '(1 2 3) 2)))
 
-(define (rev-args f) (lambda args (apply f (reverse args))))
-(assert "Rev-args" (= 1 ((rev-args -) 2 3)))
+	(define (rev-args f) (lambda args (apply f (reverse args))))
+	(module+ test
+		(check-eqv? 1 ((rev-args -) 2 3)))
 
-(provide assert list== rangei contains rev-args)
+	(provide list== rangei contains rev-args fold))
