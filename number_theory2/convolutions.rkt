@@ -1,7 +1,6 @@
 (module convolutions racket/base
 	(require srfi/1)
 	(require "functions-sets.rkt")
-	(require "factoring.rkt")
 	(require "k-ary.rkt")
 	(require "racketspecific.rkt")
 

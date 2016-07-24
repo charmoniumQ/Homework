@@ -4,7 +4,7 @@
 (require "general.rkt")
 (require "functions.rkt")
 
-(define (k-limit n) (let loop ([k 0]) (if (list== (k-ary-divisors n (+ 1 k)) (k-ary-divisors n k)) k (loop (+ 1 k)))))
+(define (k-limit n) (let loop ([k 0]) (if (equal? (k-ary-divisors n (+ 1 k)) (k-ary-divisors n k)) k (loop (+ 1 k)))))
 
 ;; (map (lambda (n) (begin
 ;; 	(display (biunitary-divisors n))
@@ -85,7 +85,7 @@
 (map
 	(lambda (k) (let*
 		([my-function (lambda (n d)
-			(contains (k-ary-expts (expt 2 n) k) d))]
+			(member d (k-ary-expts (expt 2 n) k)))]
 		[caption (format "k = ~a" k)]
 		[my-image (overlay/xy
 			(text caption 36 "black")

@@ -6,14 +6,17 @@
 	(module+ test (require rackunit))
 
 	; Home on the range
-	(define (range start stop) (iota (- stop start) start 1))
+	(define (range start stop)
+		(iota (- stop start) start 1))
 
 	; i for inclusive
-	(define (rangei start stop) (iota (+ 1 (- stop start)) start 1))
+	(define (rangei start stop)
+		(iota (+ 1 (- stop start)) start 1))
 	(module+ test
 		(check-equal? '(1 2 3 4) (rangei 1 4)))
 
-	(define (rev-args f) (lambda args (apply f (reverse args))))
+	(define (rev-args f)
+		(lambda args (apply f (reverse args))))
 	(module+ test
 		(check-eqv? 1 ((rev-args -) 2 3)))
 
@@ -25,7 +28,8 @@
 	(module+ test (check-equal? 55 (sum (rangei 1 10))))
 	(module+ test (check-equal? 0 (sum '())))
 
-	(define (indicator set) (lambda (x) (iverson (member x set))))
+	(define (indicator set)
+		(lambda (x) (iverson (member x set))))
 	(module+ test (check-equal? 1 ((indicator '(1 2)) 2)))
 	(module+ test (check-equal? 0 ((indicator '(1 2)) 3)))
 
@@ -69,20 +73,37 @@
 						(loop (cdr seta) (cdr setb)
 								(append acc (list (car seta))))))))
 		(loop seta setb '()))
-
 	(module+ test (check-equal?
 		(sorted-set-intersection '(1 2 3) '(1 3 4))
 		'(1 3)))
+
+	(define (sorted-set-intersection-max seta setb)
+		(define (loop seta setb)
+			(if (or (null? seta) (null? setb))
+				0
+				(if (< (car seta) (car setb))
+					(loop seta (cdr setb))
+					(if (> (car seta) (car setb))
+						(loop (cdr seta) setb)
+						(car seta)))))
+		(loop (reverse seta) (reverse setb)))
+	(module+ test (check-equal?
+		(sorted-set-intersection-max '(1 2 3) '(1 3 4))
+		3))
+
 
 	; Like powerset, but for https://en.wikipedia.org/wiki/Multiset
 	(define (power-multiset multiset)
 		(if (null? multiset)
 			'(())
-			(append (power-multiset (cdr multiset)) (append-map (lambda (initial)
-				(map (lambda (rest)
-					(cons (list (first (car multiset)) initial) rest))
-					(power-multiset (cdr multiset))))
-				(rangei 1 (second (car multiset)))))))
+			(append
+				(power-multiset (cdr multiset))
+				(append-map
+					(lambda (initial) (map
+						(lambda (rest)
+							(cons (list (first (car multiset)) initial) rest))
+						(power-multiset (cdr multiset))))
+					(rangei 1 (second (car multiset)))))))
 	(module+ test (check-equal?
 		'(
 			()
@@ -118,4 +139,4 @@
 		'(4 7 3 0 3)
 		(unumerate* '((1 7) (4 3) (0 4) (2 3)))))
 
-	(provide range rangei rev-args iverson sum indicator fun= intersection seteq subseteq subset superseteq superset sorted-set-intersection power-multiset multiset->list enumerate unumerate unumerate*))
+	(provide range rangei rev-args iverson sum indicator fun= intersection seteq subseteq subset superseteq superset sorted-set-intersection sorted-set-intersection-max power-multiset multiset->list enumerate unumerate unumerate*))
