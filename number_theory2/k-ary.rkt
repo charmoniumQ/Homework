@@ -1,8 +1,7 @@
 (module k-ary racket/base
-	(require srfi/1)
 	(require "racketspecific.rkt")
-	(require "general.rkt")
-	(require "functions.rkt")
+	(require "factoring.rkt")
+	(require "functions-sets.rkt")
 
 	(module+ test (require rackunit))
 
@@ -34,7 +33,7 @@
 	; ->k-ary-divides-n-with-k -> k-ary-divides (again, but with k := k - 1)
 	; Note that since the functions defined here are mutually recursive
 	; these must be tested all at once
-	(module+ test (check-true (list== '(1 5 9 45) (k-ary-divisors 45 1))))
+	(module+ test (check-equal? '(1 5 9 45) (k-ary-divisors 45 1)))
 	(module+ test (check-true (fun=
 		(lambda (x) (gcd 10 x))
 		(lambda (x) (k-ary-gcd 10 x 0)))))

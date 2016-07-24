@@ -1,7 +1,7 @@
 (module convolutions racket/base
 	(require srfi/1)
-	(require "general.rkt")
-	(require "functions.rkt")
+	(require "functions-sets.rkt")
+	(require "factoring.rkt")
 	(require "k-ary.rkt")
 	(require "racketspecific.rkt")
 
@@ -17,9 +17,9 @@
 			1
 			-1)
 		0))
-	(module+ test (check-true (list==
+	(module+ test (check-equal?
 		'(1 -1 -1 0 -1 1 -1 0 0 1)
-		(map mobius (rangei 1 10)))))
+		(map mobius (rangei 1 10))))
 	
 	; The number of not-necessarily-distinct prime factors where 2^2 is treated
 	; as {2, 2}
@@ -28,14 +28,14 @@
 		(append-map
 			(lambda (pair) (apply make-list (reverse pair)))
 			(factorize n)))
-	(module+ test (check-true (list==
+	(module+ test (check-equal?
 		'(2 2 2 3 3)
-		(multi-prime-divisors 72))))
+		(multi-prime-divisors 72)))
 	
 	(define (liouville n) (expt -1 (length (multi-prime-divisors n))))
-	(module+ test (check-true (list==
+	(module+ test (check-equal?
 		'(1 -1 -1 1 -1 1 -1 -1 1 1)
-		(map liouville (rangei 1 10)))))
+		(map liouville (rangei 1 10))))
 	
 	(define (k-convolution k)
 		(lambda (f g) (lambda (n)

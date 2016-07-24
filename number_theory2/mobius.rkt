@@ -2,13 +2,8 @@
 (require srfi/1)
 (require anaphoric)
 (require "k-ary.rkt")
-(require "general.rkt")
-(require "functions.rkt")
+(require "functions-sets.rkt")
 (require "convolutions.rkt")
-
-(define-syntax compose
-  (syntax-rules ()
-	((compose operations ...) (lambda (x) )))
 
 (define mobius-table '((1 . 1)))
 
