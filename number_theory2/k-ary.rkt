@@ -42,9 +42,10 @@
 	(define triunitary-divisors (curryr k-ary-divisors 3))
 
 	; k-ary-divides -> k-ary-coprime? -> k-ary-gcd -> k-ary-divisors ->
-	; ->k-ary-divides-n-with-k -> k-ary-divides (again, but with k := k - 1)
+	; -> k-ary-divides-n-with-k -> k-ary-divides (again, but with k := k - 1)
 	; Note that since the functions defined here are mutually recursive
 	; these must be tested all at once
+
 	(module+ test (check-equal? '(1 5 9 45) (k-ary-divisors 45 1)))
 	(module+ test (check-true (fun=
 		(lambda (x) (gcd 10 x))
@@ -58,15 +59,30 @@
 			(lambda (k) (map
 				(lambda (n) (k-ary-divisors n k))
 			(rangei 1 1000)))
-		(rangei 1 20)) (void))))
+		(rangei 0 20)) (void))))
 	(module+ test (time (begin
 		(map
 			(lambda (k) (map
 				(lambda (n) (k-ary-divisors-pow n k))
-			(rangei 1 10)))
-		(rangei 1 20)) (void))))
+			(rangei 0 10)))
+		(rangei 0 20)) (void))))
+
+	(define (infinitary-divides-pow? a b)
+		(k-ary-divides-pow? a b (- b 1)))
+
+	(define (infinitary-gcd-pow a b)
+		(k-ary-gcd-pow a b (- b 1)))
+
+	(define (infinitary-coprime-pow a b)
+		(k-ary-coprime-pow? a b (- b 1)))
+
+	(define (infinitary-divisors-pow a b)
+		(k-ary-divisors-pow a b (- b 1)))
+
 
 	(provide
 		k-ary-divides? k-ary-coprime? k-ary-gcd k-ary-divisors divisors
 		unitary-divisors biunitary-divisors triunitary-divisors
-		k-ary-divides-pow? k-ary-coprime-pow? k-ary-gcd-pow k-ary-divisors-pow))
+		k-ary-divides-pow? k-ary-coprime-pow? k-ary-gcd-pow k-ary-divisors-pow
+		infinitary-divides-pow? infinitary-gcd-pow infinitary-coprime-pow
+		infinitary-divisors-pow))

@@ -6,9 +6,9 @@
 (require "functions-sets.rkt")
 (require "k-ary.rkt")
 
-;; (define (filter-map f lst) (let
-;; 	([out (filter (compose not false?) (map f lst))])
-;; 	(if (null? out) #f out)))
+(define (filter-map f lst) (let
+	([out (filter (compose not false?) (map f lst))])
+	(if (null? out) #f out)))
 
 ;; (define k 9)
 
@@ -48,12 +48,23 @@
 (define evens (filter (lambda (pair) (even? (first pair))) data))
 (define odds (filter (lambda (pair) (odd? (first pair))) data))
 
-(require plot)
+;; (require plot)
 ;; (plot-height 800)
 ;; (plot-width 1000)
 ;; (plot (list (lines evens) (lines odds) (points data)) #:out-file "output.png" #:x-label "k-ary convolution" #:y-label "first stable line")
 
 (define (display-list lst) (string-join (map (lambda (row) (string-join (map (lambda (cell) (format "~a" cell)) row) ",")) lst) "\n"))
-(display (format "~a" (display-list evens)))
-(newline)
-(display (format "~a" (display-list odds)))
+;; (display (format "~a" (display-list evens)))
+;; (newline)
+;; (display (format "~a" (display-list odds)))
+
+(display (filter-map
+	(lambda (pair) (let
+		([n (first pair)] [k (second pair)])
+		(if
+			(list= =
+				(k-ary-divisors-pow n k)
+				(k-ary-divisors-pow n (if (even? k) 2 1)))
+			(list n k)
+			#f)))
+	data))

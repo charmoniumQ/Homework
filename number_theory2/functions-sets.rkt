@@ -6,12 +6,16 @@
 	(module+ test (require rackunit))
 
 	; Home on the range
-	(define (range start stop)
-		(iota (- stop start) start 1))
+	(define (range start stop . step)
+		(if (null? step)
+			(range start stop 1)
+			(iota (- stop start) start (car step))))
 
 	; i for inclusive
-	(define (rangei start stop)
-		(iota (+ 1 (- stop start)) start 1))
+	(define (rangei start stop . step)
+		(if (null? step)
+			(rangei start stop 1)
+			(iota (+ 1 (- stop start)) start (car step))))
 	(module+ test
 		(check-equal? '(1 2 3 4) (rangei 1 4)))
 
@@ -139,4 +143,4 @@
 		'(4 7 3 0 3)
 		(unumerate* '((1 7) (4 3) (0 4) (2 3)))))
 
-	(provide range rangei rev-args iverson sum indicator fun= intersection seteq subseteq subset superseteq superset sorted-set-intersection sorted-set-intersection-max power-multiset multiset->list enumerate unumerate unumerate*))
+	(provide rangei rev-args iverson sum indicator fun= intersection seteq subseteq subset superseteq superset sorted-set-intersection sorted-set-intersection-max power-multiset multiset->list enumerate unumerate unumerate*))
